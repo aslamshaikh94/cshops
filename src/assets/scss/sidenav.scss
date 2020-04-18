@@ -1,0 +1,39 @@
+@import "./_variables";
+@import "./_inheritance";
+
+.sidenavecol{
+	padding-right: 0;
+	@media (max-width: 769px){
+		display: none;
+		&.open{
+			display: block;
+	    position: fixed;
+	    left: 0;
+	    width: 100%;
+	    z-index: 3;
+	    padding: 0;
+	    top: 0;
+	    height: 100%;
+		}
+	}
+}
+.sidenav{
+	// @extend %shadow_sm;
+	border:1px solid $lgray;
+	height: 100%;
+	background-color:$white;
+	padding:10px;
+	h6{
+		font-size: 0.9rem;
+		margin-bottom: 2px;
+	}
+	.closeMenu{
+		display: none !important;
+		i{
+			font-size: 1.4rem;
+		}
+		@media(max-width: 768px){
+			display: flex !important;
+		}
+	}
+}

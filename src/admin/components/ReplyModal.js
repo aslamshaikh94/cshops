@@ -1,0 +1,114 @@
+import React,{useState, useEffect, useContext} from 'react';
+import {Modal} from 'react-bootstrap';
+import {Textarea} from '../../form/Inputfield';
+import axios from 'axios';
+
+import {getToken} from '../../methods/methods';
+
+import {AdminContext} from '../Admin';
+function ReplyModal(props) {
+  const {data, dispatch} = useContext(AdminContext);
+  const [enquiry, setEnquiry] = useState({
+    id:'',
+    user_id:'',
+    product_id:'',
+    seller_id:'',
+    fullname:'',
+    phone:'',
+    email:'',
+    address:'',
+    message:'',
+    reply_message:'',
+    quantity:''
+  });
+  const [reply, setReply] = useState({})
+  
+  useEffect(()=>{
+    if(props.userData) setReply({...reply, ...props.userData})
+  },[props.userData])
+
+   useEffect(()=>{
+    if(data.enquiries && props.userData) setEnquiry(...data.enquiries.filter(e=> e.id==reply.id))      
+  },[reply])
+
+  
+
+  const sendReply=()=>{    
+    axios.post(`${data.API_URL}/enquiry/reply`, reply, getToken() ).then((res)=>{
+      console.log(res.data)
+    });
+    props.handleClose()
+  }
+
+  const inputChange = (e)=>{
+    let name = e.target.name;
+    let value = e.target.value;   
+    setReply({...reply, message:value})
+  }
+  
+  return (
+    <React.Fragment>
+      <Modal {...props} size="lg" scrollable>
+        <Modal.Header>
+          <h5 className="m-0">{enquiry.fullname} / {`ENQ${enquiry.id}`}</h5>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="row">
+          <div className="col-md-6">
+            <h6>Product ID</h6>
+            <p>{enquiry.product_id}</p>
+          </div>
+          <div className="col-md-6">
+            <h6>Email</h6>
+            <p>{enquiry.email}</p>
+          </div>
+          <div className="col-md-6">
+            <h6>Phone</h6>
+            <p>{enquiry.phone}</p>
+          </div>
+          <div className="col-md-6">
+            <h6>Address</h6>
+            <p>{enquiry.address}</p>
+          </div>
+          <div className="col-md-6">
+            <h6>Quantity</h6>
+            <p>{enquiry.quantity}</p>
+          </div>
+          <div className="col-md-12">
+            <h6>Message</h6>
+            <p>{enquiry.message}</p>
+          </div>
+        </div>
+        <hr/>
+        {
+          enquiry.reply_message? 
+            <div className="row">
+              <div className="col-md-12">
+                <h6>Reply Message</h6>
+                <p>{enquiry.reply_message}</p>
+              </div>
+            </div>
+          :
+            <div className="row">
+              <Textarea 
+                        name="reply" 
+                        label="Reply"
+                        onChange={e=>inputChange(e)}
+                        />
+            </div>          
+        }
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-sm btn_blue" onClick={e=>sendReply()}>
+            Send
+          </button>
+          <button className="btn btn-sm btn_blue ml-1" onClick={props.handleClose}>
+            Close
+          </button>
+        </div>
+        </Modal.Body>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+export default ReplyModal

@@ -1,0 +1,26 @@
+@import "./_variables";
+@import "./_inheritance";
+
+.filterbox{
+	background-color: $white;
+	color:$blue;
+	margin-bottom:10px;
+	padding:5px;
+	position: sticky;
+	top:50px;
+	z-index: 2;
+	@extend %shadow_sm;
+	.filterOpen{
+		display: none;
+		i{
+			font-size: 1.2rem;
+		}
+		button{
+			padding-top: 7px !important;
+    	padding-bottom: 0px !important;
+		}
+		@media (max-width: 768px){
+			display: block;
+		}
+	}
+}

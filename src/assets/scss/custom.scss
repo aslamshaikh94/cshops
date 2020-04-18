@@ -1,0 +1,94 @@
+@import "./_variables";
+@import "./_inheritance";
+.labelcheckbox,
+.labelradio {
+  position: relative;  
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  width: fit-content;
+}
+
+.checkbox, .radio {
+  position: relative;  
+  margin: 0 0.8rem 0 0;
+  cursor: pointer;
+}
+.checkbox:before {
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  -moz-transition: -moz-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  -webkit-transform: rotate(-45deg) scale(0, 0);
+  -moz-transform: rotate(-45deg) scale(0, 0);
+  -ms-transform: rotate(-45deg) scale(0, 0);
+  -o-transform: rotate(-45deg) scale(0, 0);
+  transform: rotate(-45deg) scale(0, 0);
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.2rem;
+  z-index: 1;
+  width: 0.7rem;
+  height: 0.33rem;
+  border: 2px solid $orange;
+  border-top-style: none;
+  border-right-style: none;
+}
+.checkbox:checked:before {
+  -webkit-transform: rotate(-45deg) scale(1, 1);
+  -moz-transform: rotate(-45deg) scale(1, 1);
+  -ms-transform: rotate(-45deg) scale(1, 1);
+  -o-transform: rotate(-45deg) scale(1, 1);
+  transform: rotate(-45deg) scale(1, 1);
+}
+.checkbox:after {
+  content: "";
+  position: absolute;
+  top: -0.125rem;
+  left: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: #fff;
+  border: 2px solid $gray;
+  cursor: pointer;
+}
+
+
+.radio:before {
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  -moz-transition: -moz-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+  -webkit-transform: scale(0, 0);
+  -moz-transform: scale(0, 0);
+  -ms-transform: scale(0, 0);
+  -o-transform: scale(0, 0);
+  transform: scale(0, 0);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0.125rem;
+  z-index: 1;
+  width: 0.75rem;
+  height: 0.75rem;
+  background: $orange;
+  border-radius: 50%;
+}
+.radio:checked:before {
+  -webkit-transform: scale(1, 1);
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.radio:after {
+  content: "";
+  position: absolute;
+  top: -0.25rem;
+  left: -0.125rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #fff;
+  border: 2px solid $gray;
+  border-radius: 50%;
+}

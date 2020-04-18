@@ -1,0 +1,74 @@
+@import "./_variables";
+@import "./_inheritance";
+.product{
+	border-right:1px solid $lgray;
+	border-top:1px solid $lgray;
+	background-color:$white;
+	padding:5px;	
+	cursor:pointer;
+	.item{
+		color:$black;
+		display: block;
+		&:hover{
+			text-decoration: none;
+		}
+		>img{
+			max-height: 200px;
+	    object-fit: cover;
+		}
+	}
+	&:hover{
+		@extend %shadow_sm;
+		z-index: 1;
+	}
+	.details{
+		font-size:0.9rem;
+		name{
+			display: block;
+			line-height: 1;
+			margin-top: 10px;
+		}
+		.name{
+			margin:0;
+		}
+		.rating{
+			display: block;
+			i{
+				font-size: 0.8rem;
+				margin: 0 1px;
+			}
+		}
+		.price{
+			display: block;
+			font-weight: bold;
+		}
+	}
+	.topstrip{
+			position: absolute;
+	    top: 5px;
+	    left: 0;
+	    color: #fff;
+	    width: 100%;
+	    right: 0;
+	    padding: 5px 10px;
+	    display: none;
+			.stock{
+				display: inline-block;
+				font-size: 0.8rem;
+				padding:0 5px;
+				background-color: $orange;
+			}
+			.add{
+				i{
+					+ i{
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+		&:hover{
+			.topstrip{
+	  		display: flex;
+			}
+	  }
+}

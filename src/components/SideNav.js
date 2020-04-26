@@ -50,6 +50,11 @@ const SideNav = ()=>{
 					<i className="fal fa-times orange"></i>
 				</div>
 				{
+     			filterData.length>0? 
+     				<button className="btn btn-sm btn-block mb-2 btn_orange" onClick={e=> clearFilters(e)}>Clear Filters</button>
+     			:null
+     		}
+				{
 					data && data.loggedInUser && data.loggedInUser.usertype==="supplier"? 
 			      <div className="border-bottom mb-2">
 			      	<h6>Sellers</h6>
@@ -61,12 +66,7 @@ const SideNav = ()=>{
 					:null
 				}
 
-	     	<div className="border-bottom mb-2">
-	     		{
-	     			filterData.length>0? 
-	     				<button className="btn btn-sm btn-block mb-2 btn_orange" onClick={e=> clearFilters(e)}>Clear Filters</button>
-	     			:null
-	     		}
+	     	<div className="border-bottom mb-2">	     		
 	      	<h6>Usage/Application</h6>		      
 		      <Checkbox name="categories" label="Industrial" value="industrial" onChange={e=>changeHandal(e)} />		      
 		      <Checkbox name="categories" label="Construction" value="construction" onChange={e=>changeHandal(e)} />

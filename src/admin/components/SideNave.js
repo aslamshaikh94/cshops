@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, memo} from 'react';
 import { Media } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
@@ -36,22 +36,40 @@ const SideNave =()=>{
 							<i className="fal fa-tachometer"></i> <span>Dashboard</span> 
 						</NavLink>
 					</li>
-					<li>
-						<NavLink to="/admin/producs" >
-							<i className="fal fa-list-ol"></i> 
-							<span>My Products</span> 
-						</NavLink>
-					</li>
+					{
+						loggedInUser.usertype==='manufacturer'? 
+							<li>
+								<NavLink to="/admin/producs" >
+									<i className="fal fa-list-ol"></i> 
+									<span>My Products</span> 
+								</NavLink>
+							</li>
+						:null
+					}
+					
 					<li>
 						<NavLink to="/admin/enquiries" >
 							<i className="fal fa-envelope"></i> <span>My Enquiries</span> 
 						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/admin/myorders" >
-							<i className="fal fa-shopping-cart"></i> <span>My Orders</span> 
-						</NavLink>
-					</li>
+					</li>					
+						{
+							loggedInUser.usertype!=='manufacturer'? 
+								<li>
+									<NavLink to="/admin/myorders" >
+										<i className="fal fa-shopping-cart"></i> <span>My Orders</span> 
+									</NavLink>
+								</li>
+							:null
+						}
+						{
+							loggedInUser.usertype==='manufacturer'? 
+								<li>
+									<NavLink to="/admin/mybookings" >
+										<i className="fal fa-shopping-cart"></i> <span>My Bookings</span> 
+									</NavLink>
+								</li>
+							:null
+						}
 						{
 							loggedInUser.usertype==='supplier'? 
 								<li>
@@ -84,4 +102,4 @@ const SideNave =()=>{
 		)
 }
 
-export default SideNave;
+export default memo(SideNave);

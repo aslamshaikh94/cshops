@@ -34,6 +34,8 @@ const reducer=(state, action)=>{
   switch(action.type){
     case 'FETCH_PRODUCTS':
       return {...state, products:action.payload}
+    case 'PRODUCT_DETAILS':
+      return {...state, productDetails:action.payload}
     case 'LOGGED_IN_USER':
       return {...state, loggedInUser:action.payload}
     case 'FETCH_CART':

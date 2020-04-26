@@ -1,4 +1,4 @@
-import React, {useState, useContext} from  'react';
+import React, {useState, useContext, memo} from  'react';
 import {Col, Button, Form} from 'react-bootstrap';
 import {Radio} from 'custom-input-aslam';
 import axios from 'axios';
@@ -88,4 +88,4 @@ const Register = ()=>{
 		)
 }
 
-export default Register;
+export default memo(Register);

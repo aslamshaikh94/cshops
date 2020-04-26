@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, memo} from 'react';
 import {Form, Col, Image, Row} from 'react-bootstrap';
 import {Inputfield, Textarea, Options} from '../../../form/Inputfield';
 import {useToasts } from 'react-toast-notifications';
@@ -101,4 +101,4 @@ const Enquiry = (props)=>{
 		)
 }
 
-export default Enquiry
+export default memo(Enquiry)

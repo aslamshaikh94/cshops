@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useContext, useState, memo} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -33,22 +33,21 @@ const Wishlist = ()=>{
 					<ul className="list-unstyled">
 						{
 							favorites? 
-							favorites.map((item, i)=>{
-								let photo = JSON.parse(item.photos)
+							favorites.map((item, i)=>{								
 								return(
 									  <li className="media" style={itemStyle} key={item.product_name+i}>
 									  	<Link to={`/product/${item.product_id}`} target="_blank" style={linkStyle} className="black w-100 d-flex">
-										    <img className="mr-3" src={photo.photosurl[photo.display]} 
+										    <img className="mr-3" src={item.thumbnail} 
 										    		 height="80" 
 										    		 alt={item.product_name}
 										    		/>
 										    <div className="media-body">
 										      <h5 className="mt-0 mb-1">{item.product_name}</h5>
-										      <i className="far fa-rupee-sign"></i> {item.selling_price}
+										      <i className="far fa-rupee-sign"></i> {item.price}
 										      <Ratings />
 										    </div>
 									    </Link>
-									    <i className="fal fa-times" onClick={e=>removeItem(e, item.addto_id)}></i>
+									    <i className="fal fa-times" onClick={e=>removeItem(e, item.id)}></i>
 									  </li>										
 									)
 							})
@@ -71,4 +70,4 @@ let linkStyle={
 	textDecoration:'none',
 }
 
-export default Wishlist
+export default memo(Wishlist)

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 
-const Ratings = ()=>{
+const Ratings = (props)=>{
+			let content = [];
+	    for (let i=5; i>=0; i--) {	      
+	      if(i<props.rat){
+	      	content.push(<i className="fas fa-star orange"></i>);
+	      } 
+	      else{
+	      	content.push(<i className="fas fa-star gray"></i>);
+	      }
+	    }
+	    
 	return(
-			<div>
-				<i className="fal fa-star"></i>
-				<i className="fal fa-star"></i>
-				<i className="fal fa-star"></i>
-				<i className="fal fa-star"></i>
-				<i className="fas fa-star orange"></i>
-			</div>
+			content
 		)
 }
 
-export default Ratings;
+export default memo(Ratings);

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, memo} from 'react';
 import {Row} from 'react-bootstrap';
 import Product from '../../components/Product';
 import SideNav from '../../components/SideNav';
@@ -14,14 +14,14 @@ const Home = ()=>{
 	const {data, dispatch} = useContext(AppContext);	
 
 	useEffect(()=>{
-		loaderBar(true)
-		axios.get(`${data.API_URL}/product/products`).then((res)=>{			
-			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
-			loaderBar(false)
-		})
+		if(!data.products){
+			loaderBar(true)
+			axios.get(`${data.API_URL}/product/products`).then((res)=>{			
+				dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+				loaderBar(false)
+			})			
+		}
 	},[])
-
-	
 	
 	return(
 		<main className="home">
@@ -51,4 +51,4 @@ const Home = ()=>{
 		)
 }
 
-export default Home;
+export default memo(Home);

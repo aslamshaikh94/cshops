@@ -1,4 +1,4 @@
-import React,{useState, useEffect, useContext} from 'react';
+import React,{useState, useEffect, useContext, memo} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Textarea} from '../../form/Inputfield';
 import axios from 'axios';
@@ -111,4 +111,4 @@ function ReplyModal(props) {
   );
 }
 
-export default ReplyModal
+export default memo(ReplyModal)

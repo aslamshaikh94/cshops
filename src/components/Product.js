@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, memo} from 'react';
 import '../assets/css/product.css';
 import {Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
@@ -13,6 +13,7 @@ const Product = (props)=>{
 	const [favoritesIds, setFavoritesIds] = useState([]);
 	const [cartsIds, setCartsIds] = useState([]);
 	const { addToast } = useToasts()
+	const {product} = props;
 
 	useEffect(()=>{		
 		if(data.favorites && data.favorites.length>0){
@@ -31,9 +32,8 @@ const Product = (props)=>{
 			setCartsIds(carts_ids)			
 		}
 	},[data.carts])
-
-	const {product} = props;
-	let photos = JSON.parse(product.photos);	
+	
+	
 
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
@@ -54,28 +54,38 @@ const Product = (props)=>{
 		});
 	}
 	function getCarts(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
-			console.log(res.data)
+		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{			
 			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
-	let photo = JSON.parse(product.photos)
+
 	
+	function getProductDetails(id){
+		let productDetails = data.products.find(el=> el.id===id)	
+		dispatch({type:'PRODUCT_DETAILS', payload:productDetails});	
+	}
 	return (
 			<Col xl='2' lg="3" md="3" sm="4" xs="6" className='product'>
 				<div className="details text-center">
-					<Link to={`/product/${product.id}`} className="item">
-						<img className="img-fluid" src={`${photo.photosurl[photo.display]}`} />
-						<p className="name">{product.product_name.slice(0, 15)}</p>
-						<div className="price">
-							<i className="far fa-rupee-sign"></i> 															 
-								{
-									product && data.loggedInUser && data.loggedInUser.usertype==='supplier'? 
-									product.venders_price : product? product.selling_price :'null'
-								}
-						</div>							
-						<p className="name">{product.minorder || 'NA'} Pieces (Min. Order) </p>
-						<Ratings />
+					<Link to={`/product/${product.id}`} onClick={e=>getProductDetails(product.id)} className="item">
+						{
+							data.loggedInUser && data.loggedInUser.id===product.seller_id? 
+								<span className="bg_green" style={dot} ></span>
+							:null
+						}
+						<img className="img-fluid" src={product.thumbnail} />
+						<div className="pb-2 pt-2">
+							<p className="name">{product.product_name.slice(0, 15)}</p>
+							<div className="price">
+								<i className="far fa-rupee-sign"></i> 															 
+									{
+										product && data.loggedInUser && data.loggedInUser.usertype==='supplier'? 
+										product.venders_price : product? product.selling_price :'null'
+									}
+							</div>							
+							<p className="name">{product.minorder || 'NA'} Pieces (Min. Order) </p>
+							<Ratings rat={3}  />
+						</div>
 					</Link>
 						<div className="topstrip justify-content-between">
 							<div className="stock">
@@ -99,4 +109,13 @@ const Product = (props)=>{
 		)
 }
 
-export default Product
+let dot ={
+  height: '8px',
+  width: '8px',  
+  borderRadius: '50%',
+  display: 'inline-block',
+  position:'absolute',
+  right:'5px'
+}
+
+export default memo(Product)

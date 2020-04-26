@@ -1,9 +1,11 @@
-import React, {useState, useEffect, useContext, lazy} from 'react';
+import React, {useState, useEffect, useContext, lazy, memo} from 'react';
 import axios from 'axios';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
+import Hocpanel from '../components/Hocpanel';
 
-const Contactinfo = lazy(()=> import('../../components/Contactinfo'));
+import Contactinfo from '../../components/Contactinfo';
+const Contactinfoform = lazy(()=> import('../../components/Contactinfoform'));
 
 const Myprofile=()=>{
 	const {data, dispatch} = useContext(AppContext)
@@ -36,25 +38,14 @@ const Myprofile=()=>{
 							{
 								!cInfo? 
 									<div>
-										<Contactinfo infodata={setContactData}/>
+										<Contactinfoform infodata={setContactData}/>
 										<div className="d-flex justify-content-end">
 											<button className="btn btn-sm btn_orange" onClick={e=>saveContact(e)}>Save</button> 
 										</div>
 									</div>
 								:null
 							}
-							<h6>Contact Information</h6>
-							<p className="m-0">Name:  {cInfo? cInfo.fname :null}</p>
-							<p className="m-0">Phone:  {cInfo? cInfo.phone :null}</p>
-							<p className="m-0">Email:  {cInfo? cInfo.email :null}</p>
-							<p className="m-0">
-							Address: 
-								{
-									cInfo? ` ${cInfo.address}, ${cInfo.cities}, 
-													${cInfo.states}, ${cInfo.pincode}, ${cInfo.countries}` 
-									:null
-								} 				
-							</p>
+							{cInfo? <Contactinfo data={cInfo} /> :null}
 						</div>
 					</div>
 				</div>
@@ -62,4 +53,4 @@ const Myprofile=()=>{
 		)
 }
 
-export default Myprofile
+export default Hocpanel(Myprofile)

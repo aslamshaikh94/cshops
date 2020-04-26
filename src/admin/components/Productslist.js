@@ -1,17 +1,22 @@
-import React, {useContext, useState, useEffect, lazy} from 'react';
-import {Table, Button} from 'react-bootstrap';
+import React, {useContext, useState, useEffect, lazy, memo} from 'react';
+import {Button} from 'react-bootstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {getToken} from '../../methods/methods';
 
 import {AdminContext} from '../Admin';
 const Productform = lazy(()=>import('./Productform'));
+const defaultObject = false
 
 const Productslist =(props)=>{
 	const {data, dispatch} = useContext(AdminContext);
 	const [proForm, setproForm] = useState(false)
 	const [products, setProducts] = useState([])
-	const [editItem, setEditItem] = useState([])
+	const [formtype, setFormtype] = useState(true)
+
+	const [editItem, setEditItem] = useState(defaultObject)
 
 	useEffect(()=>{
 		if(data.products) setProducts(data.products)		
@@ -31,10 +36,12 @@ const Productslist =(props)=>{
 	}
 	const editProduct =(e, id)=>{		
 		setproForm(true)
-		setEditItem(products.filter(e=> e.id===id))
+		setEditItem(products.find(e=> e.id===id))
+		setFormtype(false)
 	}
-	const addProduct =(e)=>{
-		setproForm(proForm? false :true)
+	const addProduct = async (e)=>{
+		await setproForm(proForm? false :true)
+		await setEditItem(defaultObject)
 	}
 
 	return(
@@ -44,37 +51,36 @@ const Productslist =(props)=>{
 						<i className={`far fa-${proForm? 'times': 'plus'}`}></i> {proForm? 'Cancel' :'Add Product'}
 					</Button>
 				</div>
-				{proForm? <Productform data={editItem[0]} /> :null }
-				<div className="p-2">
-					<Table bordered responsive hover size="sm">
-					  <thead>
-					    <tr>
-					      <th>#</th>
-					      <th>Product Name</th>
-					      <th>Purchase Price</th>
-					      <th>Selling Price</th>
-					      <th>Venders Price</th>
-					      <th>Stock</th>
-					      <th>Warranty</th>
-					      <th>Photos</th>
-					      <th>Actions</th>
-					    </tr>
-					  </thead>
-					  <tbody>
+				{proForm? <Productform data={editItem} create={formtype} /> :null }
+				<div className="p-3">
+					<Table className="table table-sm table-bordered" size="sm">
+					  <Thead>
+					    <Tr>
+					      <Th>#</Th>
+					      <Th>Product Name</Th>
+					      <Th>Purchase Price</Th>
+					      <Th>Selling Price</Th>
+					      <Th>Venders Price</Th>
+					      <Th>Stock</Th>
+					      <Th>Warranty</Th>
+					      <Th>Photos</Th>
+					      <Th>Actions</Th>
+					    </Tr>
+					  </Thead>
+					  <Tbody>
 					  	{
-					  		products? products.map((item, i)=>{
-					  			let photo = JSON.parse(item.photos)					  			
+					  		products? products.map((item, i)=>{					  			
 					  			return(
-					  					<tr key={item.id}>
-									      <td>{`CSP${item.id}`}</td>
-									      <td>{item.product_name}</td>									      
-									      <td>{item.purchase_price}</td>
-									      <td>{item.selling_price}</td>
-									      <td>{item.venders_price}</td>
-									      <td>{item.stock}</td>
-									      <td>{item.warranty}</td>
-									      <td><img src={`${photo.photosurl[photo.display]}`} alt={item.product_name} wdith="30" height="30" /></td>
-									      <td>
+					  					<Tr key={item.id}>
+									      <Td>{`CSP${item.id}`}</Td>
+									      <Td>{item.product_name}</Td>									      
+									      <Td>{item.purchase_price}</Td>
+									      <Td>{item.selling_price}</Td>
+									      <Td>{item.venders_price}</Td>
+									      <Td>{item.stock}</Td>
+									      <Td>{item.warranty}</Td>
+									      <Td><img src={item.thumbnail} alt={item.product_name} wdith="30" height="30" /></Td>
+									      <Td>
 									      	<button className="btn btn_red btn-sm mr-1" 
 									      					onClick={e=>deleteProduct(e, item.id)}
 									      					>
@@ -91,16 +97,16 @@ const Productslist =(props)=>{
 									      				>
 									      		<i className="fal fa-eye"></i>
 									      	</Link>
-									      </td>
-									    </tr>					    
+									      </Td>
+									    </Tr>					    
 					  				)
 					  		}) :null
 					  	}					    
-					  </tbody>
+					  </Tbody>
 					</Table>					
 				</div>
 			</React.Fragment>
 		)
 }
 
-export default Productslist;
+export default memo(Productslist);

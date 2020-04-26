@@ -1,10 +1,9 @@
 import React, {useState, useEffect, memo, useContext, useRef} from 'react';
-import {Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
+import {Button, Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
 import axios from 'axios';
 
 import {Inputfield, Textarea} from '../../form/Inputfield';
 import {useToasts } from 'react-toast-notifications';
-// import Resizer from 'react-image-file-resizer';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 
@@ -18,137 +17,161 @@ const Productform =(props)=>{
 	const fieldName = useRef()
 	const fieldValue = useRef()
 	const { addToast } = useToasts();
-	let toastSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }
 	const [fileData, setFileData] =	useState([]);
 	const [displayimg, setDisplayimg] =	useState(0);
-
-	const [product, setProduct] =	useState({
-		seller_id:'',
-		categories:'',
-		type:'',
-		product_name:'',	
-		purchase_price:'',
-		selling_price:'',
-		venders_price:'',
-		stock:'',
-		minorder:'',
-		warranty:'',
-		extra_fields:[],
-		details:'',
-		terms_conditions:'',
-		photos:{display:0, photosurl:[]},
-	})
+	const [imgLoging, setImgLoging] =	useState(false);
 	const cropper = useRef(null);
-	useEffect(()=>{
-		if(props.data){
-			setProduct(props.data)
-			setFileData(JSON.parse(props.data.photos))
-		} 
-	},[props]);
+	const [product, setProduct] =	useState(props.data)
 	
+	let errorSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }
+
 	useEffect(()=>{
-		let photo = JSON.stringify({display:displayimg, photosurl:fileData })
-		
-		if(product) setProduct({...product, photos:photo})
+		let photo = JSON.stringify({display:displayimg, photosurl:fileData })		
+		if(product){
+			setProduct({...product, photos:photo, thumbnail:fileData[0]})			
+		} 
 	}, [fileData, displayimg])
 
 	useEffect(()=>{
 		let fieldsData = JSON.stringify(xfields);
-		setProduct({...product, extra_fields:fieldsData})
+		if(xfields.length>0) setProduct({...product, extra_fields:fieldsData})
 	},[xfields])
+	
 
 	const addField = ()=>{
 		let name  = fieldName.current.value;
 		let value  = fieldValue.current.value;
-		setXfields([...xfields, {name, value}])
-		fieldName.current.value= '';
-		fieldValue.current.value='';
+		if(name && value){
+			setXfields([...xfields, {name, value}])
+			fieldName.current.value= '';
+			fieldValue.current.value='';			
+		}
 	}	
-		
-	function productValidation(){		
+
+	useEffect(()=>{				
+		 if(props.data && props.data.photos){
+			let photos = JSON.parse(props.data.photos)
+				setFileData(photos.photosurl)
+			}
+	},[props.data.photos]);
+	
+	useEffect(()=>{
+	 	if(props.data && props.data.extra_fields){
+		let extra_fields = JSON.parse(props.data.extra_fields)				
+			setXfields(extra_fields)
+		}
+	},[props.data.extra_fields]);
+
+	function productValidation(){
 		if(!product.categories){
-			addToast('Please select catagory', toastSetting)
+			addToast('Please select catagory', errorSetting)
 			return false
 		}
 		else if(!product.type){
-			addToast('Please select type', toastSetting)
+			addToast('Please select type', errorSetting)
 			return false
 		}
 		else if(!product.product_name){
-			addToast('Please enter product name', toastSetting)
+			addToast('Please enter product name', errorSetting)
 			return false
 		}
 		else if(!product.selling_price){
-			addToast('Please enter selling price', toastSetting)
+			addToast('Please enter selling price', errorSetting)
 			return false
 		}
 		else if(!product.selling_price){
-			addToast('Please enter selling price', toastSetting)
+			addToast('Please enter selling price', errorSetting)
 			return false
 		}
 		else if(!product.venders_price){
-			addToast('Please enter venders price', toastSetting)
+			addToast('Please enter venders price', errorSetting)
 			return false
 		}
 		else if(!product.stock){
-			addToast('Please enter stock', toastSetting)
+			addToast('Please enter stock', errorSetting)
 			return false
 		}
 		else if(!product.warranty){
-			addToast('Please enter warranty', toastSetting)
+			addToast('Please enter warranty', errorSetting)
 			return false
 		}
 		else if(!product.details){
-			addToast('Please enter details', toastSetting)
+			addToast('Please enter details', errorSetting)
 			return false
 		}
 		else if(!product.terms_conditions){
-			addToast('Please enter details', toastSetting)
+			addToast('Please enter details', errorSetting)
 			return false
 		}
 		else if(product.photos.length<=2){
-			addToast('Please select photos', toastSetting)
+			addToast('Please select photos', errorSetting)
 			return false
 		}
 		else{
 			return true
 		}
 	}
-	function cropImg(e){
-		if(e!==false){
-	    const dataUrl = cropper.current.getCroppedCanvas().toDataURL();    
-	   	setFileData([...fileData, dataUrl])			
+	async function cropImg(e){
+		if(e!==false && cropper){
+			setImgLoging(true)
+	    const dataUrl = await cropper.current.getCroppedCanvas().toDataURL("image/jpeg");	    
+	   	uploadOnServer(dataUrl)	   	
 		}
   }
+
+  function uploadOnServer(url){
+		axios.post(`${data.API_URL}/upload`, {image:url}).then((res)=>{			
+   		if(res.data.status==false){
+   			addToast(res.data.message, errorSetting)
+   		}
+   		else{
+  			setFileData([...fileData, res.data])	
+   		}
+  		setImgLoging(false)
+  	})
+  }
+
   function removeImage(i){
-  let newfileData = fileData;
+  	let newfileData = fileData;
   	newfileData.splice(i, 1);  	
   	setFileData([...newfileData])
   }
   function setDisplay(i){
-  	setDisplayimg(i)
-  }
+  	setProduct({...product, thumbnail:fileData[i]})
+  }  
 	const uploadFiles=(e)=>{
-		var reader = new FileReader();
-    reader.onload = function(){      
-			setSrcDefault(reader.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+		let image = window.URL.createObjectURL(e.target.files[0])    
+		setSrcDefault(image);     
 	}
-	const creatProduct=()=>{
+	const saveProduct=()=>{
 		let validate = productValidation();
 		if(validate){
 			axios.post(`${data.API_URL}/product/add`, product, getToken() ).then((res)=>{
 				if(res.data.status===false){
-					addToast(res.data.message, toastSetting)
+					addToast(res.data.message, errorSetting)					
 				}
 				else{
 					getProducts()
-					addToast('Product added successfully', { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })										
+					addToast(`Product added successfully`, { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })					
 				}
 			})			
 		}
 	}
+	const updateProduct=()=>{
+		let validate = productValidation();
+		if(validate){
+			axios.put(`${data.API_URL}/product/update`, product, getToken() ).then((res)=>{
+				if(res.data.status===false){
+					addToast(res.data.message, errorSetting)					
+				}
+				else{
+					getProducts()
+					addToast(`Product 'updated' successfully`, { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })					
+				}
+			})			
+		}
+	}
+
 	const getProducts =()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
 			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
@@ -161,10 +184,16 @@ const Productform =(props)=>{
 			...product,
 			[name]:value
 		})
+	}	
+	function cancelCroper(){
+		setSrcDefault(false)
+		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
+			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+		})
 	}
 	
 	return(
-		<div className="p-2 mb-3 border-bottom">
+		<div className="p-3 mb-3 border-bottom">
 			<Form>
 			  <Form.Row>
 				  <div className="form-group col-lg-3 col-12">		
@@ -251,9 +280,9 @@ const Productform =(props)=>{
 						  <FormControl placeholder="Label Name" ref={fieldName} />
 						  <FormControl placeholder="Value" ref={fieldValue} />
 						  <InputGroup.Prepend>
-						    <button className="btn btn-sm btn_green" type="button" onClick={e=>addField(e)}>
+						    <Button size="sm" variant="" className="btn_green" type="button" onClick={e=>addField(e)}>
 						    	<i className="fal fa-plus"></i> Add More
-						    </button>
+						    </Button>
 						  </InputGroup.Prepend>
 						</InputGroup>						
 					</div>
@@ -275,27 +304,57 @@ const Productform =(props)=>{
 				<Form.Row>
 				  <div className='col-lg-6'>
 				  	<div className="custom-file">
-					    <input type="file" className="custom-file-input"  id="customFile" onChange={e=>uploadFiles(e)} />
+					    <input type="file" className="custom-file-input" onChange={e=>uploadFiles(e)} />
 					    <label className="custom-file-label" htmlFor="customFile">Choose file</label>
 					  </div>
-						<Cropper
-			        ref={cropper}
-			        src={srcDefault}
-			        style={{maxHeight: 400, maxWidth: '100%'}}
-			        // Cropper.js options
-			        aspectRatio={1 / 1}
-			        guides={false}
-			        // crop={e=>cropImg(e)} 
-			      />
-			      <button type="button" className="btn btn_orange" onClick={e=>cropImg(false)} >Cancel</button>
-			      <button type="button" className="btn btn_blue" onClick={e=>cropImg(e)} >Crop</button>
+					  {
+					  	srcDefault? 
+							  <div className="mt-2 mb-2">
+									<Cropper
+						        ref={cropper}
+						        src={srcDefault}
+						        style={{maxHeight: 400, maxWidth: 600, width:'100%'}}
+						        // Cropper.js options
+						        aspectRatio={1 / 1}
+						        guides={false}
+						        // crop={e=>cropImg(e)} 
+						      />
+					      </div>
+					  	:null
+					  }
+			      {
+			      	srcDefault? 
+			      		<div>
+						      <button type="button" className="btn btn_orange" onClick={e=>cancelCroper(false)} >Cancel</button>
+						      <button type="button" className="btn btn_blue ml-2" onClick={e=>cropImg(e)} disabled={imgLoging? true : false} >
+						      	{
+						      		imgLoging? 
+						      			<span>
+							      			<span className="spinner-grow spinner-grow-sm"></span>Uploading..
+	    									</span>
+						      		: <span>Crop & Upload</span>
+						      	}						      	
+						      </button>			      									      
+			      		</div>
+			      	:null
+			      }
 					</div>
 					<div className="col-lg-6">
+						{	
+							product.thumbnail? 
+								<div className="mb-2 d-flex flex-column">
+									<Image src={product.thumbnail} 
+												 style={{border:`2px solid green`}} 
+												 className="img-fluid" width="100" />
+									<small>Product Thumbnail</small>
+								</div>
+							:null
+						}
 						<Row>
-							{fileData? fileData.map((item, i)=>{
+							{fileData && fileData.length>0? fileData.map((item, i)=>{
 						    return (
 							    	<Col xs={6} md={2} key={item}>
-								    	<div style={{border:`2px solid ${displayimg==i? 'green' :'#dee2e6'}`}} onClick={e=>setDisplay(i)}>
+								    	<div style={{border:`2px solid #dee2e6`}} onClick={e=>setDisplay(i)}>
 								    		<i className="fal fa-times" onClick={e=>removeImage(i)}></i> 
 									      <Image src={`${item}`} className="img-fluid" />
 								    	</div>
@@ -306,7 +365,12 @@ const Productform =(props)=>{
 					</div>					
 			  </Form.Row>
 			  <div className="d-flex justify-content-end">
-				  <button className="btn btn-sm btn_blue" onClick={e=>creatProduct(e)}  type="button">Save Product</button>				  
+			  	{
+			  		props.create? 
+				  		<button className="btn btn-sm btn_blue" onClick={e=>saveProduct(e)}  type="button">Save Product</button>				  
+
+			  		: <button className="btn btn-sm btn_blue" onClick={e=>updateProduct(e)}  type="button">Update Product</button>
+			  	}				  
 			  </div>
 			</Form>
 		</div>

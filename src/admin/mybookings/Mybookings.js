@@ -8,7 +8,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Hocpanel from '../components/Hocpanel';
 import axios from 'axios'
 
-const Myorders = ()=>{
+const Mybookings = ()=>{
 	const {data, dispatch} = useContext(AppContext);
 	const [orders, setOrders] = useState()
 	useEffect(()=>{
@@ -16,13 +16,15 @@ const Myorders = ()=>{
 	},[])
 
 	function getOrders(){
-		axios.get(`${data.API_URL}/orders`, getToken() ).then((res)=>{
+		axios.get(`${data.API_URL}/orders/mybookings`, getToken() ).then((res)=>{
 			setOrders(res.data)
 		})
 	}
 
-	function cancelProduct(){
-
+	function productAction(id, quantity, product_id){		
+		axios.put(`${data.API_URL}/orders`, {id:id, product_id:product_id, quantity:quantity}, getToken() ).then((res)=>{
+			if(res.data.status!==false) getOrders()
+		})
 	}
 	
 	return(			
@@ -58,6 +60,17 @@ const Myorders = ()=>{
 									      				>
 									      		<i className="fal fa-eye"></i> View
 									      	</Link>
+									      	{
+									      		item.status!=='accepted'? 
+											      	<Button size="sm" className="ml-1 btn_orange" 
+											      					onClick={e=>productAction(item.id, item.quantity, item.product_id)}>
+											      		<i className="fal fa-check"></i> Accept
+											      	</Button>
+									      		:null
+									      	}
+									      	<Button size="sm" className="ml-1 btn_red">
+									      		<i className="fal fa-times"></i> Close
+									      	</Button>
 									      </Td>
 									    </Tr>					    
 					  				)
@@ -70,4 +83,4 @@ const Myorders = ()=>{
 		)
 }
 
-export default Hocpanel(Myorders);
+export default Hocpanel(Mybookings);

@@ -21,7 +21,10 @@ $colours: (
 	}
 	.btn_#{$name}{
 		background-color: #{$hex};
-		color: $white;		
+		color: $white;
+		&:focus{
+			background-color: rgba($hex)
+		}
 	}
 	.bdr_#{$name}{
 		border-color: #{$hex};			

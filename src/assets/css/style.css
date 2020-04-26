@@ -12,6 +12,9 @@
   background-color: #fff;
   color: #fff;
 }
+.btn_white:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
 
 .bdr_white {
   border-color: #fff;
@@ -28,6 +31,9 @@
 .btn_black {
   background-color: #000;
   color: #fff;
+}
+.btn_black:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .bdr_black {
@@ -46,6 +52,9 @@
   background-color: #004C8A;
   color: #fff;
 }
+.btn_blue:hover {
+  background-color: rgba(0, 76, 138, 0.5);
+}
 
 .bdr_blue {
   border-color: #004C8A;
@@ -62,6 +71,9 @@
 .btn_lgray {
   background-color: #eaeaea;
   color: #fff;
+}
+.btn_lgray:hover {
+  background-color: rgba(234, 234, 234, 0.5);
 }
 
 .bdr_lgray {
@@ -80,6 +92,9 @@
   background-color: #ddd;
   color: #fff;
 }
+.btn_gray:hover {
+  background-color: rgba(221, 221, 221, 0.5);
+}
 
 .bdr_gray {
   border-color: #ddd;
@@ -96,6 +111,9 @@
 .btn_red {
   background-color: #FF0000;
   color: #fff;
+}
+.btn_red:hover {
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .bdr_red {
@@ -114,6 +132,9 @@
   background-color: #ff6501;
   color: #fff;
 }
+.btn_orange:hover {
+  background-color: rgba(255, 101, 1, 0.5);
+}
 
 .bdr_orange {
   border-color: #ff6501;
@@ -131,6 +152,9 @@
   background-color: #228B22;
   color: #fff;
 }
+.btn_green:hover {
+  background-color: rgba(34, 139, 34, 0.5);
+}
 
 .bdr_green {
   border-color: #228B22;
@@ -147,6 +171,9 @@
 .btn_yellow {
   background-color: #ff9f00;
   color: #fff;
+}
+.btn_yellow:hover {
+  background-color: rgba(255, 159, 0, 0.5);
 }
 
 .bdr_yellow {

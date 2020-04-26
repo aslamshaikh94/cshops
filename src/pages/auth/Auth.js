@@ -1,4 +1,4 @@
-import React, {useState, lazy, Suspense} from 'react';
+import React, {useState, lazy, Suspense, memo} from 'react';
 import {Button} from 'react-bootstrap';
 import '../../assets/css/auth.css';
 
@@ -32,4 +32,4 @@ const Auth = ()=>{
 		)
 }
 
-export default Auth;
+export default memo(Auth);

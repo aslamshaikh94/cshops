@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, memo} from 'react';
 import { Container, ProgressBar} from 'react-bootstrap';
 import '../assets/css/header.css';
 import {NavLink, Link, useHistory } from "react-router-dom";
@@ -34,7 +34,7 @@ const Header = ()=>{
 		});
 	}
 	function getCarts(){		
-		axios.get(`${data.API_URL}/addto/wishlistdd?type=cart`, getToken()).then((res)=>{
+		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
 			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
@@ -120,4 +120,4 @@ let count = {
 	position:'absolute'
 }
 
-export default Header
+export default memo(Header)

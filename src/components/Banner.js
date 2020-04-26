@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import banner5 from '../assets/images/banner5.jpg';
 const Banner =()=>{
 	return(
@@ -7,4 +7,4 @@ const Banner =()=>{
 			</div>
 		)
 }
-export default Banner;
+export default memo(Banner);

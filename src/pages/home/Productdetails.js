@@ -1,4 +1,5 @@
-import React, {useEffect, useState, useContext, memo} from 'react'
+import React, {useEffect, useState, useContext, memo} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import imageHover from '../../settings/imageHover';
 import Enquiry from './components/Enquiry';
@@ -18,11 +19,16 @@ const Productdetails =(props)=>{
 	const { addToast } = useToasts();
 	
 	useEffect(()=>{
-		loaderBar(true)
-		axios.get(`${data.API_URL}/product/${proId}`).then((res)=>{
-			setProDetails(res.data[0])
-			loaderBar(false)
-		})		
+			if(data.productDetails){
+				setProDetails(data.productDetails)
+			}
+			else{
+				loaderBar(true)
+				axios.get(`${data.API_URL}/product/${proId}`).then((res)=>{
+					setProDetails(res.data[0])
+					loaderBar(false)
+				})				
+			}
 	},[proId]);
 	
 	function addto(id, add){
@@ -64,8 +70,8 @@ const Productdetails =(props)=>{
 	}
 	function cancelEnquiry(){
 		setEnquryForm(false)
-	}	
-	
+	}		
+	console.log(window.location.href)
 	return (
 			<main className="productDetails bg_white">
 				<div className="container-fluid">
@@ -95,7 +101,7 @@ const Productdetails =(props)=>{
 									} 
 								</h6>														
 								<h6><span className="blue">Stock :</span> 
-									{proDetails? proDetails.stock :'NA'} 
+									{proDetails && proDetails.stock>0? proDetails.stock :' We will manufacture on pre booking for you'} 
 								</h6>
 								<h6><span className="blue">Min. Order:</span> 
 									{proDetails? proDetails.minorder :'NA'}<sup style={{'textTransform':'capitalize'}}>  Pieces</sup>
@@ -118,6 +124,9 @@ const Productdetails =(props)=>{
 							<button className="btn btn_orange" onClick={e=>sendEnqury(e)}>
 								<i className="fal fa-location-arrow"></i> INQUIRY NOW
 							</button>
+							<a href={`https://wa.me/918080023246?text=${window.location.href}`} target="_blanck">
+								<img src="https://res.cloudinary.com/dbzljupwi/image/upload/v1587915911/whatsapp.png" width="60" />
+							</a>
 							{enquryForm? <Enquiry enqId={proId} cancelEnquiry={e=>cancelEnquiry(e)} sellerId={proDetails? proDetails.seller_id:null}/> :null}
 						</div>
 					</div>
@@ -125,8 +134,8 @@ const Productdetails =(props)=>{
 					{
 						proDetails && proDetails.terms_conditions? 
 						<div>
-							<h6 className="mb-0 blue text-uppercase" style={{'font-size':'14px'}}>Terms Conditions</h6>
-							<p style={{'font-size':'12px'}}>{proDetails? proDetails.terms_conditions :'NA'} </p>
+							<h6 className="mb-0 blue text-uppercase" style={{'fontSize':'14px'}}>Terms Conditions</h6>
+							<p style={{'fontSize':'12px'}}>{proDetails? proDetails.terms_conditions :'NA'} </p>
 						</div>
 						:null
 					}

@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useEffect, Suspense, lazy} from 'react';
+import React, {createContext, useReducer, useEffect, Suspense, lazy, memo} from 'react';
 import {BrowserRouter as Router, Redirect, Route, useHistory } from "react-router-dom";
 
 import '../assets/css/panelwraper.css';
@@ -16,6 +16,7 @@ const Venders = lazy(()=> import('./components/Venders'));
 const Dashboard = lazy(()=> import('./dashboard/Dashboard'));
 const Myprofile = lazy(()=> import('./myprofile/Myprofile'));
 const Myorders = lazy(()=> import('./myorders/Myorders'));
+const Mybookings = lazy(()=> import('./mybookings/Mybookings'));
 
 
 let initialState={
@@ -82,6 +83,7 @@ const Admin =(props)=>{
 									<Route path="/admin/venders" component={Venders} /> 
 									<Route path="/admin/myprofile" component={Myprofile} /> 
 									<Route path="/admin/myorders" component={Myorders} /> 
+									<Route path="/admin/mybookings" component={Mybookings} /> 
 								</Router>
 							</AdminContext.Provider>
 						</Suspense>
@@ -91,4 +93,4 @@ const Admin =(props)=>{
 		)
 }
 
-export default Admin
+export default memo(Admin)

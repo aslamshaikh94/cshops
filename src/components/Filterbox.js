@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react';
+import React,{useContext, useState, memo} from 'react';
 import '../assets/css/filterbox.css';
 import {Row, Col, InputGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
@@ -54,4 +54,4 @@ const Filterbox = ()=>{
 		)
 }
 
-export default Filterbox;
+export default memo(Filterbox);

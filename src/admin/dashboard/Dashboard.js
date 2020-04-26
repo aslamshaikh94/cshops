@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { LineChart, PieChart } from 'react-chartkick';
 import 'chart.js';
 // import Hocpanel from '../components/Hocpanel';
@@ -31,4 +31,4 @@ const Dashboard=()=>{
 		)
 }
 
-export default Dashboard;
+export default memo(Dashboard);

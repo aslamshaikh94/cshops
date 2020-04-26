@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, memo} from 'react';
 import {Button, Form} from 'react-bootstrap';
 import axios from 'axios';
 import {useHistory } from "react-router-dom";
@@ -77,4 +77,4 @@ const Login = ()=>{
 		)
 }
 
-export default Login;
+export default memo(Login);

@@ -2,12 +2,11 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Button} from 'react-bootstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {Link} from 'react-router-dom';
 import {getToken} from '../../methods/methods';
 
 import {mDate} from 'dateutility-aslam';
 
-
-import {Link} from 'react-router-dom';
 import Hocpanel from './Hocpanel';
 import ReplyModal from './ReplyModal';
 import axios from 'axios';
@@ -31,7 +30,7 @@ const Enquiries = (props)=>{
 	const modalAction=()=>{
 		setModalShow(false)
 	}
-
+	
 	return (
 			<div className="p-2">
 					<Table className="table table-sm table-bordered" size="sm">

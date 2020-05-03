@@ -23,11 +23,12 @@ const Checkbox = (props)=>{
 }
 
 const Radio = (props)=>{
-	const {label, color, bg, text, ...all} = props;
+	const {label, color, bg, text, size, ...all} = props;
 	const inputEl = useRef(null)	
 	useEffect(()=>{		
 		inputEl.current.pseudoStyle("after","background", bg);
 		inputEl.current.pseudoStyle("before","background", color);
+		inputEl.current.style.transform = `scale(${size})`; 
 	},[])
 	return(
 			<label className="labelradio custom-control-inline">

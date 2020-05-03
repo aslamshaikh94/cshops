@@ -2,10 +2,12 @@ import React, {useState, useEffect, memo, useContext, useRef} from 'react';
 import {Button, Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
 import axios from 'axios';
 
+import ImageGallery from '../../components/ImageGallery';
 import {Inputfield, Textarea} from '../../form/Inputfield';
 import {useToasts } from 'react-toast-notifications';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import {Radio} from 'custom-input-aslam';
 
 import {AdminContext} from '../Admin';
 import {getToken} from '../../methods/methods';
@@ -25,10 +27,11 @@ const Productform =(props)=>{
 	
 	let errorSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }
 
+
 	useEffect(()=>{
-		let photo = JSON.stringify({display:displayimg, photosurl:fileData })		
+		let photo = JSON.stringify({display:displayimg, photosurl:fileData })				
 		if(product){
-			setProduct({...product, photos:photo, thumbnail:fileData[0]})			
+			setProduct({...product, photos:photo, thumbnail:fileData[0].url})			
 		} 
 	}, [fileData, displayimg])
 
@@ -37,7 +40,6 @@ const Productform =(props)=>{
 		if(xfields.length>0) setProduct({...product, extra_fields:fieldsData})
 	},[xfields])
 	
-
 	const addField = ()=>{
 		let name  = fieldName.current.value;
 		let value  = fieldValue.current.value;
@@ -137,10 +139,11 @@ const Productform =(props)=>{
   	setFileData([...newfileData])
   }
   function setDisplay(i){
-  	setProduct({...product, thumbnail:fileData[i]})
+console.log(i)
+  	setProduct({...product, thumbnail:fileData[i].url})
   }  
 	const uploadFiles=(e)=>{
-		let image = window.URL.createObjectURL(e.target.files[0])    
+		let image = window.URL.createObjectURL(e.target.files[0].url)    
 		setSrcDefault(image);     
 	}
 	const saveProduct=()=>{
@@ -148,7 +151,7 @@ const Productform =(props)=>{
 		if(validate){
 			axios.post(`${data.API_URL}/product/add`, product, getToken() ).then((res)=>{
 				if(res.data.status===false){
-					addToast(res.data.message, errorSetting)					
+					addToast(res.data.message, errorSetting)
 				}
 				else{
 					getProducts()
@@ -160,7 +163,7 @@ const Productform =(props)=>{
 	const updateProduct=()=>{
 		let validate = productValidation();
 		if(validate){
-			axios.put(`${data.API_URL}/product/update`, product, getToken() ).then((res)=>{
+			axios.put(`${data.API_URL}/product`, product, getToken() ).then((res)=>{
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)					
 				}
@@ -171,7 +174,6 @@ const Productform =(props)=>{
 			})			
 		}
 	}
-
 	const getProducts =()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
 			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
@@ -191,7 +193,9 @@ const Productform =(props)=>{
 			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}
-	
+	function selectedImages(images){
+		setFileData([...fileData, ...images])	
+	}
 	return(
 		<div className="p-3 mb-3 border-bottom">
 			<Form>
@@ -353,16 +357,22 @@ const Productform =(props)=>{
 						<Row>
 							{fileData && fileData.length>0? fileData.map((item, i)=>{
 						    return (
-							    	<Col xs={6} md={2} key={item}>
-								    	<div style={{border:`2px solid #dee2e6`}} onClick={e=>setDisplay(i)}>
-								    		<i className="fal fa-times" onClick={e=>removeImage(i)}></i> 
-									      <Image src={`${item}`} className="img-fluid" />
+							    	<Col xs={6} md={2} key={item.id}>
+								    	<div style={{border:`2px solid #dee2e6`}} >
+								    		<div className="p-1 d-flex justify-content-between">
+									    		<Radio name="thumb" size={0.8} onClick={e=>setDisplay(i)}/>
+									    		<i className="fal fa-times" onClick={e=>removeImage(i)}></i> 
+								    		</div>
+									      <Image src={`${item.url}`} className="img-fluid" />
 								    	</div>
 								    </Col>	
 							    )							
 							}) :null}
 					  </Row>
-					</div>					
+					</div>	
+					<div className="col">
+						<ImageGallery selected={selectedImages}/>
+					</div>				
 			  </Form.Row>
 			  <div className="d-flex justify-content-end">
 			  	{

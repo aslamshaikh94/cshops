@@ -7,7 +7,7 @@ import {getToken} from '../../methods/methods';
 
 import {AdminContext} from '../Admin';
 function ReplyModal(props) {
-  const {data, dispatch} = useContext(AdminContext);
+  const {data} = useContext(AdminContext);
   const [enquiry, setEnquiry] = useState({
     id:'',
     user_id:'',

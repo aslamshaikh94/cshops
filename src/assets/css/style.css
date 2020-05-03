@@ -12,7 +12,7 @@
   background-color: #fff;
   color: #fff;
 }
-.btn_white:hover {
+.btn_white:focus {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -32,7 +32,7 @@
   background-color: #000;
   color: #fff;
 }
-.btn_black:hover {
+.btn_black:focus {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -52,7 +52,7 @@
   background-color: #004C8A;
   color: #fff;
 }
-.btn_blue:hover {
+.btn_blue:focus {
   background-color: rgba(0, 76, 138, 0.5);
 }
 
@@ -72,7 +72,7 @@
   background-color: #eaeaea;
   color: #fff;
 }
-.btn_lgray:hover {
+.btn_lgray:focus {
   background-color: rgba(234, 234, 234, 0.5);
 }
 
@@ -92,7 +92,7 @@
   background-color: #ddd;
   color: #fff;
 }
-.btn_gray:hover {
+.btn_gray:focus {
   background-color: rgba(221, 221, 221, 0.5);
 }
 
@@ -112,7 +112,7 @@
   background-color: #FF0000;
   color: #fff;
 }
-.btn_red:hover {
+.btn_red:focus {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
@@ -132,7 +132,7 @@
   background-color: #ff6501;
   color: #fff;
 }
-.btn_orange:hover {
+.btn_orange:focus {
   background-color: rgba(255, 101, 1, 0.5);
 }
 
@@ -152,7 +152,7 @@
   background-color: #228B22;
   color: #fff;
 }
-.btn_green:hover {
+.btn_green:focus {
   background-color: rgba(34, 139, 34, 0.5);
 }
 
@@ -172,12 +172,32 @@
   background-color: #ff9f00;
   color: #fff;
 }
-.btn_yellow:hover {
+.btn_yellow:focus {
   background-color: rgba(255, 159, 0, 0.5);
 }
 
 .bdr_yellow {
   border-color: #ff9f00;
+}
+
+.whatsapp {
+  color: #25D366;
+}
+
+.bg_whatsapp {
+  background-color: #25D366;
+}
+
+.btn_whatsapp {
+  background-color: #25D366;
+  color: #fff;
+}
+.btn_whatsapp:focus {
+  background-color: rgba(37, 211, 102, 0.5);
+}
+
+.bdr_whatsapp {
+  border-color: #25D366;
 }
 
 html, body {
@@ -242,8 +262,8 @@ main .dashboard {
   font-size: 1.2rem;
 }
 
-@media (max-width: 320px) {
-  .productDetails button.btn {
+@media (max-width: 425px) {
+  .productDetails .btn {
     margin-bottom: 5px;
     width: 100%;
   }

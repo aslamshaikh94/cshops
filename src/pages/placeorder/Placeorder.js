@@ -12,7 +12,7 @@ function setData(data){
 }
 
 const Placeorder=()=>{
-	const {data, dispatch} = useContext(AppContext)
+	const {data} = useContext(AppContext)
 	const [cInfo, setCinfo] = useState();
 
 	useEffect(()=>{

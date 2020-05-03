@@ -14,23 +14,28 @@ const Home = ()=>{
 	const {data, dispatch} = useContext(AppContext);	
 
 	useEffect(()=>{
-		if(!data.products){
-			loaderBar(true)
-			axios.get(`${data.API_URL}/product/products`).then((res)=>{			
-				dispatch({type:'FETCH_PRODUCTS', payload:res.data})
-				loaderBar(false)
-			})			
-		}
+		fetchProducts()
 	},[])
 	
+	async function fetchProducts(){
+		if(!data.products){
+			dispatch({type:'FETCH_REQUEST', payload:true})			
+			try{
+				let fetchdata = await axios.get(`${data.API_URL}/product`)				
+				dispatch({type:'FETCH_PRODUCTS', payload:fetchdata.data})
+			}
+			catch(err){					
+				dispatch({type:'FETCH_ERROR', payload:err})			
+			}
+		}		
+	}
+
 	return(
 		<main className="home">
 			<div className="container-fluid">
 				<Row>
 					<div className="col-lg-2 sidenavecol">
-						<SideNav>
-							
-						</SideNav>
+						<SideNav/>
 					</div>
 					<div className="col-lg-10">
 						<Banner />
@@ -39,7 +44,7 @@ const Home = ()=>{
 						<ErrorBoundary>
 							{
 								data.products? data.products.map((item)=>{
-									return <Product product={item} key={item.id} />
+									return <Product product={item} key={item.product_name+item.id} />
 								}) :null
 							}
 						</ErrorBoundary>

@@ -58,8 +58,8 @@ main{
 	font-size: 1.2rem;
 }
 .productDetails{
-	@media(max-width: 320px){
-		button.btn{
+	@media(max-width: 425px){
+		.btn{
 			margin-bottom: 5px;
     	width: 100%;
 		}

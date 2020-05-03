@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState, memo} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import {Link} from 'react-router-dom';
@@ -9,7 +9,7 @@ import Hocpanel from '../components/Hocpanel';
 import axios from 'axios'
 
 const Mybookings = ()=>{
-	const {data, dispatch} = useContext(AppContext);
+	const {data} = useContext(AppContext);
 	const [orders, setOrders] = useState()
 	useEffect(()=>{
 		getOrders()

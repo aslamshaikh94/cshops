@@ -16,7 +16,7 @@ const Wishlist = ()=>{
 
 	function favorite(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken() ).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
+			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
 		});
 	}
 	function removeItem(e, id){

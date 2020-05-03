@@ -5,7 +5,10 @@ import './assets/css/style.css';
 import './assets/font_awesome/css/fontawesome-all.min.css';
 import {BrowserRouter as Router, Redirect, Route, useHistory} from "react-router-dom";
 import { ToastProvider, useToasts } from 'react-toast-notifications';
-import axios from 'axios'
+import axios from 'axios';
+import {Helmet} from 'react-helmet';
+import {loaderBar} from './methods/methods';
+
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -22,18 +25,22 @@ const Placeorder = lazy(()=>import('./pages/placeorder/Placeorder'));
 const Admin = lazy(()=>import('./admin/Admin'));
 
 let initialState={
-  API_URL:API_URL
+  API_URL:API_URL,
+  loading:true,
+  error:false,
 }
 
 export const AppContext = createContext();
 
-const reducer=(state, action)=>{
-  initialState={
-    API_URL:API_URL
-  }
+const reducer=(state=initialState, action)=>{
+  
   switch(action.type){
+    case 'FETCH_REQUEST':
+      return {...state, loading:action.payload}
+     case 'FETCH_ERROR':
+      return {...state, loading:false, error:action.payload}
     case 'FETCH_PRODUCTS':
-      return {...state, products:action.payload}
+      return {...state, loading:false, products:action.payload}
     case 'PRODUCT_DETAILS':
       return {...state, productDetails:action.payload}
     case 'LOGGED_IN_USER':
@@ -65,7 +72,15 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
 
 function App(props) {
   const [data, dispatch] = useReducer(reducer, initialState); 
-
+  useEffect(()=>{
+    if(data.loading==true){
+      loaderBar(true)
+    } 
+    else if(data.loading==false){
+      loaderBar(false)
+    }
+  },[data.loading])      
+    
     useEffect(()=>{
       axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
         dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
@@ -84,6 +99,10 @@ function App(props) {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>CShops</title>
+        <meta name="description" content=">CShops Commercial Shops Wholesalers and Retailers" />
+      </Helmet>
       <Suspense fallback={<div className="loader">Loading...</div>}>
         <ToastProvider>
           <Router>

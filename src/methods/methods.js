@@ -1,7 +1,3 @@
-import React, {useContext, useRef} from 'react'
-import {AppContext} from '../App';
-import axios from 'axios';
-
 function getToken(){
   let TOKEN={ headers: {'Content-Type': 'application/json', 'auth-token': localStorage.getItem('token')} }
   return TOKEN

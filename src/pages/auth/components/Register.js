@@ -7,7 +7,7 @@ import {useToasts } from 'react-toast-notifications';
 
 import {AppContext} from '../../../App';
 const Register = ()=>{	
-	const {data, dispatch} = useContext(AppContext);
+	const {data} = useContext(AppContext);
 
 	const { addToast } = useToasts()
 

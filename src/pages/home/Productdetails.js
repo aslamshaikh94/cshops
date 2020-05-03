@@ -8,6 +8,8 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import {useToasts } from 'react-toast-notifications';
 import {getToken, loaderBar} from '../../methods/methods';
+import {Helmet} from 'react-helmet';
+
 
 import {AppContext} from '../../App';
 const Productdetails =(props)=>{
@@ -16,19 +18,20 @@ const Productdetails =(props)=>{
 	const [enquryForm, setEnquryForm ] = useState(false)
 	const [proImages, setProImages ] = useState([])
 	let proId = props.match.params.id;
-	const { addToast } = useToasts();
-	
+	const { addToast } = useToasts();	
+
+		
 	useEffect(()=>{
-			if(data.productDetails){
-				setProDetails(data.productDetails)
-			}
-			else{
+			// if(data.productDetails){
+			// 	setProDetails(data.productDetails)
+			// }
+			// else{
 				loaderBar(true)
 				axios.get(`${data.API_URL}/product/${proId}`).then((res)=>{
 					setProDetails(res.data[0])
 					loaderBar(false)
 				})				
-			}
+			// }
 	},[proId]);
 	
 	function addto(id, add){
@@ -55,10 +58,10 @@ const Productdetails =(props)=>{
 	}
 	useEffect(()=>{
 		if(proDetails){
-			let photos = JSON.parse(proDetails.photos)			
+			let photos = JSON.parse(proDetails.photos)	
 			let images = proDetails? 
 				photos.photosurl.map((item)=>{
-					return {original:`${item}`, thumbnail:`${item}`}
+					return {original:`${item.url}`, thumbnail:`${item.url}`}
 				}) 
 			:null;		
 			setProImages(images)
@@ -70,10 +73,20 @@ const Productdetails =(props)=>{
 	}
 	function cancelEnquiry(){
 		setEnquryForm(false)
-	}		
-	console.log(window.location.href)
+	}			
+	// console.log(proDetails.thumbnail)
 	return (
 			<main className="productDetails bg_white">
+				<Helmet 
+				 title={proDetails && proDetails.product_name? proDetails.product_name:null}
+				 meta={[
+				  {"name": "description", "content": "Description of page"},
+				  {property: "og:type", content: "article"},
+				  {property: "og:title", content: proDetails && proDetails.product_name? proDetails.product_name:null},
+				  {property: "og:image", content: proDetails && proDetails.thumbnail? proDetails.thumbnail:null},
+				  {property: "og:url", content: window.location.href}
+				 ]}
+				/>
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-lg-5 border-right">
@@ -121,12 +134,17 @@ const Productdetails =(props)=>{
 								<i className="fal fa-shopping-cart"></i> ADD TO CART
 							</button>
 							{/*<button className="btn btn_orange mr-2"><i class="fal fa-location-arrow"></i> ORDER NOW</button>*/}
-							<button className="btn btn_orange" onClick={e=>sendEnqury(e)}>
+							<button className="btn btn_orange mr-2" onClick={e=>sendEnqury(e)}>
 								<i className="fal fa-location-arrow"></i> INQUIRY NOW
 							</button>
-							<a href={`https://wa.me/918080023246?text=${window.location.href}`} target="_blanck">
-								<img src="https://res.cloudinary.com/dbzljupwi/image/upload/v1587915911/whatsapp.png" width="60" />
-							</a>
+							{
+								proDetails && proDetails.phone? 
+									<a href={`https://wa.me/91${proDetails.phone}?text=${window.location.href}`} 
+										 className="btn btn_whatsapp" target="_blanck" >
+										<i className="fab fa-whatsapp"></i> WhatsApp Chat
+									</a>								
+								:null
+							}
 							{enquryForm? <Enquiry enqId={proId} cancelEnquiry={e=>cancelEnquiry(e)} sellerId={proDetails? proDetails.seller_id:null}/> :null}
 						</div>
 					</div>

@@ -25,7 +25,7 @@ const Login = ()=>{
 	}
 	function getUserDetails(){
 		axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
-      dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
+      dispatch({type:'LOGGED_IN_USER', payload:res.data.user})
       if(res.data.status===false){
           dispatch({type:'FETCH_PRODUCTS', payload:''})
           localStorage.setItem('auth', false)

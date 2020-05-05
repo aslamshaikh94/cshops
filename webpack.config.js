@@ -9,10 +9,8 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-   historyApiFallback: true,
-   contentBase: './build/',
-   hot: true
- },
+    historyApiFallback: true
+  },
   module: {
     rules: [
       { test: /\.(js)$/, use: 'babel-loader' },

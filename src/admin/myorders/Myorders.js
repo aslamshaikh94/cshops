@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Hocpanel from '../components/Hocpanel';

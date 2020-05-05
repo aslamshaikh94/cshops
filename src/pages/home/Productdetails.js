@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext, memo} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import imageHover from '../../settings/imageHover';
 import Enquiry from './components/Enquiry';
@@ -32,12 +31,12 @@ const Productdetails =(props)=>{
 					loaderBar(false)
 				})				
 			// }
-	},[proId]);
+	},[proId, data.API_URL]);
 	
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
 		axios.post(`${data.API_URL}/addto`, addinfo, getToken() ).then((res)=>{			
-			if(res.data.status==false){
+			if(res.data.status===false){
 				addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}
 			else{
@@ -48,12 +47,12 @@ const Productdetails =(props)=>{
 	}
 	function getFavorites(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken()).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
+			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
 		});
 	}
 	function getCarts(){		
 		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
+			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
 	useEffect(()=>{
@@ -141,7 +140,7 @@ const Productdetails =(props)=>{
 								proDetails && proDetails.phone? 
 									<a href={`https://wa.me/91${proDetails.phone}?text=${window.location.href}`} 
 										 className="btn btn_whatsapp" target="_blanck" >
-										<i className="fab fa-whatsapp"></i> WhatsApp Chat
+										<i className="fab fa-whatsapp"></i> WHATSAPP CHAT
 									</a>								
 								:null
 							}

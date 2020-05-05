@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useContext, memo} from 'react';
-import {Form, Col, Image, Row} from 'react-bootstrap';
-import {Inputfield, Textarea, Options} from '../../../form/Inputfield';
+import {Form} from 'react-bootstrap';
+import {Inputfield, Textarea} from '../../../form/Inputfield';
 import {useToasts } from 'react-toast-notifications';
 import axios from 'axios';
 import {getToken} from '../../../methods/methods';
 import {AppContext} from '../../../App';
 
 const Enquiry = (props)=>{
-	const {data, dispatch} = useContext(AppContext);	
+	const {data} = useContext(AppContext);	
 
 	const { addToast } = useToasts();
 	let toastSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }

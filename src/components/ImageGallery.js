@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Modal, Button, Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
+import {Modal, Button, Image} from 'react-bootstrap';
 import axios from 'axios';
 
 import {AppContext} from '../App';
 
 function ImageGallery(props) {
-  const {data, dispatch} = useContext(AppContext);  
+  const {data} = useContext(AppContext);  
   const [show, setShow] = useState(false);
   const [gallery, setGallery] = useState(false);
   const [images, setImages] = useState([]);

@@ -5,7 +5,7 @@ import SideNav from '../../components/SideNav';
 import Banner from '../../components/Banner';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import axios from 'axios';
-import {loaderBar} from '../../methods/methods';
+// import {loaderBar} from '../../methods/methods';
 
 import Filterbox from '../../components/Filterbox';
 import {AppContext} from '../../App';
@@ -17,17 +17,18 @@ const Home = ()=>{
 		fetchProducts()
 	},[])
 	
-	async function fetchProducts(){
+	function fetchProducts(){
 		if(!data.products){
-			dispatch({type:'FETCH_REQUEST', payload:true})			
-			try{
-				let fetchdata = await axios.get(`${data.API_URL}/product`)				
-				dispatch({type:'FETCH_PRODUCTS', payload:fetchdata.data})
-			}
-			catch(err){					
-				dispatch({type:'FETCH_ERROR', payload:err})			
-			}
-		}		
+			dispatch({type:'FETCH_REQUEST', payload:true})
+			axios.get(`${data.API_URL}/product`).then((res, err)=>{
+				if(err){
+					dispatch({type:'FETCH_ERROR', payload:err})
+				}
+				else{
+					if(res.data) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+				}
+			})				
+		}
 	}
 
 	return(

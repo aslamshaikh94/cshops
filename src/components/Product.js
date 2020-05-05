@@ -15,12 +15,12 @@ const Product = (props)=>{
 	const { addToast } = useToasts()
 	const {product} = props;
 
-	useEffect(()=>{		
+	useEffect(()=>{
 		if(data.favorites && data.favorites.length>0){
 			let favorite_ids = data.favorites.map((item)=>{
 				return item.product_id
 			})
-			setFavoritesIds(favorite_ids)			
+			setFavoritesIds(favorite_ids)
 		}		
 	},[data.favorites])
 	
@@ -33,8 +33,6 @@ const Product = (props)=>{
 		}
 	},[data.carts])
 	
-	
-
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
 		axios.post(`${data.API_URL}/addto`, addinfo, getToken()).then((res)=>{
@@ -53,17 +51,18 @@ const Product = (props)=>{
 			} 
 		});
 	}
+
 	function getCarts(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{			
-			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
+			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
-	}
-
+	}	
 	
 	function getProductDetails(id){
 		let productDetails = data.products.find(el=> el.id===id)	
 		dispatch({type:'PRODUCT_DETAILS', payload:productDetails});	
 	}
+
 	return (
 			<Col xl='2' lg="3" md="3" sm="4" xs="6" className='product'>
 				<div className="details text-center">
@@ -73,7 +72,7 @@ const Product = (props)=>{
 								<span className="bg_green" style={dot} ></span>
 							:null
 						}
-						<img className="img-fluid" src={product.thumbnail} />
+						<img className="img-fluid" src={product.thumbnail} alt={product.product_name} />
 						<div className="pb-2 pt-2">
 							<p className="name">{product.product_name.slice(0, 15)}</p>
 							<div className="price">

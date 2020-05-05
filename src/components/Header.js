@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState, memo} from 'react';
-import { Container, ProgressBar} from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import '../assets/css/header.css';
 import {NavLink, Link, useHistory } from "react-router-dom";
 import logo from '../assets/images/cshops.png';
 import axios from 'axios';
-import {getToken, loaderBar} from '../methods/methods';
+import {getToken} from '../methods/methods';
 
 import {AppContext} from '../App';
 
@@ -30,12 +30,12 @@ const Header = ()=>{
 
 	function getFavorites(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken()).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_FAVORITE', payload:res.data});		
+			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});		
 		});
 	}
 	function getCarts(){		
 		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
+			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
 	function getUserDetails(){

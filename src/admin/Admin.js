@@ -1,5 +1,5 @@
 import React, {createContext, useReducer, useEffect, Suspense, lazy, memo} from 'react';
-import {BrowserRouter as Router, Redirect, Route, useHistory } from "react-router-dom";
+import {BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import '../assets/css/panelwraper.css';
 import {API_URL} from '../config/apis';
@@ -58,7 +58,7 @@ const Admin =(props)=>{
 				}).catch((err)=>{
 				// setError({message:err})
 			});
-	},[])
+	},[data.API_URL, history])
 
 	function mobileMenu(){
 		let element = document.querySelector('.adminSidebar')

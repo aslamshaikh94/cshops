@@ -123,7 +123,7 @@ const Productform =(props)=>{
 
   function uploadOnServer(url){
 		axios.post(`${data.API_URL}/upload`, {image:url}).then((res)=>{			
-   		if(res.data.status==false){
+   		if(res.data.status===false){
    			addToast(res.data.message, errorSetting)
    		}
    		else{

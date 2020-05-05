@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import {AdminContext} from '../Admin';
 const SideNave =()=>{
-	const {data, dispatch}=useContext(AdminContext)
+	const {data}=useContext(AdminContext)
 	const [loggedInUser, setLoggedInUser] = useState({
 		fname:'',
 		lname:'',

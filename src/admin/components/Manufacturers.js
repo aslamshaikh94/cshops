@@ -1,6 +1,4 @@
 import React, {useContext, useState, useEffect, lazy} from 'react';
-import {Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useToasts } from 'react-toast-notifications';
 
@@ -10,10 +8,10 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {getToken} from '../../methods/methods';
 
 import {AdminContext} from '../Admin';
-const Productform = lazy(()=>import('./Productform'));
+
 
 const Manufacturers =(props)=>{
-	const {data, dispatch} = useContext(AdminContext);
+	const {data} = useContext(AdminContext);
 	const [manufacturers, setManufacturers] = useState([]);
 	const { addToast } = useToasts();
 

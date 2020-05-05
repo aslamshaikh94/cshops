@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
 import './assets/font_awesome/css/fontawesome-all.min.css';
-import {BrowserRouter as Router, Redirect, Route, useHistory} from "react-router-dom";
-import { ToastProvider, useToasts } from 'react-toast-notifications';
+import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import { ToastProvider} from 'react-toast-notifications';
 import axios from 'axios';
 import {Helmet} from 'react-helmet';
 import {loaderBar} from './methods/methods';
@@ -73,10 +73,10 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
 function App(props) {
   const [data, dispatch] = useReducer(reducer, initialState); 
   useEffect(()=>{
-    if(data.loading==true){
+    if(data.loading===true){
       loaderBar(true)
     } 
-    else if(data.loading==false){
+    else if(data.loading===false){
       loaderBar(false)
     }
   },[data.loading])      
@@ -95,7 +95,7 @@ function App(props) {
         }).catch((err)=>{
         // setError({message:err})
       });
-  },[])
+  },[data.API_URL])
 
   return (
     <div className="App">

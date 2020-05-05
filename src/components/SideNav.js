@@ -1,13 +1,12 @@
 import React,{memo, useState, useEffect, useContext} from 'react';
 import '../assets/css/sidenav.css';
-import {Checkbox, Radio} from 'custom-input-aslam';
+import {Checkbox} from 'custom-input-aslam';
 import axios from 'axios';
 import {loaderBar} from '../methods/methods';
 
 import {AppContext} from '../App';
 const SideNav = ()=>{
 	const {data, dispatch} = useContext(AppContext);
-	const [filterValue, setFilterValue] = useState([])
 	const [filterData, setFilterData] = useState([])
 		
 	const changeHandal =(e)=>{

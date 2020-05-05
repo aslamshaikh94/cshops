@@ -25,10 +25,10 @@ function ReplyModal(props) {
   
   useEffect(()=>{
     if(props.userData) setReply({...reply, ...props.userData})
-  },[props.userData])
+  },[props.userData, reply])
 
    useEffect(()=>{
-    if(data.enquiries && props.userData) setEnquiry(...data.enquiries.filter(e=> e.id==reply.id))      
+    if(data.enquiries && props.userData) setEnquiry(...data.enquiries.filter(e=> e.id===reply.id))      
   },[reply])
 
   
@@ -41,7 +41,7 @@ function ReplyModal(props) {
   }
 
   const inputChange = (e)=>{
-    let name = e.target.name;
+    // let name = e.target.name;
     let value = e.target.value;   
     setReply({...reply, message:value})
   }

@@ -1,8 +1,5 @@
-import React, {useContext, useState, useEffect, lazy} from 'react';
-import {Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import React, {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
-import {useToasts } from 'react-toast-notifications';
 import {mDate} from 'dateutility-aslam';
 import Hocpanel from './Hocpanel';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
@@ -10,12 +7,10 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {getToken} from '../../methods/methods';
 
 import {AdminContext} from '../Admin';
-const Productform = lazy(()=>import('./Productform'));
 
 const VenderRequests =(props)=>{
-	const {data, dispatch} = useContext(AdminContext);
-	const [requests, setRequests] = useState([]);
-	const { addToast } = useToasts();	
+	const {data} = useContext(AdminContext);
+	const [requests, setRequests] = useState([]);	
 	useEffect(()=>{
 		getVenders()
 	},[])
@@ -31,12 +26,12 @@ const VenderRequests =(props)=>{
 			status:action,
 		}			
 		axios.post(`${data.API_URL}/users/vender_request/action/${id}`, statusData, getToken() ).then((res)=>{
-			if(res.data.status!=false) getVenders();
+			if(res.data.status!==false) getVenders();
 		});		
 	}
 	function requestDelete(id){
 		axios.delete(`${data.API_URL}/users/vender_request/action/${id}`, getToken() ).then((res)=>{
-			if(res.data.status!=false) getVenders();
+			if(res.data.status!==false) getVenders();
 		});	
 	}
 

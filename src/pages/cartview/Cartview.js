@@ -1,18 +1,13 @@
 import React, {useEffect, useContext, useState, memo} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {getToken} from '../../methods/methods';
-import Ratings from '../../components/Ratings';
 import Contactinfo from '../../components/Contactinfo';
-import Contactinfoform from '../../components/Contactinfoform';
-import {useToasts } from 'react-toast-notifications';
-import {Inputfield, Textarea, Options} from '../../form/Inputfield';
+import {Inputfield} from '../../form/Inputfield';
 
 import {AppContext} from '../../App';
 const Cartview = ()=>{
 	const {data, dispatch} = useContext(AppContext)
-	const [carts, setCarts] = useState()
-	const { addToast } = useToasts()
+	const [carts, setCarts] = useState()	
 	const [cInfo, setCinfo] = useState();
 
 	useEffect(()=>{
@@ -30,12 +25,11 @@ const Cartview = ()=>{
 	
 	function getCarts(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
-			if(res.data.status!=false) dispatch({type:'FETCH_CART', payload:res.data});				
+			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
 
-	function removeItem(e, id){
-		let userid = {id:id}
+	function removeItem(e, id){		
 		axios.delete(`${data.API_URL}/addto/${id}`, getToken()).then((res)=>{
 			getCarts()
 		});
@@ -97,12 +91,7 @@ const Cartview = ()=>{
 		})
 	}
 
-	function setData(data){
-		// console.log('data', data)
-	}
 
-	console.log(data.carts)
-	
 	return (
 			<React.Fragment>
 				<main className="wishlist" >
@@ -167,9 +156,6 @@ const itemStyle={
   background:'#fff',    
   padding:'15px',
   marginBottom:'5px'
-}
-let linkStyle={
-	textDecoration:'none',
 }
 let stickyBottom = {
 	position:'sticky',

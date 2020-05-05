@@ -10,7 +10,7 @@ module.exports = {
   },
   devServer: {
    historyApiFallback: true,
-   contentBase: './',
+   contentBase: './build/',
    hot: true
  },
   module: {

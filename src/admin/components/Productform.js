@@ -30,7 +30,7 @@ const Productform =(props)=>{
 
 	useEffect(()=>{
 		let photo = JSON.stringify({display:displayimg, photosurl:fileData })				
-		if(product){
+		if(product && fileData.length>0){
 			setProduct({...product, photos:photo, thumbnail:fileData[0].url})			
 		} 
 	}, [fileData, displayimg])
@@ -139,11 +139,10 @@ const Productform =(props)=>{
   	setFileData([...newfileData])
   }
   function setDisplay(i){
-console.log(i)
   	setProduct({...product, thumbnail:fileData[i].url})
   }  
 	const uploadFiles=(e)=>{
-		let image = window.URL.createObjectURL(e.target.files[0].url)    
+		let image = window.URL.createObjectURL(e.target.files[0])
 		setSrcDefault(image);     
 	}
 	const saveProduct=()=>{
@@ -164,6 +163,7 @@ console.log(i)
 		let validate = productValidation();
 		if(validate){
 			axios.put(`${data.API_URL}/product`, product, getToken() ).then((res)=>{
+				console.log(res.data)
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)					
 				}

@@ -18,7 +18,7 @@ const Home = ()=>{
 	},[])
 	
 	function fetchProducts(){
-		if(!data.products){
+		// if(!data.products){
 			dispatch({type:'FETCH_REQUEST', payload:true})
 			axios.get(`${data.API_URL}/product`).then((res, err)=>{
 				if(err){
@@ -28,7 +28,7 @@ const Home = ()=>{
 					if(res.data) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 				}
 			})				
-		}
+		// }
 	}
 
 	return(

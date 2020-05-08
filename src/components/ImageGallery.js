@@ -62,7 +62,7 @@ function ImageGallery(props) {
                 let active = images.some(e=> e.id===item.public_id)                
                 return (
                   <div className="col-lg-1 col-4"  key={item.public_id} onClick={e=>selectImage(item.public_id)}>
-                    <Image src={item.url} 
+                    <Image src={item.secure_url} 
                            style={{height:'120px', width:'120px'}} 
                            className={active? "border border-success" :null}
                            thumbnail />

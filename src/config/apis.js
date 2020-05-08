@@ -1,6 +1,6 @@
 let API_URL = ''
 
-let DEV = false;
+let DEV = true;
 
 if(DEV===true){
 	API_URL= 'http://localhost:5000'

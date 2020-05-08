@@ -1,8 +1,7 @@
 import React, {lazy, Suspense, createContext, useReducer, useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
-import './assets/font_awesome/css/fontawesome-all.min.css';
+
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import { ToastProvider} from 'react-toast-notifications';
 import axios from 'axios';

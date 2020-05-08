@@ -1,10 +1,11 @@
 import React, {useContext, useState, useEffect, memo} from 'react';
 import { Media } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory} from 'react-router-dom';
 import '../../assets/css/adminsidebar.css';
 
 import {AdminContext} from '../Admin';
 const SideNave =()=>{
+	const history = useHistory()	
 	const {data}=useContext(AdminContext)
 	const [loggedInUser, setLoggedInUser] = useState({
 		fname:'',
@@ -14,6 +15,16 @@ const SideNave =()=>{
 		if(data.loggedInUser)setLoggedInUser(data.loggedInUser)
 	},[data])
 	
+	function mobileMenu(){
+		let element = document.querySelector('.adminSidebar')
+		element.classList.toggle("open");
+	}
+
+	useEffect(()=>{
+		mobileMenu()
+	},[history.location.pathname])
+	
+
 	return(
 			<div className="adminSidebar">
 				<Media className="profile border-bottom pb-2 d-flex align-items-center">
@@ -25,6 +36,7 @@ const SideNave =()=>{
 				    <h6 className="mb-0 text-capitalize">{loggedInUser.fname  +' '+ loggedInUser.lname}</h6>
 				    <span className="text-capitalize">{loggedInUser.usertype}</span>
 				  </Media.Body>
+				  <i className="fal fa-times orange closeBtn" onClick={mobileMenu}></i>
 				</Media>
 				<ul className="navlink">
 					<li>

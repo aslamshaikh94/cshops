@@ -4,6 +4,15 @@
   margin-right: 15px;
   padding: 15px;
 }
+.adminSidebar .closeBtn {
+  font-size: 25px;
+  display: none;
+}
+@media (max-width: 768px) {
+  .adminSidebar .closeBtn {
+    display: block;
+  }
+}
 @media (max-width: 768px) {
   .adminSidebar {
     display: none;

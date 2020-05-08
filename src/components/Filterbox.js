@@ -9,10 +9,11 @@ const Filterbox = ()=>{
 	const [search, setSearch]=useState()
 	const {data, dispatch} = useContext(AppContext);
 
-	const searProducts=(e)=>{
+	const searProducts=(e)=>{		
 		loaderBar(true)
-		axios.get(`${data.API_URL}/product?field=product_name&search=${search}`).then((res)=>{
+		axios.get(`${data.API_URL}/product/search?field=product_name&search=${search}`).then((res)=>{
 			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+			console.log(res.data)
 			loaderBar(false)
 		})
 	}

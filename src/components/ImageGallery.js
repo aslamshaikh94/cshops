@@ -56,12 +56,12 @@ function ImageGallery(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="d-flex flex-wrap">
+          <div className="row no-gutters">
             {
             gallery?  gallery.map((item)=>{
                 let active = images.some(e=> e.id===item.public_id)                
                 return (
-                  <div style={{width:'10%'}}  key={item.public_id} onClick={e=>selectImage(item.public_id)}>
+                  <div className="col-lg-1 col-4"  key={item.public_id} onClick={e=>selectImage(item.public_id)}>
                     <Image src={item.url} 
                            style={{height:'120px', width:'120px'}} 
                            className={active? "border border-success" :null}

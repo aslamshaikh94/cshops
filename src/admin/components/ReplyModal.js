@@ -24,11 +24,11 @@ function ReplyModal(props) {
   const [reply, setReply] = useState({})
   
   useEffect(()=>{
-    if(props.userData) setReply({...reply, ...props.userData})
-  },[props.userData, reply])
+    if(props.userdata) setReply({...reply, ...props.userdata})
+  },[props.userdata])
 
    useEffect(()=>{
-    if(data.enquiries && props.userData) setEnquiry(...data.enquiries.filter(e=> e.id===reply.id))      
+    if(data.enquiries && props.userdata) setEnquiry(...data.enquiries.filter(e=> e.id===reply.id))      
   },[reply])
 
   
@@ -97,15 +97,18 @@ function ReplyModal(props) {
                         />
             </div>          
         }
-        <div className="d-flex justify-content-end">
-          <button className="btn btn-sm btn_blue" onClick={e=>sendReply()}>
-            Send
-          </button>
-          <button className="btn btn-sm btn_blue ml-1" onClick={props.handleClose}>
-            Close
-          </button>
-        </div>
+        
         </Modal.Body>
+        <Modal.Footer>          
+          <div className="d-flex justify-content-end">
+            <button className="btn btn-sm btn_blue" onClick={e=>sendReply()}>
+              Send
+            </button>
+            <button className="btn btn-sm btn_blue ml-1" onClick={props.actionbtn}>
+              Close
+            </button>
+          </div>
+        </Modal.Footer>
       </Modal>
     </React.Fragment>
   );

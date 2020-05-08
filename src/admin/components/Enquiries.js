@@ -74,7 +74,7 @@ const Enquiries = (props)=>{
 					  	}					    
 					  </Tbody>
 					</Table>
-					<ReplyModal show={modalShow} handleClose={modalAction} userData={userData} />
+					<ReplyModal show={modalShow} actionbtn={modalAction} userdata={userData} />
 			</div>
 		)
 }

@@ -1,19 +1,57 @@
 @import "./_variables";
 @import "./_inheritance";
 
-// .adminSidebar{
-// 	background-color: $white;
-// 	width: 300px;
-// 	margin-right: 15px;
-// 	@media(max-width: 768px){
-// 		display: none;
-// 		&.open{
-// 			display: block;
-// 			position: absolute;
-// 		}
-// 	}
-// 	.active{
-// 		color:red;
-// 	}
-	
-// }
+.adminSidebar{
+  background-color: $white;
+  width: 300px;
+  margin-right: 15px;
+  padding: 15px;
+  @media(max-width: 768px){
+    display: none;
+    &.open{
+      display: block;
+      position: fixed;
+      z-index: 2;
+      top:0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .profile{
+    h6{
+      font-size: 0.9rem;
+    }
+    span{
+      font-size: 0.9rem;
+      display: block;
+      line-height: 1;
+    }
+  }
+  .navlink{
+    margin:0;
+    padding: 0;
+    list-style:none;
+    li{
+      +li{
+        border-top: 1px solid $gray;
+      }
+    }
+    a{
+      padding:10px 0;
+      color:$black;
+      display: flex;
+      align-items: center;
+      span{
+        display: inline-block;
+        line-height: 1;
+        margin-left: 10px;
+      }
+      &:hover{
+        text-decoration: none;
+      }
+      &.active{
+        color:$orange;
+      }   
+    }
+  }
+}

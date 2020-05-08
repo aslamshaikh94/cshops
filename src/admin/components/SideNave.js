@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect, memo} from 'react';
 import { Media } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import '../../assets/css/adminsidebar.css';
 
 import {AdminContext} from '../Admin';
 const SideNave =()=>{

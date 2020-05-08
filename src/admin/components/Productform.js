@@ -279,7 +279,7 @@ const Productform =(props)=>{
 							:null
 						}					
 					</div>
-					<div className="col-4">
+					<div className="col-12 col-lg-4">
 						<InputGroup className="mb-3" size="sm">
 						  <FormControl placeholder="Label Name" ref={fieldName} />
 						  <FormControl placeholder="Value" ref={fieldValue} />

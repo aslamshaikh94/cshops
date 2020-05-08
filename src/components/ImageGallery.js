@@ -21,7 +21,7 @@ function ImageGallery(props) {
         new Promise((resolve, reject)=>{
           if(item.public_id===id){          
             let  photo ={
-              url:item.url,
+              url:item.secure_url,
               id:item.public_id
             }
             resolve(photo)                      

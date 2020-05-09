@@ -6,7 +6,7 @@ const initializeAnalatics = (pathname)=>{
 }
 const ReactGAEvent=(user, action)=>{
 	ReactGA.event({
-	  category: 'User',
+	  category: user || 'user',
 	  action: action
 	});		
 }

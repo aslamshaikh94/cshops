@@ -109,19 +109,19 @@ const Productdetails =(props)=>{
 							<h4 className="text-uppercase orange"> {proDetails? proDetails.product_name :'NA'} </h4>
 							<hr/>
 							<div className="text-uppercase">
-								<h6><span className="blue">Price :</span> 
+								<h6><span className="blue">Price : </span> 
 									{
 										proDetails && data.loggedInUser && data.loggedInUser.usertype==='supplier'? 
 										proDetails.venders_price : proDetails? proDetails.selling_price :'null'
 									} 
 								</h6>														
-								<h6><span className="blue">Stock :</span> 
-									{proDetails && proDetails.stock>0? proDetails.stock :' We will manufacture on pre booking for you'} 
+								<h6><span className="blue">Stock : </span> 
+									{proDetails && proDetails.stock>0? proDetails.stock :' We will manufacture for you on pre order '} 
 								</h6>
-								<h6><span className="blue">Min. Order:</span> 
+								<h6><span className="blue">Min. Order : </span> 
 									{proDetails? proDetails.minorder :'NA'}<sup style={{'textTransform':'capitalize'}}>  Pieces</sup>
 								</h6>
-								<h6><span className="blue">Warranty :</span> 
+								<h6><span className="blue">Warranty : </span> 
 									{proDetails? proDetails.warranty :'NA'}<sup style={{'textTransform':'capitalize'}}> Months</sup>
 								</h6>
 								{proDetails && proDetails.extra_fields? JSON.parse(proDetails.extra_fields).map((item,i)=>{

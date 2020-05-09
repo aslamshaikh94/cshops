@@ -62,7 +62,7 @@ const Product = (props)=>{
 	function getProductDetails(id){
 		let productDetails = data.products.find(el=> el.id===id)	
 		dispatch({type:'PRODUCT_DETAILS', payload:productDetails});
-		ReactGAEvent(data.loggedInUser.fname, `Product id: ${id}`)
+		ReactGAEvent(data.loggedInUser? data.loggedInUser.fname:'user', `Product id: ${id}`)
 	}
 	
 	return (

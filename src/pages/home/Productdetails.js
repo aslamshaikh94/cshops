@@ -8,7 +8,7 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import {useToasts } from 'react-toast-notifications';
 import {getToken, loaderBar} from '../../methods/methods';
 import {Helmet} from 'react-helmet';
-
+import {initializeAnalatics} from '../../components/GoogleAnalatics';
 
 import {AppContext} from '../../App';
 const Productdetails =(props)=>{
@@ -19,7 +19,9 @@ const Productdetails =(props)=>{
 	let proId = props.match.params.id;
 	const { addToast } = useToasts();	
 
-		
+	useEffect(()=>{
+		initializeAnalatics()
+	},[])
 	useEffect(()=>{
 			// if(data.productDetails){
 			// 	setProDetails(data.productDetails)
@@ -79,7 +81,8 @@ const Productdetails =(props)=>{
 				<Helmet 
 				 title={proDetails && proDetails.product_name? proDetails.product_name:null}
 				 meta={[
-				  {"name": "description", "content": "Description of page"},
+				  {"name": "description", "content": proDetails? proDetails.details :'NA'},
+				  {"name": "keywords", "content": proDetails && proDetails.product_name? proDetails.product_name:null},
 				  {property: "og:type", content: "article"},
 				  {property: "og:title", content: proDetails && proDetails.product_name? proDetails.product_name:null},
 				  {property: "og:image", content: proDetails && proDetails.thumbnail? proDetails.thumbnail:null},

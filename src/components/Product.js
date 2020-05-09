@@ -68,13 +68,13 @@ const Product = (props)=>{
 	return (
 			<Col xl='2' lg="3" md="3" sm="4" xs="6" className='product'>
 				<div className="details text-center">
-					<Link to={`/product/${product.id}`} onClick={e=>getProductDetails(product.id)} className="item">
+					<Link to={`/product/${product.id}`} className="item">
 						{
 							data.loggedInUser && data.loggedInUser.id===product.seller_id? 
 								<span className="bg_green" style={dot} ></span>
 							:null
 						}
-						<img className="img-fluid" src={product.thumbnail} alt={product.product_name} />
+						<img className="img-fluid" src={product.thumbnail} onClick={e=>getProductDetails(product.id)} alt={product.product_name} />
 						<div className="pb-2 pt-2">
 							<p className="name">{product.product_name.slice(0, 15)}</p>
 							<div className="price">

@@ -1,6 +1,8 @@
 import React, {lazy, Suspense, createContext, useReducer, useEffect} from 'react';
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
+import ReactGA from 'react-ga';
+
 
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import { ToastProvider} from 'react-toast-notifications';
@@ -13,6 +15,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import {API_URL} from './config/apis';
 import {getToken} from './methods/methods';
+
 
 const Home = lazy(()=>import('./pages/home/Home'));
 const Productdetails = lazy(()=>import('./pages/home/Productdetails'));
@@ -69,6 +72,7 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
 );
 
 
+
 function App(props) {
   const [data, dispatch] = useReducer(reducer, initialState); 
   useEffect(()=>{
@@ -79,8 +83,8 @@ function App(props) {
       loaderBar(false)
     }
   },[data.loading])      
-    
-    useEffect(()=>{
+  
+  useEffect(()=>{
       axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
         dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
         if(res.data.status===false){

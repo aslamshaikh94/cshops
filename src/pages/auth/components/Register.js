@@ -1,16 +1,24 @@
-import React, {useState, useContext, memo} from  'react';
+import React, {useState, useEffect, useContext, memo} from  'react';
 import {Col, Button, Form} from 'react-bootstrap';
 import {Radio} from 'custom-input-aslam';
 import axios from 'axios';
-// import {API_URL} from '../../../config/apis';
+import {useHistory } from "react-router-dom";
+import {initializeAnalatics} from '../../../components/GoogleAnalatics';
+
 import {useToasts } from 'react-toast-notifications';
 
 import {AppContext} from '../../../App';
-const Register = ()=>{	
-	const {data} = useContext(AppContext);
 
+
+
+const Register = ()=>{
+	const {data} = useContext(AppContext);
+	const history = useHistory()
 	const { addToast } = useToasts()
 
+	useEffect(()=>{
+		initializeAnalatics(history.location.pathname)		
+	},[])
 	const [user, setUser] = useState({
 		usertype:'buyer',
 	})
@@ -22,7 +30,7 @@ const Register = ()=>{
 			[name] : value
 		})		
 	}
-	
+
 	const register = ()=>{
 		if(!user.fname){addToast('Please Enter First Name', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
 		else if(!user.lname){addToast('Please Enter Last Name', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
@@ -38,7 +46,7 @@ const Register = ()=>{
 					addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })					
 				} 
 				else{
-					addToast('User Registered Successfully', { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })
+					addToast('User Registered Successfully', { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })					
 				}
 			}).catch((err)=>{
 				addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })

@@ -5,7 +5,7 @@ import SideNav from '../../components/SideNav';
 import Banner from '../../components/Banner';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import axios from 'axios';
-// import {loaderBar} from '../../methods/methods';
+import {initializeAnalatics} from '../../components/GoogleAnalatics';
 
 import Filterbox from '../../components/Filterbox';
 import {AppContext} from '../../App';
@@ -15,6 +15,7 @@ const Home = ()=>{
 
 	useEffect(()=>{
 		fetchProducts()
+		initializeAnalatics('home')
 	},[])
 	
 	function fetchProducts(){

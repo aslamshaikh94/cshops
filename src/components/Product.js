@@ -7,6 +7,7 @@ import {getToken} from '../methods/methods';
 import {AppContext} from '../App';
 import axios from 'axios';
 import {useToasts } from 'react-toast-notifications';
+import {ReactGAEvent} from './GoogleAnalatics';
 
 const Product = (props)=>{
 	const {data, dispatch} = useContext(AppContext);
@@ -60,9 +61,10 @@ const Product = (props)=>{
 	
 	function getProductDetails(id){
 		let productDetails = data.products.find(el=> el.id===id)	
-		dispatch({type:'PRODUCT_DETAILS', payload:productDetails});	
+		dispatch({type:'PRODUCT_DETAILS', payload:productDetails});
+		ReactGAEvent(data.loggedInUser.fname, `Product id: ${id}`)
 	}
-
+	
 	return (
 			<Col xl='2' lg="3" md="3" sm="4" xs="6" className='product'>
 				<div className="details text-center">

@@ -15,7 +15,7 @@ const Home = ()=>{
 
 	useEffect(()=>{
 		fetchProducts()
-		initializeAnalatics('home')
+		initializeAnalatics()
 	},[])
 	
 	function fetchProducts(){

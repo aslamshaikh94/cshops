@@ -3,7 +3,7 @@ import '../assets/css/sidenav.css';
 import axios from 'axios';
 import {loaderBar} from '../methods/methods';
 
-import {Radio, Checkbox} from 'custom-input-aslam';
+import {Checkbox} from 'custom-input-aslam';
 import 'custom-input-aslam/build/index.css';
 
 import {AppContext} from '../App';
@@ -59,35 +59,35 @@ const SideNav = ()=>{
 					data && data.loggedInUser && data.loggedInUser.usertype==="supplier"? 
 			      <div className="border-bottom mb-2">
 			      	<h6>Sellers</h6>
-				      <Radio label="Bombay Hardware" 
+				      <Checkbox label="Bombay Hardware" 
 				      					name="sellers" 
 				      					value="Bombay Hardware" 
 				      					onChange={e=>changeHandal(e)}/>
-				      <Radio label="Delhi Hardware" 
+				      <Checkbox label="Delhi Hardware" 
 				      					name="sellers" 
 				      					value="Delhi Hardware" 
 				      					onChange={e=>changeHandal(e)}/>
-				      <Radio label="Pune Hardware" name="sellers" value="Pune Hardware" onChange={e=>changeHandal(e)}/>
-				      <Radio label="Panvel Hardware" name="sellers" value="Panvel Hardware" onChange={e=>changeHandal(e)} />
+				      <Checkbox label="Pune Hardware" name="sellers" value="Pune Hardware" onChange={e=>changeHandal(e)}/>
+				      <Checkbox label="Panvel Hardware" name="sellers" value="Panvel Hardware" onChange={e=>changeHandal(e)} />
 			     	</div>
 					:null
 				}
 
 	     	<div className="border-bottom mb-2">	     		
 	      	<h6>Usage/Application</h6>		      
-		      <Radio name="categories" 
+		      <Checkbox name="categories" 
 		      					label="Industrial" 
 		      					value="industrial" 
 		      					onChange={e=>changeHandal(e)} />		      
-		      <Radio name="categories" 
+		      <Checkbox name="categories" 
 		      					label="Construction" 
 		      					value="construction" 
 		      					onChange={e=>changeHandal(e)} />
-		      <Radio name="categories" 
+		      <Checkbox name="categories" 
 		      					label="Agriculture" 
 		      					value="agriculture" 
 		      					onChange={e=>changeHandal(e)} />
-		      <Radio name="categories" 
+		      <Checkbox name="categories" 
 		      					label="Housewares" 
 		      					value="housewares" 
 		      					onChange={e=>changeHandal(e)} />
@@ -95,10 +95,10 @@ const SideNav = ()=>{
 
 	     	<div className="border-bottom mb-2">
 	      	<h6>Type</h6>
-		      <Radio name="type" label="Electrical" value="Electrical" onChange={e=>changeHandal(e)}  />
-		      <Radio name="type" label="Hand Tools" value="Hand Tools" onChange={e=>changeHandal(e)}  />
-		      <Radio name="type" label="Furniture"  value="Furniture"  onChange={e=>changeHandal(e)}  />
-		      <Radio name="type" label="Automobile" value="Automobile" onChange={e=>changeHandal(e)}  />
+		      <Checkbox name="type" label="Electrical" value="Electrical" onChange={e=>changeHandal(e)}  />
+		      <Checkbox name="type" label="Hand Tools" value="Hand Tools" onChange={e=>changeHandal(e)}  />
+		      <Checkbox name="type" label="Furniture"  value="Furniture"  onChange={e=>changeHandal(e)}  />
+		      <Checkbox name="type" label="Automobile" value="Automobile" onChange={e=>changeHandal(e)}  />
 	     	</div>	     	
 			</div>
 		)

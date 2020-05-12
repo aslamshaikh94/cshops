@@ -75,7 +75,7 @@ const Productdetails =(props)=>{
 	function cancelEnquiry(){
 		setEnquryForm(false)
 	}			
-	// console.log(proDetails.thumbnail)
+	// console.log(proDetails)
 	return (
 			<main className="productDetails bg_white">
 				<Helmet 

@@ -47,6 +47,8 @@ const reducer=(state=initialState, action)=>{
       return {...state, productDetails:action.payload}
     case 'LOGGED_IN_USER':
       return {...state, loggedInUser:action.payload}
+    case 'CONTACT_INFO':
+      return {...state, loading:false, contactInfo:action.payload}
     case 'FETCH_CART':
       return {...state, carts:action.payload}
     case 'FETCH_FAVORITE':

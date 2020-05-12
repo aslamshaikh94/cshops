@@ -3,6 +3,8 @@ import {Inputfield, Textarea, Options} from '../form/Inputfield';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 
 const Contactinfoform=(props)=>{
+	const {data} = props;
+	
 	const [info, setInfo] = useState({
 		country:'',
 		state:''
@@ -11,6 +13,10 @@ const Contactinfoform=(props)=>{
 		props.infodata(info)
 	},[info])
 
+	useEffect(()=>{	
+		setInfo(data)
+	},[data])
+	
 	function inputChange(e){
 		let name = e.target.name;
 		let value = e.target.value;
@@ -35,34 +41,35 @@ const Contactinfoform=(props)=>{
   							name="name" 
   							placeholder="Name"
   							type="text"
-  							defaultValue={''}
+  							defaultValue={data?data.fname:''}
   							onChange={e=>inputChange(e)}
   							/>
   				<Inputfield col={3}
   							name="phone" 
   							placeholder="10-digit mobile number" 
   							type="tel"
-  							defaultValue={''}
+  							defaultValue={data?data.phone:''}
   							onChange={e=>inputChange(e)}
   							/>
   				<Inputfield col={3}
   							name="email" 
   							placeholder="Email" 
   							type="email"
-  							defaultValue={''}
+  							defaultValue={data?data.email:''}
   							onChange={e=>inputChange(e)}
   							/>
   				<Inputfield col={3}
   							name="pincode" 
   							placeholder="Pincode" 
   							type="number"
-  							defaultValue={''}
+  							defaultValue={data?data.pincode:''}
   							onChange={e=>inputChange(e)}
   							/>	
   				<div className="form-group col-lg-4 col-12">
 	  				<CountryDropdown
 	  					className="form-control"
 		          value={info.country}
+		          defaultValue={data?data.country:''}
 		          onChange={(val) =>selectCountry(val)} />
 	        </div>
 	        <div className="form-group col-lg-4 col-12">
@@ -70,18 +77,20 @@ const Contactinfoform=(props)=>{
 		        	className="form-control"
 		          country={info.country}
 		          value={info.state}
+		          defaultValue={data?data.state:''}
 		          onChange={(val) => selectRegion(val)} />
 	        </div>
 	        <Inputfield col={4}
   							name="city" 
   							placeholder="City" 
   							type="text"
-  							defaultValue={''}
+  							defaultValue={data?data.city:''}
   							onChange={e=>inputChange(e)}
   							/>
   				<Textarea col={12} 
 	  						name="address" 
-	  						placeholder="Address (Area and Street)" 					  						
+	  						placeholder="Address (Area and Street)" 
+	  						defaultValue={data?data.address:''}					  						
 	  						onChange={e=>inputChange(e)}
 	  						/>	
 				</div>

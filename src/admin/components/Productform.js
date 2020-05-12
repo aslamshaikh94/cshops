@@ -122,7 +122,8 @@ const Productform =(props)=>{
   }
 
   function uploadOnServer(url){
-		axios.post(`${data.API_URL}/upload`, {image:url}).then((res)=>{			
+		axios.post(`${data.API_URL}/upload`, {image:url}).then((res)=>{	
+		console.log(res.data)		
    		if(res.data.status===false){
    			addToast(res.data.message, errorSetting)
    		}
@@ -281,7 +282,7 @@ const Productform =(props)=>{
 					</div>
 					<div className="col-12 col-lg-4">
 						<InputGroup className="mb-3" size="sm">
-						  <FormControl placeholder="Label Name" ref={fieldName} />
+						  <FormControl placeholder="Title" ref={fieldName} />
 						  <FormControl placeholder="Value" ref={fieldValue} />
 						  <InputGroup.Prepend>
 						    <Button size="sm" variant="" className="btn_green" type="button" onClick={e=>addField(e)}>

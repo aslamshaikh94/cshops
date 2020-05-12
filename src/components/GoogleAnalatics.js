@@ -1,8 +1,8 @@
 import ReactGA from 'react-ga';
 
-const initializeAnalatics = (pathname)=>{
-  ReactGA.initialize('UA-166008242-1');
-  ReactGA.pageview(window.location.pathname + window.location.search);  
+const initializeAnalatics = async (pathname)=>{
+  await ReactGA.initialize('UA-166008242-1');
+  await ReactGA.pageview(window.location.pathname + window.location.search);  
 }
 const ReactGAEvent=(user, action)=>{
 	ReactGA.event({

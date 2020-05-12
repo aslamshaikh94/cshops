@@ -9,20 +9,25 @@ import Contactinfo from '../../components/Contactinfo';
 const Contactinfoform = lazy(()=> import('../../components/Contactinfoform'));
 
 const Myprofile=()=>{
-	const {data} = useContext(AppContext)
+	const {data, dispatch} = useContext(AppContext)
 	const [contact, setContact] = useState();
 	const [cInfo, setCinfo] = useState();
+	const [cForm, setCForm] = useState(false);
 	const { addToast } = useToasts();	
 	let errorSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }
 
 	useEffect(()=>{
 		getContactInfo()
 	},[])
+
+	useEffect(()=>{
+		if(data.contactInfo) setCinfo(data.contactInfo)
+	},[data.contactInfo])
 	
-	function formValidation(){
+	function formValidation(){		
 		let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		let phoneno = /^\d{10}$/;
-		if(!contact.name){
+		if(!contact.fname){
 			addToast('Please enter full name', errorSetting)
 			return false
 		}
@@ -74,31 +79,55 @@ const Myprofile=()=>{
 			})			
 		}
 	}
+	function updateContact(){
+		let validate = formValidation()
+		if(validate){
+			axios.put(`${data.API_URL}/myprofile/contact_info/${data.contactInfo.id}`, contact, getToken() ).then((res)=>{
+				getContactInfo()
+			})			
+		}
+	}
+	
 	function getContactInfo(){
-		axios.get(`${data.API_URL}/myprofile/contact_info`, getToken() ).then((res)=>{
-			setCinfo(res.data[0])
+		axios.get(`${data.API_URL}/myprofile/contact_info`, getToken() ).then((res)=>{					
+			if(res.data){
+				dispatch({type:'CONTACT_INFO', payload:res.data[0]})
+			}
+			else{
+				// setCForm(true)	
+			}
 		})
+	}
+	function editcInfo(){
+		setCForm(true)
 	}
 	
 	return (
 			<div className="adminpanel">
-				<div className="p-2">
-					<div className="card">
-						<div className="card-body">						
-							{
-								!cInfo? 
-									<div>
-										<Contactinfoform infodata={setContactData}/>
-										<div className="d-flex justify-content-end">
-											<button className="btn btn-sm btn_orange" onClick={e=>saveContact(e)}>Save</button> 
+				{
+					cInfo!==false? 
+						<div className="p-2">
+							<div className="card">
+								<div className="card-body">
+									{cForm? 
+										<div>
+											<Contactinfoform infodata={setContactData} data={cInfo}/>
+											<div className="d-flex justify-content-end">
+												{
+													data.contactInfo? 
+														<button className="btn btn-sm btn_orange" onClick={updateContact}>Update</button> 
+													: <button className="btn btn-sm btn_orange" onClick={saveContact}>Save</button> 
+												}
+												
+											</div>
 										</div>
-									</div>
-								:null
-							}
-							{cInfo? <Contactinfo data={cInfo} /> :null}							
+										: cInfo? <Contactinfo data={cInfo} actionbtn={e=>editcInfo()} /> :null
+									}
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					:null
+				}
 			</div>
 		)
 }

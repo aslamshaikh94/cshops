@@ -11,8 +11,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-const replageHead = (req, res, next)=>{
-  const filePath = path.resolve(__dirname, './build', 'index.html');
+app.use(express.static(path.resolve(__dirname, 'build')));
+
+const replageHead = async (req, res, next)=>{
+  const filePath = await path.resolve(__dirname, 'build', 'index.html');
   
   let apiUrl = `https://api.cshops.in${req.url}`
   let fetchData = new Promise((resolve, reject)=>{
@@ -21,7 +23,7 @@ const replageHead = (req, res, next)=>{
     }) 
   })
 
-  fetchData.then((fdata)=>{    
+  fetchData.then((fdata)=>{
       const  {product_name, details, thumbnail} = fdata[0]    
       // read in the index.html file
       fs.readFile(filePath, 'utf8', function (err,data) {
@@ -50,10 +52,11 @@ app.get('/product/:id', replageHead, function(request, response) {
 
 
 
-app.use(express.static(path.resolve(__dirname, './build')));
+
 
 app.get('*', function(request, response) {
   const filePath = path.resolve(__dirname, './build', 'index.html');
+  console.log(filePath)
   response.sendFile(filePath);
 });
 

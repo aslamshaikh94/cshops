@@ -11,10 +11,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(express.static(path.resolve(__dirname, 'build')));
-
-const replageHead = async (req, res, next)=>{
-  const filePath = await path.resolve(__dirname, 'build', 'index.html');
+app.use(express.static(path.resolve(__dirname, './build')));
+const replageHead = (req, res, next)=>{
+  const filePath = path.resolve(__dirname, './build', 'index.html');
   
   let apiUrl = `https://api.cshops.in${req.url}`
   let fetchData = new Promise((resolve, reject)=>{

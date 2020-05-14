@@ -1,8 +1,6 @@
 import React, {lazy, Suspense, createContext, useReducer, useEffect} from 'react';
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
-import ReactGA from 'react-ga';
-
 
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import { ToastProvider} from 'react-toast-notifications';

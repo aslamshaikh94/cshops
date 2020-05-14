@@ -55,8 +55,7 @@ app.get('/product/:id', replageHead, function(request, response) {
 
 
 app.get('*', function(request, response) {
-  const filePath = path.resolve(__dirname, './build', 'index.html');
-  console.log(filePath)
+  const filePath = path.resolve(__dirname, './build', 'index.html');  
   response.sendFile(filePath);
 });
 

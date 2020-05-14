@@ -12,6 +12,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(path.resolve(__dirname, './build')));
+
 const replageHead = (req, res, next)=>{
   const filePath = path.resolve(__dirname, './build', 'index.html');
   

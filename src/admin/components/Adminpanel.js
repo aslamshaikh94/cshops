@@ -10,7 +10,7 @@ const Adminpanel =()=>{
 
 	useEffect(()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{
-			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		});
 	},[]);
 	

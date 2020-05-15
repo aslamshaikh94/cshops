@@ -177,7 +177,7 @@ const Productform =(props)=>{
 	}
 	const getProducts =()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
-			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}
 	const inputChange = (e)=>{
@@ -191,7 +191,7 @@ const Productform =(props)=>{
 	function cancelCroper(){
 		setSrcDefault(false)
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
-			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
+			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}
 	function selectedImages(images){

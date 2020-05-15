@@ -74,7 +74,8 @@ const Product = (props)=>{
 								<span className="bg_green" style={dot} ></span>
 							:null
 						}
-						<img className="img-fluid" src={product.thumbnail} onClick={e=>getProductDetails(product.id)} alt={product.product_name} />
+						<img className="img-fluid" src={product.thumbnail || 'https://via.placeholder.com/150'} 
+									onClick={e=>getProductDetails(product.id)} alt={product.product_name} />
 						<div className="pb-2 pt-2">
 							<p className="name">{product.product_name.slice(0, 15)}</p>
 							<div className="price">

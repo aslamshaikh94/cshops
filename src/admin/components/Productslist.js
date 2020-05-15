@@ -30,8 +30,7 @@ const Productslist =(props)=>{
 	}
 	const getProducts =()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{
-			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
-			console.log(res.data)
+			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})			
 		})
 	}
 	const editProduct =(e, id)=>{		

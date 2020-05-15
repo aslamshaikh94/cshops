@@ -42,6 +42,7 @@ const reducer=(state=initialState, action)=>{
      case 'FETCH_ERROR':
       return {...state, loading:false, error:action.payload}
     case 'FETCH_PRODUCTS':
+      console.log('data', action.payload)
       return {...state, loading:false, products:action.payload}
     case 'PRODUCT_DETAILS':
       return {...state, productDetails:action.payload}
@@ -89,8 +90,7 @@ function App(props) {
   useEffect(()=>{
       axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
         dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
-        if(res.data.status===false){
-            dispatch({type:'FETCH_PRODUCTS', payload:''})
+        if(res.data.status===false){            
             localStorage.setItem('auth', false)
             localStorage.removeItem('token')
           }

@@ -1,7 +1,6 @@
 import React, {lazy, Suspense, createContext, useReducer, useEffect} from 'react';
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
-import ReactGA from 'react-ga';
 
 
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
@@ -90,10 +89,9 @@ function App(props) {
       axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
         dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
         if(res.data.status===false){
-            dispatch({type:'FETCH_PRODUCTS', payload:''})
-            localStorage.setItem('auth', false)
-            localStorage.removeItem('token')
-          }
+          localStorage.setItem('auth', false)
+          localStorage.removeItem('token')
+        }
         else{
           localStorage.setItem('auth', true)
         }

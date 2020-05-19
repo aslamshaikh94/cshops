@@ -1,15 +1,66 @@
-import React, {useState, lazy, Suspense, memo} from 'react';
+import React, {useState, lazy, Suspense, memo, useContext} from 'react';
 import {Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
+import axios from 'axios';
 import '../../assets/css/auth.css';
+import {AppContext} from '../../App';
+import {useHistory } from "react-router-dom";
+
+
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
+
 
 const Register =  lazy(()=> import('./components/Register'));
 const Login =  lazy(()=> import('./components/Login'));
 
+
+
 const Auth = ()=>{
+	const {data} = useContext(AppContext);
+	const history = useHistory()
+
 	const [authForm, setAuthForm] = useState('Login')
 	const clickHandle = ()=>{
 		setAuthForm(authForm==="Register"? "Login" : "Register")
 	}
+
+	// function facebookClicked(){		
+	// 	axios.get(`${data.API_URL}/auth/facebook`).then((res)=>{
+	// 		console.log(res)
+	// 			// if(res.data.status){
+	// 			// 	localStorage.setItem('auth', true)
+	// 			// 	localStorage.setItem('token', res.data.token)
+	// 			// 	getUserDetails()
+	// 			// 	history.push('/admin/myprofile')
+	// 			// }
+	// 			// else{
+	// 			// 	addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
+	// 			// }
+	// 		}).catch((err)=>{
+	// 			// addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
+	// 		});
+	// }
+
+	const responseGoogle = (response) => {
+	  console.log(response);
+	}
+
+	const responseFacebook = (res) => {	  	
+	  axios.post(`${data.API_URL}/auth/facebook?access_token=${res.accessToken}`).then((res)=>{
+			if(res.data.status){
+				localStorage.setItem('auth', true)
+				localStorage.setItem('token', res.data.token)				
+				history.push('/admin/myprofile')
+			}
+			else{
+				// addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
+			}
+		}).catch((err)=>{
+			// addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
+		});
+	}
+
 
 	const form = authForm==="Login"? <Register/> : <Login />
 	return(
@@ -20,9 +71,24 @@ const Auth = ()=>{
 					<Suspense fallback={<div>Loading...</div>}>
 		        {form}
 		      </Suspense>
-	      	<div className="d-flex mt-2 social justify-content-between">
-					  <Button block type="button" size="md" className="facebook"><i className="fab fa-facebook-f"></i> Login with Facebook</Button>
-					  <Button block type="button" size="md" className="twitter"><i className="fab fa-twitter"></i> Login with Twitter</Button>					  	
+	      	<div className="d-flex mt-2 social flex-column">
+	      		<FacebookLogin
+						  appId="286856442338632"
+						  autoLoad={false}
+						  callback={responseFacebook}
+						  cssClass="facebook btn btn-primary btn-block btn-md mb-2"
+						  icon="fa-facebook-f"
+						/>
+						
+						<GoogleLogin
+					    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+					    buttonText="Login"
+					    onSuccess={responseGoogle}
+					    onFailure={responseGoogle}
+					    cookiePolicy={'single_host_origin'}
+					  />
+					  
+					  
 				  </div>
 					<div className="d-flex justify-content-end">
 						<Button variant="link" onClick={e=>clickHandle()}>{authForm}</Button>						

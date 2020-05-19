@@ -40,7 +40,7 @@ const Login = ()=>{
 	}
 	const loginUser = ()=>{
 		if(user.username && user.password){
-			axios.post(`${data.API_URL}/auth/login`, user).then((res)=>{					
+			axios.post(`${data.API_URL}/auth/login`, user).then((res)=>{
 				if(res.data.status){
 					localStorage.setItem('auth', true)
 					localStorage.setItem('token', res.data.token)

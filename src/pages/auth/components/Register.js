@@ -6,6 +6,7 @@ import {useHistory } from "react-router-dom";
 import {initializeAnalatics} from '../../../components/GoogleAnalatics';
 
 import {useToasts } from 'react-toast-notifications';
+import FacebookLogin from 'react-facebook-login';
 
 import {AppContext} from '../../../App';
 
@@ -53,6 +54,18 @@ const Register = ()=>{
 			});
 		}		
 	}
+
+	// const responseFacebook = (response) => {
+	//   console.log(response);
+	// }
+	// const componentClicked = (response) => {
+	//   axios.post(`${data.API_URL}/auth/facebook/callback`, user).then((res)=>{
+	// 		console.log(res)
+	// 	})
+	// }
+
+
+
 	return(
 			<React.Fragment>
 					<h2 className="text-center">Register</h2>
@@ -86,11 +99,7 @@ const Register = ()=>{
 			        <Form.Group as={Col} md="6">
 			          <Form.Control placeholder="Confirm  Password" type="password" name="cpassword" onChange={e=>changeInput(e)} />
 			        </Form.Group>
-			      </Form.Row>
-			      <Form.Group>
-		          <Form.Control placeholder="Address" name="address" onChange={e=>changeInput(e)} />
-		        </Form.Group>		        
-					  <Button block type="button" className="login" onClick={e=>register(e)}>Register</Button>
+			      </Form.Row>       					 
 					</Form>
 			</React.Fragment>
 		)

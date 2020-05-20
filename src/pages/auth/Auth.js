@@ -63,6 +63,7 @@ const Auth = ()=>{
 						  appId="286856442338632"
 						  autoLoad={false}
 						  callback={responseFacebook}
+						  disableMobileRedirect={true}
 						  cssClass="facebook btn btn-primary btn-block btn-md mb-2"
 						  icon="fa-facebook-f"
 						/>

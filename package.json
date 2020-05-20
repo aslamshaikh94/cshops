@@ -43,8 +43,7 @@
     "react-toast-notifications": "^2.4.0",
     "styled-components": "^5.1.0",
     "we-change-react-crop": "^4.0.4"
-  },
-  "proxy": "http://localhost:5000/",
+  },  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

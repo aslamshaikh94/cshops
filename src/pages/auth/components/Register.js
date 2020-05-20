@@ -12,7 +12,7 @@ import {AppContext} from '../../../App';
 
 
 
-const Register = ()=>{
+const Register = (props)=>{
 	const {data} = useContext(AppContext);
 	const history = useHistory()
 	const { addToast } = useToasts()
@@ -30,6 +30,7 @@ const Register = ()=>{
 			...user,
 			[name] : value
 		})		
+		props.type(value)
 	}
 
 	const register = ()=>{

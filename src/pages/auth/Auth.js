@@ -21,33 +21,17 @@ const Auth = ()=>{
 	const history = useHistory()
 
 	const [authForm, setAuthForm] = useState('Login')
+	const [type, setType] = useState('buyer')
 	const clickHandle = ()=>{
 		setAuthForm(authForm==="Register"? "Login" : "Register")
 	}
-
-	// function facebookClicked(){		
-	// 	axios.get(`${data.API_URL}/auth/facebook`).then((res)=>{
-	// 		console.log(res)
-	// 			// if(res.data.status){
-	// 			// 	localStorage.setItem('auth', true)
-	// 			// 	localStorage.setItem('token', res.data.token)
-	// 			// 	getUserDetails()
-	// 			// 	history.push('/admin/myprofile')
-	// 			// }
-	// 			// else{
-	// 			// 	addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
-	// 			// }
-	// 		}).catch((err)=>{
-	// 			// addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
-	// 		});
-	// }
 
 	const responseGoogle = (response) => {
 	  console.log(response);
 	}
 
-	const responseFacebook = (res) => {	  	
-	  axios.post(`${data.API_URL}/auth/facebook?access_token=${res.accessToken}`).then((res)=>{
+	const responseFacebook = (res) => {		
+	  axios.post(`${data.API_URL}/auth/facebook?access_token=${res.accessToken}&type=${type}`).then((res)=>{
 			if(res.data.status){
 				localStorage.setItem('auth', true)
 				localStorage.setItem('token', res.data.token)				
@@ -61,8 +45,11 @@ const Auth = ()=>{
 		});
 	}
 
+	function usertype(type){		
+		setType(type)
+	}
 
-	const form = authForm==="Login"? <Register/> : <Login />
+	const form = authForm==="Login"? <Register type={usertype}/> : <Login />
 	return(
 			<main className="auth d-flex align-items-center">
 				<div className="authbanner">

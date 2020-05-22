@@ -8,6 +8,8 @@ import {useHistory } from "react-router-dom";
 
 
 import FacebookLogin from 'react-facebook-login';
+
+
 import { GoogleLogin } from 'react-google-login';
 
 
@@ -30,7 +32,7 @@ const Auth = ()=>{
 	  console.log(response);
 	}
 
-	const responseFacebook = (res) => {		
+	const responseFacebook = (res) => {
 	  axios.post(`${data.API_URL}/auth/facebook?access_token=${res.accessToken}&type=${type}`).then((res)=>{
 			if(res.data.status){
 				localStorage.setItem('auth', true)
@@ -38,11 +40,9 @@ const Auth = ()=>{
 				history.push('/admin/myprofile')
 			}
 			else{
-				// addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
+			
 			}
-		}).catch((err)=>{
-			// addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
-		});
+		})
 	}
 
 	function usertype(type){		
@@ -59,6 +59,7 @@ const Auth = ()=>{
 		        {form}
 		      </Suspense>
 	      	<div className="d-flex mt-2 social flex-column">
+	      		
 	      		<FacebookLogin
 						  appId="286856442338632"
 						  autoLoad={false}

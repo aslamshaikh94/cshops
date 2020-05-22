@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 
 const Contactinfo=(props)=>{
-	const {fname, phone, email, address, states, cities, pincode, countries} = props.data;
+	const {fname, phone, email, address, state, city, pincode, country} = props.data;
 	
 	return (
 			<React.Fragment>
@@ -16,7 +16,7 @@ const Contactinfo=(props)=>{
 				<p className="m-0">Email:  {email? email :null}</p>
 				<p className="m-0">
 				Address: 
-					{` ${address}, ${cities}, ${states}, ${pincode}, ${countries}` } 				
+					{` ${address}, ${city}, ${state}, ${pincode}, ${country}` } 				
 				</p>
 			</React.Fragment>
 		)

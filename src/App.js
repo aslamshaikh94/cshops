@@ -10,6 +10,7 @@ import {Helmet} from 'react-helmet';
 import {loaderBar} from './methods/methods';
 
 
+import Toster from './Toster';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import {API_URL} from './config/apis';
@@ -22,7 +23,6 @@ const Auth = lazy(()=>import('./pages/auth/Auth'));
 const Wishlist = lazy(()=>import('./pages/wishlist/Wishlist'));
 const Cartview = lazy(()=>import('./pages/cartview/Cartview'));
 const Placeorder = lazy(()=>import('./pages/placeorder/Placeorder'));
-
 const Admin = lazy(()=>import('./admin/Admin'));
 
 let initialState={
@@ -33,13 +33,14 @@ let initialState={
 
 export const AppContext = createContext();
 
-const reducer=(state=initialState, action)=>{
-  
+const reducer=(state=initialState, action)=>{  
   switch(action.type){
     case 'FETCH_REQUEST':
       return {...state, loading:action.payload}
-     case 'FETCH_ERROR':
+    case 'FETCH_ERROR':
       return {...state, loading:false, error:action.payload}
+    case 'FETCH_SUCCESS':
+      return {...state, loading:false, success:action.payload}
     case 'FETCH_PRODUCTS':
       return {...state, loading:false, products:action.payload}
     case 'PRODUCT_DETAILS':
@@ -72,10 +73,11 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
   />
 );
 
-
-
 function App(props) {
-  const [data, dispatch] = useReducer(reducer, initialState); 
+  const [data, dispatch] = useReducer(reducer, initialState);
+
+  
+
   useEffect(()=>{
     if(data.loading===true){
       loaderBar(true)
@@ -83,7 +85,9 @@ function App(props) {
     else if(data.loading===false){
       loaderBar(false)
     }
-  },[data.loading])      
+  },[data.loading])
+
+
   
   useEffect(()=>{
       axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
@@ -110,6 +114,7 @@ function App(props) {
         <ToastProvider>
           <Router>
             <AppContext.Provider value={{data:data, dispatch:dispatch}}>
+              <Toster />
               <Header />
               <Route exact path='/' component={Home} />
               <Route path='/product/:id' component={Productdetails} />

@@ -6,10 +6,10 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {getToken} from '../../methods/methods';
 
-import {AdminContext} from '../Admin';
-
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
 const VenderRequests =(props)=>{
-	const {data} = useContext(AdminContext);
+	const {data} = useContext(AppContext);
 	const [requests, setRequests] = useState([]);	
 	useEffect(()=>{
 		getVenders()

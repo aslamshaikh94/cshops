@@ -4,9 +4,11 @@ import Productslist from './Productslist';
 import Hocpanel from './Hocpanel';
 import {getToken} from '../../methods/methods';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
+
 const Adminpanel =()=>{
-	const {data, dispatch} = useContext(AdminContext);
+	const {data, dispatch} = useContext(AppContext);
 
 	useEffect(()=>{
 		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{
@@ -14,10 +16,12 @@ const Adminpanel =()=>{
 		});
 	},[]);
 	
+	
 
 	return(
-			<div>								
-				{data.loggedInUser && data.loggedInUser.usertype!=="buyer"? <Productslist /> :null}
+			<div>
+				<Productslist />								
+				{/*data.loggedInUser && data.loggedInUser.usertype!=="buyer"? <Productslist /> :null*/}
 			</div>
 		)
 }

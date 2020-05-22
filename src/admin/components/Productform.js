@@ -9,11 +9,12 @@ import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import {Radio} from 'custom-input-aslam';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 
 const Productform =(props)=>{
-	const {data, dispatch} = useContext(AdminContext);	
+	const {data, dispatch} = useContext(AppContext);	
 	const [xfields, setXfields] = useState([])
 	const [srcDefault, setSrcDefault] = useState('')
 	const fieldName = useRef()

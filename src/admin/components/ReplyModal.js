@@ -5,9 +5,10 @@ import axios from 'axios';
 
 import {getToken} from '../../methods/methods';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
 function ReplyModal(props) {
-  const {data} = useContext(AdminContext);
+  const {data} = useContext(AppContext);
   const [enquiry, setEnquiry] = useState({
     id:'',
     user_id:'',

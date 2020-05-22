@@ -13,7 +13,7 @@ import {AppContext} from '../../../App';
 
 
 const Register = (props)=>{
-	const {data} = useContext(AppContext);
+	const {data, dispatch} = useContext(AppContext);
 	const history = useHistory()
 	const { addToast } = useToasts()
 
@@ -33,37 +33,26 @@ const Register = (props)=>{
 		props.type(value)
 	}
 
-	const register = ()=>{
-		if(!user.fname){addToast('Please Enter First Name', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.lname){addToast('Please Enter Last Name', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.lname){addToast('Please Enter Last Name', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.email){addToast('Please Enter Email', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.username){addToast('Please Enter Username', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.password){addToast('Please Enter Password', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(user.password!==user.cpassword){addToast('Password does not match', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
-		else if(!user.address){addToast('Please Enter Address', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
+	const register = ()=>{		
+		if(!user.fname){dispatch({type:'FETCH_ERROR', payload:'Please Enter First Name'})}
+		else if(!user.lname){dispatch({type:'FETCH_ERROR', payload:'Please Enter Last Name'})}		
+		else if(!user.email){dispatch({type:'FETCH_ERROR', payload:'Please Enter Email'})}
+		else if(!user.username){dispatch({type:'FETCH_ERROR', payload:'Please Enter Username'})}
+		else if(!user.password){dispatch({type:'FETCH_ERROR', payload:'Please Enter Password'})}
+		else if(user.password!==user.cpassword){dispatch({type:'FETCH_ERROR', payload:'Password does not match'})}
+		// else if(!user.address){addToast('Please Enter Address', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
 		else{
 			axios.post(`${data.API_URL}/auth/signup`, user).then((res)=>{
 				if(!res.data.status){
-					addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })					
+					dispatch({type:'FETCH_ERROR', payload:res.data.message})
 				} 
 				else{
-					addToast('User Registered Successfully', { appearance: 'success', autoDismiss:true,  autoDismissTimeout :2000 })					
+					dispatch({type:'FETCH_SUCCESS', payload:'User Registered Successfully'})					
 				}
-			}).catch((err)=>{
-				addToast(err, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
-			});
+			})
 		}		
 	}
 
-	// const responseFacebook = (response) => {
-	//   console.log(response);
-	// }
-	// const componentClicked = (response) => {
-	//   axios.post(`${data.API_URL}/auth/facebook/callback`, user).then((res)=>{
-	// 		console.log(res)
-	// 	})
-	// }
 
 
 
@@ -100,7 +89,8 @@ const Register = (props)=>{
 			        <Form.Group as={Col} md="6">
 			          <Form.Control placeholder="Confirm  Password" type="password" name="cpassword" onChange={e=>changeInput(e)} />
 			        </Form.Group>
-			      </Form.Row>       					 
+			      </Form.Row>  
+			      <Button block type="button" className="login" onClick={e=>register(e)}>Register</Button>     					 
 					</Form>
 			</React.Fragment>
 		)

@@ -17,9 +17,8 @@ import {API_URL} from './config/apis';
 import {getToken} from './methods/methods';
 
 
-import Productdetails from './pages/home/Productdetails';
 const Home = lazy(()=>import('./pages/home/Home'));
-// const Productdetails = lazy(()=>import('./pages/home/Productdetails'));
+const Productdetails = lazy(()=>import('./pages/home/Productdetails'));
 const Auth = lazy(()=>import('./pages/auth/Auth'));
 const Wishlist = lazy(()=>import('./pages/wishlist/Wishlist'));
 const Cartview = lazy(()=>import('./pages/cartview/Cartview'));

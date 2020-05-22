@@ -40,9 +40,18 @@
   border: none;
   border-radius: 0;
 }
-.auth .authform .social .btn {
-  width: 49%;
+.auth .authform .social .btn, .auth .authform .social button {
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid transparent;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.auth .authform .social .btn i.fa, .auth .authform .social button i.fa {
+  margin-right: 10px;
 }
 .auth .authform .facebook {
   background-color: #3b5998;

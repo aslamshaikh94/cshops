@@ -60,6 +60,7 @@ const Header = ()=>{
 		history.push('/auth')
 	}
 	
+	
 
 	return (
 			<React.Fragment>

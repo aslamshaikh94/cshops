@@ -6,12 +6,14 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {getToken} from '../../methods/methods';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
+
 const Productform = lazy(()=>import('./Productform'));
 const defaultObject = false
 
 const Productslist =(props)=>{
-	const {data, dispatch} = useContext(AdminContext);
+	const {data, dispatch} = useContext(AppContext);
 	const [proForm, setproForm] = useState(false)
 	const [products, setProducts] = useState([])
 	const [formtype, setFormtype] = useState(true)
@@ -33,7 +35,7 @@ const Productslist =(props)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})			
 		})
 	}
-	const editProduct =(e, id)=>{		
+	const editProduct =(e, id)=>{
 		setproForm(true)
 		setEditItem(products.find(e=> e.id===id))
 		setFormtype(false)

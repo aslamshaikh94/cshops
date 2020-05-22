@@ -141,7 +141,7 @@ const Productdetails =(props)=>{
 							</button>
 							{
 								proDetails && proDetails.phone? 
-									<a href={`https://wa.me/91${proDetails.phone}?text=${window.location.href}`} 
+									<a href={`https://wa.me/91${proDetails.phone}?text=${window.location.href} I am interested for this product `} 
 										 className="btn btn_whatsapp" target="_blanck" >
 										<i className="fab fa-whatsapp"></i> WHATSAPP CHAT
 									</a>								

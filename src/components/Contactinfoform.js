@@ -32,13 +32,13 @@ const Contactinfoform=(props)=>{
 			...info, state:e
 		})
 	}
-
+	
 	return(
 			<div className="addressForm">
 				<h6>Contact Information</h6>
 				<div className='row'>
 					<Inputfield col={3} 
-  							name="name" 
+  							name="fname" 
   							placeholder="Name"
   							type="text"
   							defaultValue={data?data.fname:''}
@@ -68,16 +68,14 @@ const Contactinfoform=(props)=>{
   				<div className="form-group col-lg-4 col-12">
 	  				<CountryDropdown
 	  					className="form-control"
-		          value={info.country}
-		          defaultValue={data?data.country:''}
+		          value={info.country}		          
 		          onChange={(val) =>selectCountry(val)} />
 	        </div>
 	        <div className="form-group col-lg-4 col-12">
 		        <RegionDropdown
 		        	className="form-control"
 		          country={info.country}
-		          value={info.state}
-		          defaultValue={data?data.state:''}
+		          value={info.state}		          
 		          onChange={(val) => selectRegion(val)} />
 	        </div>
 	        <Inputfield col={4}

@@ -27,40 +27,36 @@ const Myprofile=()=>{
 	function formValidation(){		
 		let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		let phoneno = /^\d{10}$/;
-		if(!contact.fname){
-			addToast('Please enter full name', errorSetting)
+		if(!contact.fname){			
+			dispatch({type:'FETCH_ERROR', payload:'Please enter full name'})
 			return false
 		}
-		else if(!phoneno.test(contact.phone)){
-			addToast('Not a valid Phone Number', errorSetting)
+		else if(!phoneno.test(contact.phone)){			
+			dispatch({type:'FETCH_ERROR', payload:'Not a valid Phone Number'})
 			return false
 		}		
-		else if(!mailformat.test(contact.email)){
-			addToast('Please enter email', errorSetting)
+		else if(!mailformat.test(contact.email)){			
+			dispatch({type:'FETCH_ERROR', payload:'Please enter email'})
 			return false
 		}
 		if(!contact.address){
-			addToast('Please enter address', errorSetting)
+			dispatch({type:'FETCH_ERROR', payload:'Please enter address'})			
 			return false
 		}
-		else if(!contact.country){
-			addToast('Please select country', errorSetting)
+		else if(!contact.country){			
+			dispatch({type:'FETCH_ERROR', payload:'Please select country'})
 			return false
 		}
-		else if(!contact.state){
-			addToast('Please select state', errorSetting)
+		else if(!contact.state){			
+			dispatch({type:'FETCH_ERROR', payload:'Please select state'})
 			return false
 		}
-		else if(!contact.city){
-			addToast('Please select city', errorSetting)
+		else if(!contact.city){			
+			dispatch({type:'FETCH_ERROR', payload:'Please select city'})
 			return false
-		}		
-		else if(!contact.name){
-			addToast('Please enter name', errorSetting)
-			return false
-		}		
+		}						
 		else if(!contact.pincode){
-			addToast('Please enter pincode', errorSetting)
+			dispatch({type:'FETCH_ERROR', payload:'Please enter pincode'})			
 			return false
 		}
 		else{
@@ -84,6 +80,7 @@ const Myprofile=()=>{
 		if(validate){
 			axios.put(`${data.API_URL}/myprofile/contact_info/${data.contactInfo.id}`, contact, getToken() ).then((res)=>{
 				getContactInfo()
+				dispatch({type:'FETCH_SUCCESS', payload:'Information updated successfully'})
 			})			
 		}
 	}

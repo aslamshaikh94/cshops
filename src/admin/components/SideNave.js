@@ -3,16 +3,17 @@ import { Media } from 'react-bootstrap';
 import { NavLink, useHistory} from 'react-router-dom';
 import '../../assets/css/adminsidebar.css';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
 const SideNave =()=>{
 	const history = useHistory()	
-	const {data}=useContext(AdminContext)
+	const {data}=useContext(AppContext)
 	const [loggedInUser, setLoggedInUser] = useState({
 		fname:'',
 		lname:'',
 	})
 	useEffect(()=>{
-		if(data.loggedInUser)setLoggedInUser(data.loggedInUser)
+		if(data.loggedInUser) setLoggedInUser(data.loggedInUser)
 	},[data])
 	
 	function mobileMenu(){

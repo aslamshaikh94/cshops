@@ -10,9 +10,11 @@ import Hocpanel from './Hocpanel';
 import ReplyModal from './ReplyModal';
 import axios from 'axios';
 
-import {AdminContext} from '../Admin';
+// import {AdminContext} from '../Admin';
+import {AppContext} from '../../App';
+
 const Enquiries = (props)=>{
-	const {data, dispatch} = useContext(AdminContext);
+	const {data, dispatch} = useContext(AppContext);
 	const [modalShow, setModalShow] = useState(false);
 	const [userData, setUserData] = useState(false);
 

@@ -9,6 +9,8 @@ import axios from 'axios';
 import {useToasts } from 'react-toast-notifications';
 import {ReactGAEvent} from './GoogleAnalatics';
 
+import placeholder from '../assets/images/placeholder.jpg';
+
 const Product = (props)=>{
 	const {data, dispatch} = useContext(AppContext);
 	const [favoritesIds, setFavoritesIds] = useState([]);
@@ -55,7 +57,7 @@ const Product = (props)=>{
 
 	function getCarts(){
 		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{			
-			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
+			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});
 		});
 	}	
 	
@@ -79,7 +81,7 @@ const Product = (props)=>{
 						<div className="pb-2 pt-2">
 							<p className="name">{product.product_name.slice(0, 15)}</p>
 							<div className="price">
-								<i className="far fa-rupee-sign"></i> 															 
+								<i className="far fa-rupee-sign"></i>										 
 									{
 										product && data.loggedInUser && data.loggedInUser.usertype==='supplier'? 
 										product.venders_price : product? product.selling_price :'null'

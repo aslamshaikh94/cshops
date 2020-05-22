@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useEffect, Suspense, lazy, memo} from 'react';
+import React, {createContext, useContext, useReducer, useEffect, Suspense, lazy, memo} from 'react';
 import {BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import '../assets/css/panelwraper.css';
@@ -6,6 +6,8 @@ import {API_URL} from '../config/apis';
 import axios from 'axios';
 
 import {getToken} from '../methods/methods';
+import {useToasts } from 'react-toast-notifications';
+import {AppContext} from '../App';
 
 const SideNave = lazy(()=> import('./components/SideNave'));
 const Adminpanel = lazy(()=> import('./components/Adminpanel'));
@@ -23,26 +25,13 @@ let initialState={
   API_URL:API_URL  
 }
 
-export const AdminContext = createContext();
-
-const reducer=(state, action)=>{
-  switch(action.type){
-    case 'FETCH_PRODUCTS':    	
-      return {...state, products:action.payload}
-    case 'LOGGED_IN_USER':
-      return {...state, loggedInUser:action.payload}
-    case 'ENQUIRIES':    	
-      return {...state, enquiries:action.payload}
-   	case 'DELETE_PRODUCT':
-      return {...state, products:[...state.products.filter(e=> e.id!==action.payload)]}
-    default:
-      return initialState
-  }
-}
 
 const Admin =(props)=>{
-	const [data, dispatch] = useReducer(reducer, initialState);
+	const {data, dispatch} = useContext(AppContext)
 	const history = useHistory()
+	const { addToast } = useToasts();			
+
+
 	useEffect(()=>{
 			axios.get(`${data.API_URL}/users/user`, getToken()).then((res)=>{
 				dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
@@ -72,7 +61,7 @@ const Admin =(props)=>{
 				<main className="admin d-flex">
 					<div className="d-flex panelwraper">
 						<Suspense fallback={<div className="loader">Loading...</div>}>
-							<AdminContext.Provider value={{data:data, dispatch:dispatch}}>
+							
 								<Router>
 									<SideNave />
 									<Route path="/admin/dashboard" component={Dashboard} /> 
@@ -85,7 +74,7 @@ const Admin =(props)=>{
 									<Route path="/admin/myorders" component={Myorders} /> 
 									<Route path="/admin/mybookings" component={Mybookings} /> 
 								</Router>
-							</AdminContext.Provider>
+							
 						</Suspense>
 					</div>
 				</main>

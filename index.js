@@ -34,6 +34,7 @@ const replageHead = (req, res, next)=>{
         // replace the special strings with server generated strings
         data = data.replace(/\$OG_TITLE/g, product_name);
         data = data.replace(/\$OG_DESCRIPTION/g, details);
+        data = data.replace(/\$OG_KEYWORDS/g, product_name);
         let result = data.replace(/\$OG_IMAGE/g, thumbnail);
         res.send(result);
         next()

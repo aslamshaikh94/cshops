@@ -12,6 +12,7 @@
     "chart.js": "^2.9.3",
     "custom-input-aslam": "^0.1.0",
     "dateutility-aslam": "^0.6.0",
+    "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.4",
     "jquery": "^3.5.0",
     "multer": "^1.4.2",
@@ -50,7 +51,7 @@
     "startdev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"    
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

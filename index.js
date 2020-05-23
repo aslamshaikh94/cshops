@@ -17,15 +17,11 @@ app.get('/', (request, response)=> {
       data = data.replace(/\$OG_TITLE/g, 'CShops Commercial Shops Manufacturers and Wholesalers');
       data = data.replace(/\$OG_DESCRIPTION/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
       data = data.replace(/\$OG_KEYWORDS/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
-      let result = data.replace(/\$OG_IMAGE/g, 'thumbnail');
+      let result = data.replace(/\$OG_IMAGE/g, 'https://cshops.in//logo.png');
       response.send(result);
     
   });
 });
-
-app.get('/user', (req, res)=>{
-  res.send(req)
-})
 
 app.get('/product/:id', (request, response)=> {
   const filePath = path.resolve(__dirname, './build', 'index.html'); 

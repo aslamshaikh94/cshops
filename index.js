@@ -5,6 +5,11 @@ const path = require('path');
 const fs = require('fs')
 const axios = require('axios')
 
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
+
+
 var product = require('./routes/product');
 
 app.use("/product", product);

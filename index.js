@@ -23,6 +23,9 @@ app.get('/', (request, response)=> {
   });
 });
 
+app.get('/user', (req, res)=>{
+  res.send(req)
+})
 
 app.get('/product/:id', (request, response)=> {
   const filePath = path.resolve(__dirname, './build', 'index.html'); 

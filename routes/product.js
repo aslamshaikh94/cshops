@@ -1,5 +1,8 @@
 let express = require('express');
 let app = express()
+const path = require('path');
+const fs = require('fs')
+const axios = require('axios')
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -13,8 +16,10 @@ app.get('/:id', (request, response)=> {
       if (err) {
         return console.log(err);
       }     
-      let apiUrl = `https://api.cshops.in${request.url}`
-      axios.get(apiUrl).then((resdata)=>{      
+
+      let apiUrl = `https://api.cshops.in${request.url}/seo/${proId}?seokey=product_name,details,keywords,thumbnail`
+      axios.get(apiUrl).then((resdata)=>{ 
+      console.log(resdata)     
       const  {product_name, details, thumbnail} = resdata.data[0]
       // replace the special strings with server generated strings
       data = data.replace(/\$OG_TITLE/g, product_name);

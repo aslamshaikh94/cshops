@@ -9,6 +9,7 @@ import {getToken} from '../methods/methods';
 import {useToasts } from 'react-toast-notifications';
 import {AppContext} from '../App';
 
+
 const SideNave = lazy(()=> import('./components/SideNave'));
 const Adminpanel = lazy(()=> import('./components/Adminpanel'));
 const Enquiries = lazy(()=> import('./components/Enquiries'));
@@ -52,9 +53,9 @@ const Admin =(props)=>{
 	function mobileMenu(){
 		let element = document.querySelector('.adminSidebar')
 		element.classList.toggle("open");
-	}
+	}	
 	return(
-			<React.Fragment>
+			<React.Fragment>			
 				<div className="mobileMenu">
 					<i className="fal fa-bars orange" onClick={e=>mobileMenu()}></i>
 				</div>

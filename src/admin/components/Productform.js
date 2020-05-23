@@ -2,6 +2,9 @@ import React, {useState, useEffect, memo, useContext, useRef} from 'react';
 import {Button, Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
 import axios from 'axios';
 
+import TagsInput from '../../components/InputTag';
+
+
 import ImageGallery from '../../components/ImageGallery';
 import {Inputfield, Textarea} from '../../form/Inputfield';
 import {useToasts } from 'react-toast-notifications';
@@ -198,6 +201,11 @@ const Productform =(props)=>{
 	function selectedImages(images){
 		setFileData([...fileData, ...images])	
 	}
+	const selectedTags = tags => {
+		let kwrds = JSON.stringify(tags)
+    setProduct({...product, keywords:kwrds})
+  };
+  
 	return(
 		<div className="p-3 mb-3 border-bottom">
 			<Form>
@@ -280,6 +288,9 @@ const Productform =(props)=>{
 							})
 							:null
 						}					
+					</div>
+					<div className="col-12 col-lg-6">
+						<TagsInput selectedTags={selectedTags} placeholder={'Add search keyword'}  />
 					</div>
 					<div className="col-12 col-lg-4">
 						<InputGroup className="mb-3" size="sm">

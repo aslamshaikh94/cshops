@@ -23,6 +23,7 @@ const Productdetails =(props)=>{
 		initializeAnalatics()
 	},[])
 	useEffect(()=>{
+
 			// if(data.productDetails){
 			// 	setProDetails(data.productDetails)
 			// }

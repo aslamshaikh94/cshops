@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs')
 const axios = require('axios')
 
-app.get('/product/:id', function(request, response) {
+app.get('/product/:id', (request, response)=> {
   const filePath = path.resolve(__dirname, './build', 'index.html');
 
   // read in the index.html file

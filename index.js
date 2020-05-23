@@ -5,8 +5,22 @@ const path = require('path');
 const fs = require('fs')
 const axios = require('axios')
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+app.get('/', (request, response)=> {
+  const filePath = path.resolve(__dirname, './build', 'index.html'); 
+  // read in the index.html file
+  fs.readFile(filePath, 'utf8', function (err,data) {
+      if (err) {
+        return console.log(err);
+      }     
+    
+      // replace the special strings with server generated strings
+      data = data.replace(/\$OG_TITLE/g, 'CShops Commercial Shops Manufacturers and Wholesalers');
+      data = data.replace(/\$OG_DESCRIPTION/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
+      data = data.replace(/\$OG_KEYWORDS/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
+      let result = data.replace(/\$OG_IMAGE/g, 'thumbnail');
+      response.send(result);
+    
+  });
 });
 
 
@@ -18,7 +32,7 @@ app.get('/product/:id', (request, response)=> {
         return console.log(err);
       }     
 
-      let apiUrl = `http://localhost:5000${request.url}/select?seokey=product_name,details,keywords,thumbnail`
+      let apiUrl = `https://api.cshops.in${request.url}/select?seokey=product_name,details,keywords,thumbnail`
       
       axios.get(apiUrl).then((resdata)=>{ 
       const  {product_name, details, thumbnail, keywords} = resdata.data

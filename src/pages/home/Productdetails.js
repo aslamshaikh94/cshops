@@ -10,6 +10,8 @@ import {getToken, loaderBar} from '../../methods/methods';
 import {Helmet} from 'react-helmet';
 import {initializeAnalatics} from '../../components/GoogleAnalatics';
 
+import {FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon} from "react-share";
+
 import {AppContext} from '../../App';
 const Productdetails =(props)=>{
 	const {data, dispatch} = useContext(AppContext);	
@@ -144,7 +146,7 @@ const Productdetails =(props)=>{
 							{/*<button className="btn btn_orange mr-2"><i class="fal fa-location-arrow"></i> ORDER NOW</button>*/}
 							<button className="btn btn_orange mr-2" onClick={e=>sendEnqury(e)}>
 								<i className="fal fa-location-arrow"></i> INQUIRY NOW
-							</button>
+							</button>							
 							{
 								proDetails && proDetails.phone? 
 									<a href={`https://wa.me/91${proDetails.phone}?text=${window.location.href} I am interested for this product `} 
@@ -154,6 +156,16 @@ const Productdetails =(props)=>{
 								:null
 							}
 							{enquryForm? <Enquiry enqId={proId} cancelEnquiry={e=>cancelEnquiry(e)} sellerId={proDetails? proDetails.seller_id:null}/> :null}
+							<div className="mt-2">
+							<FacebookShareButton url={window.location.href} title={proDetails? proDetails.product_name :'NA'}>
+								<FacebookIcon size={32} round={true} />
+							</FacebookShareButton>
+							<WhatsappShareButton url={window.location.href} 
+																	 className="ml-2"
+																	 title={proDetails? proDetails.product_name :'NA'}>
+								<WhatsappIcon size={32} round={true} />
+							</WhatsappShareButton>
+							</div>
 						</div>
 					</div>
 					<hr />
@@ -166,6 +178,7 @@ const Productdetails =(props)=>{
 						:null
 					}
 				</div>
+
 			</main>
 		)
 }

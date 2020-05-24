@@ -38,6 +38,7 @@
     "react-loadable": "^5.5.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-share": "^4.1.0",
     "react-super-responsive-table": "^5.1.1",
     "react-toast-notifications": "^2.4.0",
     "styled-components": "^5.1.0",

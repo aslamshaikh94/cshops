@@ -79,6 +79,7 @@ const Product = (props)=>{
 						<img className="img-fluid" src={product.thumbnail || 'https://via.placeholder.com/150'} 
 									onClick={e=>getProductDetails(product.id)} alt={product.product_name} />
 						<div className="pb-2 pt-2">
+
 							<p className="name">{product.product_name.slice(0, 15)}</p>
 							<div className="price">
 								<i className="far fa-rupee-sign"></i>										 
@@ -87,6 +88,7 @@ const Product = (props)=>{
 										product.venders_price : product? product.selling_price :'null'
 									}
 							</div>							
+							<p className="name"><b>Brand: </b>{product.brand_name? product.brand_name.slice(0, 10) :'NA'}</p>
 							<p className="name">{product.minorder || 'NA'} Pieces (Min. Order) </p>
 							<Ratings rat={3}  />
 						</div>

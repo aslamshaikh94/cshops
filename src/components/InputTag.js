@@ -8,10 +8,9 @@ const TitleTags = styled.div`
     align-items: center;
     flex-wrap: wrap;
     padding:5px 8px;
-    border: 1px solid rgb(214, 216, 218);
-    border-radius: 6px;
-    background:#fff;
-    font-size: 12px;
+    border-bottom: 1px solid rgb(214, 216, 218);
+    border-radius: 0px;
+    background:#fff;    
     &:focus-within {
         border: 1px solid #0052cc;
     }

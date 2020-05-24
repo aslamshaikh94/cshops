@@ -5,9 +5,6 @@ import axios from 'axios';
 import {useHistory } from "react-router-dom";
 import {initializeAnalatics} from '../../../components/GoogleAnalatics';
 
-import {useToasts } from 'react-toast-notifications';
-import FacebookLogin from 'react-facebook-login';
-
 import {AppContext} from '../../../App';
 
 
@@ -15,7 +12,7 @@ import {AppContext} from '../../../App';
 const Register = (props)=>{
 	const {data, dispatch} = useContext(AppContext);
 	const history = useHistory()
-	const { addToast } = useToasts()
+	
 
 	useEffect(()=>{
 		initializeAnalatics(history.location.pathname)		

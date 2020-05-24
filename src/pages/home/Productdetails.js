@@ -76,7 +76,7 @@ const Productdetails =(props)=>{
 	function cancelEnquiry(){
 		setEnquryForm(false)
 	}			
-	// console.log(proDetails)
+	console.log(proDetails)
 	return (
 			<main className="productDetails bg_white">
 				<Helmet 
@@ -107,15 +107,20 @@ const Productdetails =(props)=>{
 							}
 						</div>
 						<div className="col-lg-7">
-							<h4 className="text-uppercase orange"> {proDetails? proDetails.product_name :'NA'} </h4>
+							<h1 className="text-uppercase orange" style={{fontSize:'1.8rem'}}> 
+								{proDetails? proDetails.product_name :'NA'} 
+							</h1>
 							<hr/>
 							<div className="text-uppercase">
+								<h6><span className="blue">Brand Name : </span> 
+									{proDetails && proDetails.brand_name? proDetails.brand_name :''} 
+								</h6>
 								<h6><span className="blue">Price : </span> 
 									{
 										proDetails && data.loggedInUser && data.loggedInUser.usertype==='supplier'? 
 										proDetails.venders_price : proDetails? proDetails.selling_price :'null'
 									} 
-								</h6>														
+								</h6>		
 								<h6><span className="blue">Stock : </span> 
 									{proDetails && proDetails.stock>0? proDetails.stock :' We will manufacture for you on pre order '} 
 								</h6>

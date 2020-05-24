@@ -227,7 +227,14 @@ const Productform =(props)=>{
 				      <option value="Furniture">Furniture</option>			      			      
 				      <option value="electrical">Electrical</option>			      			      
 				    </Form.Control>		  	
-				  </div>			  	
+				  </div>	
+				  <Inputfield col={3} 
+			    						name="brand_name" 
+			    						placeholder="Brand Name" 
+			    						type="text"
+			    						defaultValue={product.brand_name}
+			    						onChange={e=>inputChange(e)}
+			    						/>		  	
 			    <Inputfield col={3} 
 			    						name="product_name" 
 			    						placeholder="Product Name" 
@@ -256,27 +263,30 @@ const Productform =(props)=>{
 			  							defaultValue={product.venders_price}
 			  							onChange={e=>inputChange(e)}
 			  							/>
-			  	<Inputfield col={2} 
+			  	<Inputfield col={3} 
 			  							name="stock" 
 			  							placeholder="Stock" 
 			  							type="number"
 			  							defaultValue={product.stock}
 			  							onChange={e=>inputChange(e)}
 			  							/>
-			  	<Inputfield col={2} 
+			  	<Inputfield col={3} 
 			  							name="minorder"
 			  							placeholder="Min Order" 
 			  							type="number"
 			  							defaultValue={product.minorder}
 			  							onChange={e=>inputChange(e)}
 			  							/>
-			  	<Inputfield col={2} 
+			  	<Inputfield col={3} 
 			  							name="warranty" 
 			  							placeholder="Warranty in Months" 
 			  							type="number"
 			  							defaultValue={product.warranty}
 			  							onChange={e=>inputChange(e)}
-			  							/>			
+			  							/>	
+			  	<div className="col-12 col-lg-6">
+						<TagsInput selectedTags={selectedTags} placeholder={'Add search keyword'}  />
+					</div>		
 				</Form.Row>
 				<Form.Row>
 					<div className="ml-1">
@@ -288,10 +298,7 @@ const Productform =(props)=>{
 							})
 							:null
 						}					
-					</div>
-					<div className="col-12 col-lg-6">
-						<TagsInput selectedTags={selectedTags} placeholder={'Add search keyword'}  />
-					</div>
+					</div>					
 					<div className="col-12 col-lg-4">
 						<InputGroup className="mb-3" size="sm">
 						  <FormControl placeholder="Title" ref={fieldName} />

@@ -1,6 +1,5 @@
 import React, {useState, lazy, Suspense, memo, useContext} from 'react';
 import {Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
 import axios from 'axios';
 import '../../assets/css/auth.css';
 import {AppContext} from '../../App';
@@ -29,7 +28,8 @@ const Auth = ()=>{
 	}
 
 	const responseGoogle = (response) => {
-	  console.log(response);
+	  const {profileObj, accessToken} = response
+	  console.log(profileObj);
 	}
 
 	const responseFacebook = (res) => {
@@ -70,10 +70,9 @@ const Auth = ()=>{
 						/>
 						
 						<GoogleLogin
-					    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+					    clientId="65459548614-fbcasihgr5n1j6mg2fa2hi45loh97ank.apps.googleusercontent.com"
 					    buttonText="Login"
-					    onSuccess={responseGoogle}
-					    onFailure={responseGoogle}
+					    onSuccess={responseGoogle}					    
 					    cookiePolicy={'single_host_origin'}
 					  />
 					  

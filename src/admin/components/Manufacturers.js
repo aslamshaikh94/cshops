@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, lazy} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import {useToasts } from 'react-toast-notifications';
 

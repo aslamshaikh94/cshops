@@ -14,8 +14,8 @@ app.get('/', (request, response)=> {
       }     
     
       // replace the special strings with server generated strings
-      data = data.replace(/\$OG_TITLE/g, 'CShops Commercial Shops Manufacturers and Wholesalers');
-      data = data.replace(/\$OG_DESCRIPTION/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
+      data = data.replace(/\$OG_TITLE/g, 'CShops');
+      data = data.replace(/\$OG_DESCRIPTION/g, 'CShops is online Commercial Shops for Manufacturers and Wholesalers');
       data = data.replace(/\$OG_KEYWORDS/g, 'Hand Scraper, Electric Motor, Induction Motor, Tile Cutter, Deck Scraper');
       let result = data.replace(/\$OG_IMAGE/g, 'https://cshops.in//logo.png');
       response.send(result);

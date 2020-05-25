@@ -19,8 +19,7 @@ const Wishlist = ()=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
 		});
 	}
-	function removeItem(e, id){
-		let userid = {id:id}		
+	function removeItem(e, id){			
 		axios.delete(`${data.API_URL}/addto/${id}`, getToken() ).then((res)=>{
 			favorite()
 		});

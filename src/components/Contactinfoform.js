@@ -1,6 +1,6 @@
 import React, {useState, useEffect, memo} from 'react';
 import {Inputfield, Textarea} from '../form/Inputfield';
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 const Contactinfoform=(props)=>{
 	const {data} = props;

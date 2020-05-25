@@ -17,7 +17,7 @@ function ImageGallery(props) {
   },[])
 
   function selectImage(id){
-    let findImage = gallery.find((item)=>{
+    gallery.find((item)=>{
         new Promise((resolve, reject)=>{
           if(item.public_id===id){          
             let  photo ={
@@ -27,8 +27,7 @@ function ImageGallery(props) {
             resolve(photo)                      
           }
         }).then((imgItem)=>{setImages([...images, imgItem])})
-    })
-    
+    })    
   }
   
   function selectClose(){

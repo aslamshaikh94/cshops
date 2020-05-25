@@ -3,7 +3,7 @@ import axios from 'axios';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import Hocpanel from '../components/Hocpanel';
-import {useToasts } from 'react-toast-notifications';
+
 
 import Contactinfo from '../../components/Contactinfo';
 const Contactinfoform = lazy(()=> import('../../components/Contactinfoform'));
@@ -13,9 +13,7 @@ const Myprofile=()=>{
 	const [contact, setContact] = useState();
 	const [cInfo, setCinfo] = useState();
 	const [cForm, setCForm] = useState(false);
-	const { addToast } = useToasts();	
-	let errorSetting = { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 }
-
+	
 	useEffect(()=>{
 		getContactInfo()
 	},[])
@@ -115,7 +113,6 @@ const Myprofile=()=>{
 														<button className="btn btn-sm btn_orange" onClick={updateContact}>Update</button> 
 													: <button className="btn btn-sm btn_orange" onClick={saveContact}>Save</button> 
 												}
-												
 											</div>
 										</div>
 										: cInfo? <Contactinfo data={cInfo} actionbtn={e=>editcInfo()} /> :null

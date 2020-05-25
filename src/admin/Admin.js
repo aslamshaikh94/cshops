@@ -1,12 +1,10 @@
-import React, {createContext, useContext, useReducer, useEffect, Suspense, lazy, memo} from 'react';
+import React, {useEffect, Suspense, lazy, useContext, memo} from 'react';
 import {BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import '../assets/css/panelwraper.css';
-import {API_URL} from '../config/apis';
 import axios from 'axios';
 
 import {getToken} from '../methods/methods';
-import {useToasts } from 'react-toast-notifications';
 import {AppContext} from '../App';
 
 
@@ -22,15 +20,11 @@ const Myorders = lazy(()=> import('./myorders/Myorders'));
 const Mybookings = lazy(()=> import('./mybookings/Mybookings'));
 
 
-let initialState={
-  API_URL:API_URL  
-}
-
 
 const Admin =(props)=>{
 	const {data, dispatch} = useContext(AppContext)
 	const history = useHistory()
-	const { addToast } = useToasts();			
+	
 
 
 	useEffect(()=>{

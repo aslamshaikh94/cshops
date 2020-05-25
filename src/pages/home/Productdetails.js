@@ -10,7 +10,7 @@ import {getToken, loaderBar} from '../../methods/methods';
 import {Helmet} from 'react-helmet';
 import {initializeAnalatics} from '../../components/GoogleAnalatics';
 
-import {FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon} from "react-share";
+import {FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, EmailShareButton, EmailIcon} from "react-share";
 
 import {AppContext} from '../../App';
 const Productdetails =(props)=>{
@@ -78,7 +78,7 @@ const Productdetails =(props)=>{
 	function cancelEnquiry(){
 		setEnquryForm(false)
 	}			
-	console.log(proDetails)
+	// console.log(proDetails)
 	return (
 			<main className="productDetails bg_white">
 				<Helmet 
@@ -157,14 +157,20 @@ const Productdetails =(props)=>{
 							}
 							{enquryForm? <Enquiry enqId={proId} cancelEnquiry={e=>cancelEnquiry(e)} sellerId={proDetails? proDetails.seller_id:null}/> :null}
 							<div className="mt-2">
-							<FacebookShareButton url={window.location.href} title={proDetails? proDetails.product_name :'NA'}>
-								<FacebookIcon size={32} round={true} />
-							</FacebookShareButton>
-							<WhatsappShareButton url={window.location.href} 
-																	 className="ml-2"
-																	 title={proDetails? proDetails.product_name :'NA'}>
-								<WhatsappIcon size={32} round={true} />
-							</WhatsappShareButton>
+								<EmailShareButton url={window.location.href} 																		
+																		 title={proDetails? proDetails.product_name :'NA'}>
+									<EmailIcon size={32} round={true} />
+								</EmailShareButton>							
+								<FacebookShareButton url={window.location.href} 
+																		  className="ml-2"
+																		 title={proDetails? proDetails.product_name :'NA'}>
+									<FacebookIcon size={32} round={true} />
+								</FacebookShareButton>
+								<WhatsappShareButton url={window.location.href} 
+																		 className="ml-2"
+																		 title={proDetails? proDetails.product_name :'NA'}>
+									<WhatsappIcon size={32} round={true} />
+								</WhatsappShareButton>
 							</div>
 						</div>
 					</div>

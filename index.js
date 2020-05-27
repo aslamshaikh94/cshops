@@ -29,8 +29,7 @@ app.get('/product/:id', (request, response)=> {
   fs.readFile(filePath, 'utf8', function (err,data) {
       if (err) {
         return console.log(err);
-      }     
-      
+      }           
       let apiUrl = `https://api.cshops.in${request.url}/select?seokey=product_name,details,keywords,thumbnail`
       
       axios.get(apiUrl).then((resdata)=>{ 

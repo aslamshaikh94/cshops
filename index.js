@@ -31,7 +31,6 @@ app.get('/product/:id', (request, response)=> {
         return console.log(err);
       }           
       let apiUrl = `https://api.cshops.in${request.url}/select?seokey=product_name,details,keywords,thumbnail`
-      
       axios.get(apiUrl).then((resdata)=>{ 
         const  {product_name, details, thumbnail, keywords} = resdata.data
         let kwrds = JSON.parse(keywords)

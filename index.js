@@ -31,19 +31,19 @@ app.get('/product/:id', (request, response)=> {
         return console.log(err);
       }     
 
-      let apiUrl = `https://api.cshops.in${request.url}/select?seokey=product_name,details,keywords,thumbnail`
+      let apiUrl = `http://localhost:5000${request.url}/select?seokey=product_name,details,keywords,thumbnail`
       
       axios.get(apiUrl).then((resdata)=>{ 
-      const  {product_name, details, thumbnail, keywords} = resdata.data
-      let kwrds = JSON.parse(keywords)
-        
-      // replace the special strings with server generated strings
-      data = data.replace(/\$OG_TITLE/g, product_name);
-      data = data.replace(/\$OG_DESCRIPTION/g, details);
-      data = data.replace(/\$OG_KEYWORDS/g, kwrds);
-      let result = data.replace(/\$OG_IMAGE/g, thumbnail);
-      response.send(result);
-    }) 
+        const  {product_name, details, thumbnail, keywords} = resdata.data
+        let kwrds = JSON.parse(keywords)
+          
+        // replace the special strings with server generated strings
+        data = data.replace(/\$OG_TITLE/g, product_name);
+        data = data.replace(/\$OG_DESCRIPTION/g, details);
+        data = data.replace(/\$OG_KEYWORDS/g, kwrds);
+        let result = data.replace(/\$OG_IMAGE/g, thumbnail);
+        response.send(result);
+      }) 
   });
 });
 

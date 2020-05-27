@@ -41,8 +41,7 @@ const reducer=(state=initialState, action)=>{
       return {...state, loading:false, error:action.payload}
     case 'FETCH_SUCCESS':
       return {...state, loading:false, success:action.payload}
-    case 'FETCH_PRODUCTS':
-      console.log('data', action.payload)
+    case 'FETCH_PRODUCTS':      
       return {...state, loading:false, products:action.payload}
     case 'PRODUCT_DETAILS':
       return {...state, productDetails:action.payload}

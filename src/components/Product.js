@@ -70,7 +70,7 @@ const Product = (props)=>{
 	return (
 			<Col xl='2' lg="3" md="3" sm="4" xs="6" className='product'>
 				<div className="details text-center">
-					<Link to={`/product/${product.id}`} className="item">
+					<Link to={`/product/${product.slugs}`} className="item">
 						{
 							data.loggedInUser && data.loggedInUser.id===product.seller_id? 
 								<span className="bg_green" style={dot} ></span>

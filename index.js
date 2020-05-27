@@ -30,8 +30,8 @@ app.get('/product/:id', (request, response)=> {
       if (err) {
         return console.log(err);
       }     
-
-      let apiUrl = `http://localhost:5000${request.url}/select?seokey=product_name,details,keywords,thumbnail`
+      
+      let apiUrl = `https://api.cshops.in${request.url}/select?seokey=product_name,details,keywords,thumbnail`
       
       axios.get(apiUrl).then((resdata)=>{ 
         const  {product_name, details, thumbnail, keywords} = resdata.data

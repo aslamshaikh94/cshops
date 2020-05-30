@@ -5,17 +5,16 @@ import './assets/css/style.css';
 
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import { ToastProvider} from 'react-toast-notifications';
-import axios from 'axios';
+
 import {Helmet} from 'react-helmet';
 import {loaderBar} from './methods/methods';
-
 
 import Toster from './Toster';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {API_URL} from './config/apis';
-import {getToken} from './methods/methods';
 
+import {getToken} from './methods/methods';
+import {Axios} from './config/apis';
 
 const Home = lazy(()=>import('./pages/home/Home'));
 const Productdetails = lazy(()=>import('./pages/home/Productdetails'));
@@ -25,8 +24,7 @@ const Cartview = lazy(()=>import('./pages/cartview/Cartview'));
 const Placeorder = lazy(()=>import('./pages/placeorder/Placeorder'));
 const Admin = lazy(()=>import('./admin/Admin'));
 
-let initialState={
-  API_URL:API_URL,
+let initialState={  
   loading:true,
   error:false,
 }
@@ -76,8 +74,6 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
 function App(props) {
   const [data, dispatch] = useReducer(reducer, initialState);
 
-  
-
   useEffect(()=>{
     if(data.loading===true){
       loaderBar(true)
@@ -86,11 +82,9 @@ function App(props) {
       loaderBar(false)
     }
   },[data.loading])
-
-
   
   useEffect(()=>{
-      axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
+      Axios.get(`/users/user`, getToken() ).then((res)=>{
           dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
           if(res.data.status===false){            
               localStorage.setItem('auth', false)
@@ -102,7 +96,7 @@ function App(props) {
         }).catch((err)=>{
         // setError({message:err})
       });
-  },[data.API_URL])
+  },[])
 
   return (
     <div className="App">

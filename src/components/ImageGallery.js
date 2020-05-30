@@ -1,17 +1,17 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal, Button, Image} from 'react-bootstrap';
-import axios from 'axios';
+import {Axios} from '../config/apis';
 
-import {AppContext} from '../App';
+
 
 function ImageGallery(props) {
-  const {data} = useContext(AppContext);  
+  
   const [show, setShow] = useState(false);
   const [gallery, setGallery] = useState(false);
   const [images, setImages] = useState([]);
 
   useEffect(()=>{
-    axios.get(`${data.API_URL}/upload`).then((res)=>{
+    Axios.get(`/upload`).then((res)=>{
       setGallery(res.data)
     })
   },[])

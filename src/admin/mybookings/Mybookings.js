@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import {Link} from 'react-router-dom';
@@ -6,23 +6,23 @@ import {Button} from 'react-bootstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Hocpanel from '../components/Hocpanel';
-import axios from 'axios'
+import {Axios} from '../../config/apis';
 
 const Mybookings = ()=>{
-	const {data} = useContext(AppContext);
+	// const {data} = useContext(AppContext);
 	const [orders, setOrders] = useState()
 	useEffect(()=>{
 		getOrders()
 	},[])
 
 	function getOrders(){
-		axios.get(`${data.API_URL}/orders/mybookings`, getToken() ).then((res)=>{
+		Axios.get(`/orders/mybookings`, getToken() ).then((res)=>{
 			setOrders(res.data)
 		})
 	}
 
 	function productAction(id, quantity, product_id){		
-		axios.put(`${data.API_URL}/orders`, {id:id, product_id:product_id, quantity:quantity}, getToken() ).then((res)=>{
+		Axios.put(`/orders`, {id:id, product_id:product_id, quantity:quantity}, getToken() ).then((res)=>{
 			if(res.data.status!==false) getOrders()
 		})
 	}

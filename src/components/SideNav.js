@@ -1,6 +1,7 @@
 import React,{memo, useState, useEffect, useContext} from 'react';
 import '../assets/css/sidenav.css';
-import axios from 'axios';
+
+import {Axios} from '../config/apis';
 import {loaderBar} from '../methods/methods';
 
 import {Checkbox} from 'custom-input-aslam';
@@ -16,12 +17,12 @@ const SideNav = ()=>{
 		let name = e.target.name;
 		let value = e.target.value;
 		loaderBar(true)
-		axios.get(`${data.API_URL}/product/filters?field=${name}&search=${value}`).then((res)=>{
-				let data = []
-						res.data.forEach((item)=>{
-							const found = filterData.some(el => el.id === item.id);							
-							if (!found)	data.push(item)
-			 			})
+		Axios.get(`/product/filters?field=${name}&search=${value}`).then((res)=>{
+			let data = []
+			res.data.forEach((item)=>{
+				const found = filterData.some(el => el.id === item.id);							
+				if (!found)	data.push(item)
+ 			})
 					
 			setFilterData(checked? [...filterData, ...data] : filterData.filter(e=> e[name]!==value))				
 		})
@@ -36,7 +37,7 @@ const SideNav = ()=>{
 	function clearFilters(){
 		var items = document.querySelectorAll('input[type="checkbox"]');
     items.forEach(item=>item.checked = false )
-		axios.get(`${data.API_URL}/product/products`).then((res)=>{
+		Axios.get(`/product/products`).then((res)=>{
 			dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 			setFilterData([])
 		})

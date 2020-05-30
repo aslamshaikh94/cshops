@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {useToasts } from 'react-toast-notifications';
 
 import {AppContext} from './App';

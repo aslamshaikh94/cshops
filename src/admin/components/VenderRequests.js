@@ -1,5 +1,5 @@
-import React, {useContext, useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import {Axios} from '../../config/apis';
 import {mDate} from 'dateutility-aslam';
 import Hocpanel from './Hocpanel';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
@@ -7,16 +7,15 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {getToken} from '../../methods/methods';
 
 // import {AdminContext} from '../Admin';
-import {AppContext} from '../../App';
-const VenderRequests =(props)=>{
-	const {data} = useContext(AppContext);
+
+const VenderRequests =(props)=>{	
 	const [requests, setRequests] = useState([]);	
 	useEffect(()=>{
 		getVenders()
 	},[])
 
 	function getVenders(){
-		axios.get(`${data.API_URL}/users/vender_requests`, getToken() ).then((res)=>{					
+		Axios.get(`/users/vender_requests`, getToken() ).then((res)=>{					
 			if(res.data.status!==false) setRequests(res.data)
 		})
 	}
@@ -25,12 +24,12 @@ const VenderRequests =(props)=>{
 		let statusData = {
 			status:action,
 		}			
-		axios.post(`${data.API_URL}/users/vender_request/action/${id}`, statusData, getToken() ).then((res)=>{
+		Axios.post(`/users/vender_request/action/${id}`, statusData, getToken() ).then((res)=>{
 			if(res.data.status!==false) getVenders();
 		});		
 	}
 	function requestDelete(id){
-		axios.delete(`${data.API_URL}/users/vender_request/action/${id}`, getToken() ).then((res)=>{
+		Axios.delete(`/users/vender_request/action/${id}`, getToken() ).then((res)=>{
 			if(res.data.status!==false) getVenders();
 		});	
 	}

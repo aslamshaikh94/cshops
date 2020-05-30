@@ -5,11 +5,9 @@ import {Link} from 'react-router-dom';
 import Ratings from './Ratings';
 import {getToken} from '../methods/methods';
 import {AppContext} from '../App';
-import axios from 'axios';
 import {useToasts } from 'react-toast-notifications';
 import {ReactGAEvent} from './GoogleAnalatics';
-
-import placeholder from '../assets/images/placeholder.jpg';
+import {Axios} from '../config/apis';
 
 const Product = (props)=>{
 	const {data, dispatch} = useContext(AppContext);
@@ -38,14 +36,14 @@ const Product = (props)=>{
 	
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
-		axios.post(`${data.API_URL}/addto`, addinfo, getToken()).then((res)=>{
+		Axios.post(`/addto`, addinfo, getToken()).then((res)=>{
 			getFavorites();
 			getCarts();
 		})
 	}
 
 	function getFavorites(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=favorite`, getToken()).then((res)=>{
 			if(res.data.status===false){
 				addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}
@@ -56,7 +54,7 @@ const Product = (props)=>{
 	}
 
 	function getCarts(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{			
+		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});
 		});
 	}	

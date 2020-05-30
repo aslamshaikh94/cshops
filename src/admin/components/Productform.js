@@ -1,7 +1,7 @@
 import React, {useState, useEffect, memo, useContext, useRef} from 'react';
 import {Button, Form, Col, Image, Row, InputGroup, FormControl, Badge} from 'react-bootstrap';
-import axios from 'axios';
 
+import {Axios} from '../../config/apis';
 import TagsInput from '../../components/InputTag';
 
 
@@ -24,7 +24,7 @@ const Productform =(props)=>{
 	const fieldValue = useRef()
 	const { addToast } = useToasts();
 	const [fileData, setFileData] =	useState([]);
-	const [displayimg, setDisplayimg] =	useState(0);
+	const [displayimg] =	useState(0);
 	const [imgLoging, setImgLoging] =	useState(false);
 	const cropper = useRef(null);
 	const [product, setProduct] =	useState(props.data)
@@ -126,7 +126,7 @@ const Productform =(props)=>{
   }
 
   function uploadOnServer(url){
-		axios.post(`${data.API_URL}/upload`, {image:url}).then((res)=>{	
+		Axios.post(`/upload`, {image:url}).then((res)=>{	
 		console.log(res.data)		
    		if(res.data.status===false){
    			addToast(res.data.message, errorSetting)
@@ -153,7 +153,7 @@ const Productform =(props)=>{
 	const saveProduct=()=>{
 		let validate = productValidation();
 		if(validate){
-			axios.post(`${data.API_URL}/product/add`, product, getToken() ).then((res)=>{
+			Axios.post(`/product/add`, product, getToken() ).then((res)=>{
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)
 				}
@@ -167,7 +167,7 @@ const Productform =(props)=>{
 	const updateProduct=()=>{
 		let validate = productValidation();
 		if(validate){
-			axios.put(`${data.API_URL}/product`, product, getToken() ).then((res)=>{
+			Axios.put(`/product`, product, getToken() ).then((res)=>{
 				console.log(res.data)
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)					
@@ -180,7 +180,7 @@ const Productform =(props)=>{
 		}
 	}
 	const getProducts =()=>{
-		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
+		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}
@@ -194,7 +194,7 @@ const Productform =(props)=>{
 	}	
 	function cancelCroper(){
 		setSrcDefault(false)
-		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{			
+		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}

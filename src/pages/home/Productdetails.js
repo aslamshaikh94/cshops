@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext, memo} from 'react';
-import axios from 'axios';
+
 import imageHover from '../../settings/imageHover';
 import Enquiry from './components/Enquiry';
 
@@ -11,6 +11,7 @@ import {Helmet} from 'react-helmet';
 import {initializeAnalatics} from '../../components/GoogleAnalatics';
 
 import {FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, EmailShareButton, EmailIcon} from "react-share";
+import {Axios} from '../../config/apis';
 
 import {AppContext} from '../../App';
 const Productdetails =(props)=>{
@@ -24,6 +25,7 @@ const Productdetails =(props)=>{
 	useEffect(()=>{
 		initializeAnalatics()
 	},[])
+
 	useEffect(()=>{
 
 			// if(data.productDetails){
@@ -31,7 +33,7 @@ const Productdetails =(props)=>{
 			// }
 			// else{
 				loaderBar(true)
-				axios.get(`${data.API_URL}/product/${proId}`).then((res)=>{
+				Axios.get(`/product/${proId}`).then((res)=>{
 					setProDetails(res.data[0])
 					loaderBar(false)
 				})				
@@ -40,7 +42,7 @@ const Productdetails =(props)=>{
 	
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
-		axios.post(`${data.API_URL}/addto`, addinfo, getToken() ).then((res)=>{			
+		Axios.post(`/addto`, addinfo, getToken() ).then((res)=>{			
 			if(res.data.status===false){
 				addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}
@@ -51,12 +53,12 @@ const Productdetails =(props)=>{
 		})
 	}
 	function getFavorites(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=favorite`, getToken()).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});			
 		});
 	}
 	function getCarts(){		
-		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}

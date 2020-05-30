@@ -1,12 +1,13 @@
 import React, {useState, useContext, memo} from 'react';
 import {Button, Form} from 'react-bootstrap';
-import axios from 'axios';
 import {useHistory } from "react-router-dom";
 import {useToasts } from 'react-toast-notifications';
 import {AppContext} from '../../../App';
 import {getToken} from '../../../methods/methods';
+import {Axios} from '../../../config/apis';
+
 const Login = ()=>{
-	const {data, dispatch} = useContext(AppContext);	
+	const {dispatch} = useContext(AppContext);	
 
 	const { addToast } = useToasts()
 	const history = useHistory()	
@@ -24,7 +25,7 @@ const Login = ()=>{
 		})		
 	}
 	function getUserDetails(){
-		axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
+		Axios.get(`/users/user`, getToken() ).then((res)=>{
       dispatch({type:'LOGGED_IN_USER', payload:res.data.user})
       if(res.data.status===false){
           dispatch({type:'FETCH_PRODUCTS', payload:''})
@@ -40,7 +41,7 @@ const Login = ()=>{
 	}
 	const loginUser = ()=>{
 		if(user.username && user.password){
-			axios.post(`${data.API_URL}/auth/login`, user).then((res)=>{
+			Axios.post(`/auth/login`, user).then((res)=>{
 				if(res.data.status){
 					localStorage.setItem('auth', true)
 					localStorage.setItem('token', res.data.token)

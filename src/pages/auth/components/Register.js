@@ -1,16 +1,16 @@
 import React, {useState, useEffect, useContext, memo} from  'react';
 import {Col, Button, Form} from 'react-bootstrap';
 import {Radio} from 'custom-input-aslam';
-import axios from 'axios';
 import {useHistory } from "react-router-dom";
 import {initializeAnalatics} from '../../../components/GoogleAnalatics';
 
+import {Axios} from '../../../config/apis';
 import {AppContext} from '../../../App';
 
 
 
 const Register = (props)=>{
-	const {data, dispatch} = useContext(AppContext);
+	const {dispatch} = useContext(AppContext);
 	const history = useHistory()
 	
 
@@ -39,7 +39,7 @@ const Register = (props)=>{
 		else if(user.password!==user.cpassword){dispatch({type:'FETCH_ERROR', payload:'Password does not match'})}
 		// else if(!user.address){addToast('Please Enter Address', { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })}
 		else{
-			axios.post(`${data.API_URL}/auth/signup`, user).then((res)=>{
+			Axios.post(`/auth/signup`, user).then((res)=>{
 				if(!res.data.status){
 					dispatch({type:'FETCH_ERROR', payload:res.data.message})
 				} 

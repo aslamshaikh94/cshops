@@ -1,7 +1,8 @@
 import React,{useState, useEffect, useContext, memo} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Textarea} from '../../form/Inputfield';
-import axios from 'axios';
+
+import {Axios} from '../../config/apis';
 
 import {getToken} from '../../methods/methods';
 
@@ -28,14 +29,14 @@ function ReplyModal(props) {
     if(props.userdata) setReply({...reply, ...props.userdata})
   },[props.userdata])
 
-   useEffect(()=>{
+  useEffect(()=>{
     if(data.enquiries && props.userdata) setEnquiry(...data.enquiries.filter(e=> e.id===reply.id))      
   },[reply])
 
   
 
-  const sendReply=()=>{    
-    axios.post(`${data.API_URL}/enquiry/reply`, reply, getToken() ).then((res)=>{
+  const sendReply=()=>{
+    Axios.post(`/enquiry/reply`, reply, getToken() ).then((res)=>{
       console.log(res.data)
     });
     props.handleClose()

@@ -1,8 +1,7 @@
 import React, {useState, lazy, Suspense, memo, useContext} from 'react';
 import {Button} from 'react-bootstrap';
-import axios from 'axios';
 import '../../assets/css/auth.css';
-import {AppContext} from '../../App';
+
 import {useHistory } from "react-router-dom";
 
 
@@ -11,6 +10,7 @@ import FacebookLogin from 'react-facebook-login';
 
 import { GoogleLogin } from 'react-google-login';
 
+import {Axios} from '../../config/apis';
 
 const Register =  lazy(()=> import('./components/Register'));
 const Login =  lazy(()=> import('./components/Login'));
@@ -18,7 +18,6 @@ const Login =  lazy(()=> import('./components/Login'));
 
 
 const Auth = ()=>{
-	const {data} = useContext(AppContext);
 	const history = useHistory()
 
 	const [authForm, setAuthForm] = useState('Login')
@@ -33,7 +32,7 @@ const Auth = ()=>{
 	}
 
 	const responseFacebook = (res) => {
-	  axios.post(`${data.API_URL}/auth/facebook?access_token=${res.accessToken}&type=${type}`).then((res)=>{
+	  Axios.post(`/auth/facebook?access_token=${res.accessToken}&type=${type}`).then((res)=>{
 			if(res.data.status){
 				localStorage.setItem('auth', true)
 				localStorage.setItem('token', res.data.token)				

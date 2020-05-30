@@ -1,18 +1,14 @@
 import React, {useEffect, useContext, useState, memo} from 'react';
-import axios from 'axios';
+
 import {getToken} from '../../methods/methods';
 import Contactinfo from '../../components/Contactinfo';
 import {Inputfield} from '../../form/Inputfield';
-
+import {Axios} from '../../config/apis';
 import {AppContext} from '../../App';
 const Cartview = ()=>{
 	const {data, dispatch} = useContext(AppContext)
 	const [carts, setCarts] = useState()	
 	const [cInfo, setCinfo] = useState();
-
-	useEffect(()=>{
-		// getCarts()
-	},[])
 
 	useEffect(()=>{
 		if(data.carts){
@@ -24,13 +20,13 @@ const Cartview = ()=>{
 	},[data.carts]);
 	
 	function getCarts(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
 
 	function removeItem(e, id){		
-		axios.delete(`${data.API_URL}/addto/${id}`, getToken()).then((res)=>{
+		Axios.delete(`/addto/${id}`, getToken()).then((res)=>{
 			getCarts()
 		});
 	}
@@ -77,20 +73,15 @@ const Cartview = ()=>{
 			return {id, product_id, seller_id, product_name, price, quantity}
 		})
 		
-		axios.post(`${data.API_URL}/orders`, postOrder, getToken()).then((res)=>{			
+		Axios.post(`/orders`, postOrder, getToken()).then((res)=>{			
 			if(res.data.status===true) getCarts()
 		})
 	}
 	useEffect(()=>{
-		getContactInfo()
-	},[])
-
-	function getContactInfo(){
-		axios.get(`${data.API_URL}/myprofile/contact_info`, getToken() ).then((res)=>{			
+		Axios.get(`/myprofile/contact_info`, getToken() ).then((res)=>{			
 			setCinfo(res.data[0])
 		})
-	}
-
+	},[])
 
 	return (
 			<React.Fragment>

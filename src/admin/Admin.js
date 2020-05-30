@@ -2,11 +2,11 @@ import React, {useEffect, Suspense, lazy, useContext, memo} from 'react';
 import {BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import '../assets/css/panelwraper.css';
-import axios from 'axios';
 
 import {getToken} from '../methods/methods';
 import {AppContext} from '../App';
 
+import {Axios} from '../config/apis';
 
 const SideNave = lazy(()=> import('./components/SideNave'));
 const Adminpanel = lazy(()=> import('./components/Adminpanel'));
@@ -22,27 +22,25 @@ const Mybookings = lazy(()=> import('./mybookings/Mybookings'));
 
 
 const Admin =(props)=>{
-	const {data, dispatch} = useContext(AppContext)
+	const {dispatch} = useContext(AppContext)
 	const history = useHistory()
 	
-
-
 	useEffect(()=>{
-			axios.get(`${data.API_URL}/users/user`, getToken()).then((res)=>{
-				dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
-				if(res.data.status===false){
-						dispatch({type:'FETCH_PRODUCTS', payload:''})
-						localStorage.setItem('auth', false)
-						localStorage.removeItem('token')
-						history.push('/login')
-					}
-				else{
-					localStorage.setItem('auth', true)
+		Axios.get(`/users/user`, getToken()).then((res)=>{
+			dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
+			if(res.data.status===false){
+					dispatch({type:'FETCH_PRODUCTS', payload:''})
+					localStorage.setItem('auth', false)
+					localStorage.removeItem('token')
+					history.push('/login')
 				}
-				}).catch((err)=>{
-				// setError({message:err})
-			});
-	},[data.API_URL, history])
+			else{
+				localStorage.setItem('auth', true)
+			}
+			}).catch((err)=>{
+			// setError({message:err})
+		});
+	},[])
 
 	function mobileMenu(){
 		let element = document.querySelector('.adminSidebar')

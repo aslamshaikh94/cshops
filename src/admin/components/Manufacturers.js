@@ -1,5 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import {useToasts } from 'react-toast-notifications';
 
 import Hocpanel from './Hocpanel';
@@ -8,22 +7,23 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {getToken} from '../../methods/methods';
 
 // import {AdminContext} from '../Admin';
-import {AppContext} from '../../App';
+// import {AppContext} from '../../App';
+import {Axios} from '../../config/apis';
 
 const Manufacturers =(props)=>{
-	const {data} = useContext(AppContext);
+	// const {data} = useContext(AppContext);
 	const [manufacturers, setManufacturers] = useState([]);
 	const { addToast } = useToasts();
 
 	useEffect(()=>{
-		axios.get(`${data.API_URL}/users/manufacturers`, getToken() ).then((res)=>{
+		Axios.get(`/users/manufacturers`, getToken() ).then((res)=>{
 			if(res.data.status!==false) setManufacturers(res.data)
 		})
 	},[])
 
 	const requestVender = (e, id)=>{		
 		console.log(id)
-		axios.post(`${data.API_URL}/users/vender_request/${id}`, '', getToken() ).then((res)=>{
+		Axios.post(`/users/vender_request/${id}`, '', getToken() ).then((res)=>{
 			if(res.data.status===false){
 				addToast(res.data.message , { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}

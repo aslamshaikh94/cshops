@@ -8,7 +8,7 @@ import {mDate} from 'dateutility-aslam';
 
 import Hocpanel from './Hocpanel';
 import ReplyModal from './ReplyModal';
-import axios from 'axios';
+import {Axios} from '../../config/apis';
 
 // import {AdminContext} from '../Admin';
 import {AppContext} from '../../App';
@@ -19,7 +19,7 @@ const Enquiries = (props)=>{
 	const [userData, setUserData] = useState(false);
 
 	useEffect(()=>{
-		axios.get(`${data.API_URL}/enquiry`, getToken() ).then((res)=>{			
+		Axios.get(`/enquiry`, getToken() ).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'ENQUIRIES', payload:res.data})
 		});
 	},[]);	

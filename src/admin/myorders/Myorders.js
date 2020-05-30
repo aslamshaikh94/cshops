@@ -1,28 +1,28 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import {Link} from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Hocpanel from '../components/Hocpanel';
-import axios from 'axios'
+import {Axios} from '../../config/apis';
 
 const Myorders = ()=>{
-	const {data} = useContext(AppContext);
+	// const {data} = useContext(AppContext);
 	const [orders, setOrders] = useState()
 	useEffect(()=>{
 		getOrders()
 	},[])
 
 	function getOrders(){
-		axios.get(`${data.API_URL}/orders`, getToken() ).then((res)=>{
+		Axios.get(`/orders`, getToken() ).then((res)=>{
 			setOrders(res.data)
 		})
 	}
 
-	function cancelProduct(){
+	// function cancelProduct(){
 
-	}
+	// }
 	
 	return(			
 			<div className="p-2">

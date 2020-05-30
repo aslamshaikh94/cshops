@@ -3,8 +3,8 @@ import { Container} from 'react-bootstrap';
 import '../assets/css/header.css';
 import {NavLink, Link, useHistory } from "react-router-dom";
 import logo from '../assets/images/cshops.png';
-import axios from 'axios';
 import {getToken} from '../methods/methods';
+import {Axios} from '../config/apis';
 
 import {AppContext} from '../App';
 
@@ -29,17 +29,17 @@ const Header = ()=>{
 	},[data.carts]);
 
 	function getFavorites(){
-		axios.get(`${data.API_URL}/addto/wishlist?type=favorite`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=favorite`, getToken()).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});		
 		});
 	}
 	function getCarts(){		
-		axios.get(`${data.API_URL}/addto/wishlist?type=cart`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
 	function getUserDetails(){
-		axios.get(`${data.API_URL}/users/user`, getToken() ).then((res)=>{
+		Axios.get(`/users/user`, getToken() ).then((res)=>{
       dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
       if(res.data.status===false){
           dispatch({type:'FETCH_PRODUCTS', payload:''})

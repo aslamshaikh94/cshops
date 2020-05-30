@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import {Axios} from '../../config/apis';
 import {getToken} from '../../methods/methods';
 
 // import {AdminContext} from '../Admin';
@@ -25,13 +25,13 @@ const Productslist =(props)=>{
 	},[data]);
 
 	const deleteProduct =(e, id)=>{
-		axios.delete(`${data.API_URL}/product/delete/${id}`, getToken() ).then((res)=>{
+		Axios.delete(`/product/delete/${id}`, getToken() ).then((res)=>{
 			dispatch({type:'DELETE_PRODUCT', payload:id})
 			getProducts()
 		})
 	}
 	const getProducts =()=>{
-		axios.get(`${data.API_URL}/product/admin/products`, getToken() ).then((res)=>{
+		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})			
 		})
 	}

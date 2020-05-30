@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, lazy} from 'react';
-import axios from 'axios';
+import {Axios} from '../../config/apis';
 import {AppContext} from '../../App';
 import {getToken} from '../../methods/methods';
 import Hocpanel from '../components/Hocpanel';
@@ -68,7 +68,7 @@ const Myprofile=()=>{
 	function saveContact(){
 		let validate = formValidation()
 		if(validate){
-			axios.post(`${data.API_URL}/myprofile/contact_info`, contact, getToken() ).then((res)=>{
+			Axios.post(`/myprofile/contact_info`, contact, getToken() ).then((res)=>{
 				getContactInfo()
 			})			
 		}
@@ -76,7 +76,7 @@ const Myprofile=()=>{
 	function updateContact(){
 		let validate = formValidation()
 		if(validate){
-			axios.put(`${data.API_URL}/myprofile/contact_info/${data.contactInfo.id}`, contact, getToken() ).then((res)=>{
+			Axios.put(`/myprofile/contact_info/${data.contactInfo.id}`, contact, getToken() ).then((res)=>{
 				getContactInfo()
 				dispatch({type:'FETCH_SUCCESS', payload:'Information updated successfully'})
 			})			
@@ -84,7 +84,7 @@ const Myprofile=()=>{
 	}
 	
 	function getContactInfo(){
-		axios.get(`${data.API_URL}/myprofile/contact_info`, getToken() ).then((res)=>{					
+		Axios.get(`/myprofile/contact_info`, getToken() ).then((res)=>{					
 			if(res.data){
 				dispatch({type:'CONTACT_INFO', payload:res.data[0]})
 			}

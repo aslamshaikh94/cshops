@@ -1,17 +1,16 @@
 import React, {useContext, useEffect, memo} from 'react';
+import Banner from '../../components/Banner';
 import Product from '../../components/Product';
 import SideNav from '../../components/SideNav';
-import Banner from '../../components/Banner';
-import ErrorBoundary from '../../components/ErrorBoundary';
-import {initializeAnalatics} from '../../components/GoogleAnalatics';
-
 import Filterbox from '../../components/Filterbox';
 import {AppContext} from '../../App';
 import {Axios} from '../../config/apis';
 
+import {initializeAnalatics} from '../../components/GoogleAnalatics';
+import ErrorBoundary from '../../components/ErrorBoundary';
+
 const Home = ()=>{
 	const {data, dispatch} = useContext(AppContext);	
-
 	useEffect(()=>{		
 		initializeAnalatics()
 	},[])

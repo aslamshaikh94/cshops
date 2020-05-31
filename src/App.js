@@ -2,7 +2,6 @@ import React, {lazy, Suspense, createContext, useReducer, useEffect} from 'react
 import 'custom-input-aslam/build/index.css';
 import './assets/css/style.css';
 
-
 import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import { ToastProvider} from 'react-toast-notifications';
 
@@ -16,7 +15,7 @@ import Footer from './components/Footer';
 import {getToken} from './methods/methods';
 import {Axios} from './config/apis';
 
-const Home = lazy(()=>import('./pages/home/Home'));
+import Home from './pages/home/Home';
 const Productdetails = lazy(()=>import('./pages/home/Productdetails'));
 const Auth = lazy(()=>import('./pages/auth/Auth'));
 const Wishlist = lazy(()=>import('./pages/wishlist/Wishlist'));

@@ -18,7 +18,7 @@ const Home = ()=>{
 	useEffect(()=>{
 		// if(!data.products){
 			dispatch({type:'FETCH_REQUEST', payload:true})
-			Axios.get(`/product/select?seokey=id,product_name,thumbnail,brand_name,
+			Axios.get(`/product/select?colnames=id,product_name,thumbnail,brand_name,
 				selling_price,venders_price,minorder,slugs`).then((res, err)=>{
 				if(err){
 					dispatch({type:'FETCH_ERROR', payload:err})
@@ -28,7 +28,7 @@ const Home = ()=>{
 				}
 			})				
 		// }		
-	},[])
+	},[dispatch])
 	
 	return(
 		<main className="home">

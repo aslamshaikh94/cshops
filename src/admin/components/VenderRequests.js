@@ -4,8 +4,6 @@ import {mDate} from 'dateutility-aslam';
 import Hocpanel from './Hocpanel';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import {getToken} from '../../methods/methods';
-
 // import {AdminContext} from '../Admin';
 
 const VenderRequests =(props)=>{	
@@ -15,7 +13,7 @@ const VenderRequests =(props)=>{
 	},[])
 
 	function getVenders(){
-		Axios.get(`/users/vender_requests`, getToken() ).then((res)=>{					
+		Axios.get(`/users/vender_requests`).then((res)=>{					
 			if(res.data.status!==false) setRequests(res.data)
 		})
 	}
@@ -24,12 +22,12 @@ const VenderRequests =(props)=>{
 		let statusData = {
 			status:action,
 		}			
-		Axios.post(`/users/vender_request/action/${id}`, statusData, getToken() ).then((res)=>{
+		Axios.post(`/users/vender_request/action/${id}`, statusData).then((res)=>{
 			if(res.data.status!==false) getVenders();
 		});		
 	}
 	function requestDelete(id){
-		Axios.delete(`/users/vender_request/action/${id}`, getToken() ).then((res)=>{
+		Axios.delete(`/users/vender_request/action/${id}`).then((res)=>{
 			if(res.data.status!==false) getVenders();
 		});	
 	}

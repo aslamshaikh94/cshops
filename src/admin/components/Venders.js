@@ -4,10 +4,6 @@ import {Axios} from '../../config/apis';
 import Hocpanel from './Hocpanel';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import {getToken} from '../../methods/methods';
-
-
-
 
 const Venders =(props)=>{
 	const [venders, setVenders] = useState([]);	
@@ -16,7 +12,7 @@ const Venders =(props)=>{
 	},[])
 
 	function getVenders(){
-		Axios.get(`/users/venders`, getToken() ).then((res)=>{
+		Axios.get(`/users/venders`).then((res)=>{
 			if(res.data.status!==false) setVenders(res.data)
 		})
 	}
@@ -26,7 +22,7 @@ const Venders =(props)=>{
 		let statusData = {
 			status:action,
 		}			
-		Axios.post(`/users/vender_request/action/${id}`, statusData, getToken() ).then((res)=>{
+		Axios.post(`/users/vender_request/action/${id}`, statusData).then((res)=>{
 			console.log(res.data)
 		});
 		getVenders()

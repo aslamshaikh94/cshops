@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from '../../App';
-import {getToken} from '../../methods/methods';
+
 import {Link} from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -15,7 +15,7 @@ const Myorders = ()=>{
 	},[])
 
 	function getOrders(){
-		Axios.get(`/orders`, getToken() ).then((res)=>{
+		Axios.get(`/orders`).then((res)=>{
 			setOrders(res.data)
 		})
 	}

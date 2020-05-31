@@ -20,8 +20,7 @@ const defaultMiddleware = (req, res, next) => {
   fs.readFile(filePath, 'utf8', function (err,data) {
       if (err) {
         return console.log(err);
-      }     
-    
+      }         
       // replace the special strings with server generated strings
       data = data.replace(/\$OG_TITLE/g, 'CShops');
       data = data.replace(/\$OG_DESCRIPTION/g, 'CShops is online Commercial Shops for Manufacturers and Wholesalers');
@@ -40,7 +39,7 @@ const reqMiddleware = (req, res, next) => {
     if (err) {
       return console.log(err);
     }     
-    let apiUrl = `${API_URL}${req.url}/select?seokey=product_name,details,keywords,thumbnail`    
+    let apiUrl = `${API_URL}${req.url}/select?colnames=product_name,details,keywords,thumbnail`    
     axios.get(apiUrl).then((resdata)=>{ 
       const  {product_name, details, thumbnail, keywords} = resdata.data
       let kwrds = JSON.parse(keywords)

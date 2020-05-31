@@ -3,7 +3,7 @@ import { Container} from 'react-bootstrap';
 import '../assets/css/header.css';
 import {NavLink, Link, useHistory } from "react-router-dom";
 import logo from '../assets/images/cshops.png';
-import {getToken} from '../methods/methods';
+
 import {Axios} from '../config/apis';
 
 import {AppContext} from '../App';
@@ -14,12 +14,6 @@ const Header = ()=>{
 	const [carts, setCarts] = useState([]);
 	const history = useHistory()
 	
-
-	useEffect(()=>{
-		getFavorites();
-		getCarts();		
-	},[])
-
 	useEffect(()=>{
 		if(data.favorites) setFavorites(data.favorites)
 	},[data.favorites])
@@ -28,18 +22,24 @@ const Header = ()=>{
 		if(data.carts) setCarts(data.carts)			
 	},[data.carts]);
 
-	function getFavorites(){
-		Axios.get(`/addto/wishlist?type=favorite`, getToken()).then((res)=>{
+	useEffect(()=>{
+		getFavorites();
+		getCarts();		
+	},[])
+
+	const getFavorites = () => {
+		Axios.get(`/addto/wishlist?type=favorite`).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_FAVORITE', payload:res.data});		
 		});
 	}
-	function getCarts(){		
-		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{
+	const getCarts = () => {
+		Axios.get(`/addto/wishlist?type=cart`).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});				
 		});
 	}
+	
 	function getUserDetails(){
-		Axios.get(`/users/user`, getToken() ).then((res)=>{
+		Axios.get(`/users/user`).then((res)=>{
       dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
       if(res.data.status===false){
           dispatch({type:'FETCH_PRODUCTS', payload:''})
@@ -60,7 +60,7 @@ const Header = ()=>{
 		history.push('/auth')
 	}
 	
-	
+
 
 	return (
 			<React.Fragment>

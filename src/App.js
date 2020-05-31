@@ -12,7 +12,6 @@ import Toster from './Toster';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-import {getToken} from './methods/methods';
 import {Axios} from './config/apis';
 
 import Home from './pages/home/Home';
@@ -57,7 +56,7 @@ const reducer=(state=initialState, action)=>{
   }
 }
 
-const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -83,7 +82,7 @@ function App(props) {
   },[data.loading])
   
   useEffect(()=>{
-      Axios.get(`/users/user`, getToken() ).then((res)=>{
+      Axios.get(`/users/user`).then((res)=>{
           dispatch({type:'LOGGED_IN_USER', payload:res.data[0]})
           if(res.data.status===false){            
               localStorage.setItem('auth', false)

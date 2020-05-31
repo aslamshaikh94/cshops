@@ -2,8 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Link} from 'react-router-dom';
-import {getToken} from '../../methods/methods';
-
 import {mDate} from 'dateutility-aslam';
 
 import Hocpanel from './Hocpanel';
@@ -19,7 +17,7 @@ const Enquiries = (props)=>{
 	const [userData, setUserData] = useState(false);
 
 	useEffect(()=>{
-		Axios.get(`/enquiry`, getToken() ).then((res)=>{			
+		Axios.get(`/enquiry`).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'ENQUIRIES', payload:res.data})
 		});
 	},[]);	

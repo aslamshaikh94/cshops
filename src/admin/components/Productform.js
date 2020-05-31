@@ -14,7 +14,6 @@ import {Radio} from 'custom-input-aslam';
 
 // import {AdminContext} from '../Admin';
 import {AppContext} from '../../App';
-import {getToken} from '../../methods/methods';
 
 const Productform =(props)=>{
 	const {data, dispatch} = useContext(AppContext);	
@@ -153,7 +152,7 @@ const Productform =(props)=>{
 	const saveProduct=()=>{
 		let validate = productValidation();
 		if(validate){
-			Axios.post(`/product/add`, product, getToken() ).then((res)=>{
+			Axios.post(`/product/add`, product).then((res)=>{
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)
 				}
@@ -167,7 +166,7 @@ const Productform =(props)=>{
 	const updateProduct=()=>{
 		let validate = productValidation();
 		if(validate){
-			Axios.put(`/product`, product, getToken() ).then((res)=>{
+			Axios.put(`/product`, product).then((res)=>{
 				console.log(res.data)
 				if(res.data.status===false){
 					addToast(res.data.message, errorSetting)					
@@ -180,7 +179,7 @@ const Productform =(props)=>{
 		}
 	}
 	const getProducts =()=>{
-		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{			
+		Axios.get(`/product/admin/products`).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}
@@ -194,7 +193,7 @@ const Productform =(props)=>{
 	}	
 	function cancelCroper(){
 		setSrcDefault(false)
-		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{			
+		Axios.get(`/product/admin/products`).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})
 		})
 	}

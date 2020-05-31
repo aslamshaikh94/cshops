@@ -11,7 +11,8 @@ else{
 }
 
 const Axios = axios.create({
-  baseURL: API_URL
+  baseURL: API_URL,
+  headers: {'Content-Type': 'application/json', 'auth-token': localStorage.getItem('token')}
 });
 Axios.defaults.timeout = 2500;
 

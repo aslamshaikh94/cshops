@@ -4,7 +4,6 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Link} from 'react-router-dom';
 import {Axios} from '../../config/apis';
-import {getToken} from '../../methods/methods';
 
 // import {AdminContext} from '../Admin';
 import {AppContext} from '../../App';
@@ -25,13 +24,13 @@ const Productslist =(props)=>{
 	},[data]);
 
 	const deleteProduct =(e, id)=>{
-		Axios.delete(`/product/delete/${id}`, getToken() ).then((res)=>{
+		Axios.delete(`/product/delete/${id}`).then((res)=>{
 			dispatch({type:'DELETE_PRODUCT', payload:id})
 			getProducts()
 		})
 	}
 	const getProducts =()=>{
-		Axios.get(`/product/admin/products`, getToken() ).then((res)=>{
+		Axios.get(`/product/admin/products`).then((res)=>{
 			if(res.data.status!==false) dispatch({type:'FETCH_PRODUCTS', payload:res.data})			
 		})
 	}

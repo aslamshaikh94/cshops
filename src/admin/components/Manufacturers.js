@@ -4,8 +4,6 @@ import {useToasts } from 'react-toast-notifications';
 import Hocpanel from './Hocpanel';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import {getToken} from '../../methods/methods';
-
 // import {AdminContext} from '../Admin';
 // import {AppContext} from '../../App';
 import {Axios} from '../../config/apis';
@@ -16,14 +14,13 @@ const Manufacturers =(props)=>{
 	const { addToast } = useToasts();
 
 	useEffect(()=>{
-		Axios.get(`/users/manufacturers`, getToken() ).then((res)=>{
+		Axios.get(`/users/manufacturers`).then((res)=>{
 			if(res.data.status!==false) setManufacturers(res.data)
 		})
 	},[])
 
-	const requestVender = (e, id)=>{		
-		console.log(id)
-		Axios.post(`/users/vender_request/${id}`, '', getToken() ).then((res)=>{
+	const requestVender = (e, id)=>{
+		Axios.post(`/users/vender_request/${id}`).then((res)=>{
 			if(res.data.status===false){
 				addToast(res.data.message , { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}

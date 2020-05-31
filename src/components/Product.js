@@ -3,7 +3,6 @@ import '../assets/css/product.css';
 import {Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Ratings from './Ratings';
-import {getToken} from '../methods/methods';
 import {AppContext} from '../App';
 import {useToasts } from 'react-toast-notifications';
 import {ReactGAEvent} from './GoogleAnalatics';
@@ -36,14 +35,14 @@ const Product = (props)=>{
 	
 	function addto(id, add){
 		let addinfo={product_id:id, type:add}
-		Axios.post(`/addto`, addinfo, getToken()).then((res)=>{
+		Axios.post(`/addto`, addinfo).then((res)=>{
 			getFavorites();
 			getCarts();
 		})
 	}
 
 	function getFavorites(){
-		Axios.get(`/addto/wishlist?type=favorite`, getToken()).then((res)=>{
+		Axios.get(`/addto/wishlist?type=favorite`).then((res)=>{
 			if(res.data.status===false){
 				addToast(res.data.message, { appearance: 'error', autoDismiss:true,  autoDismissTimeout :2000 })
 			}
@@ -54,7 +53,7 @@ const Product = (props)=>{
 	}
 
 	function getCarts(){
-		Axios.get(`/addto/wishlist?type=cart`, getToken()).then((res)=>{			
+		Axios.get(`/addto/wishlist?type=cart`).then((res)=>{			
 			if(res.data.status!==false) dispatch({type:'FETCH_CART', payload:res.data});
 		});
 	}	

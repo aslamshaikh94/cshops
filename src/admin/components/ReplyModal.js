@@ -1,10 +1,7 @@
 import React,{useState, useEffect, useContext, memo} from 'react';
 import {Modal} from 'react-bootstrap';
 import {Textarea} from '../../form/Inputfield';
-
 import {Axios} from '../../config/apis';
-
-import {getToken} from '../../methods/methods';
 
 // import {AdminContext} from '../Admin';
 import {AppContext} from '../../App';
@@ -33,10 +30,8 @@ function ReplyModal(props) {
     if(data.enquiries && props.userdata) setEnquiry(...data.enquiries.filter(e=> e.id===reply.id))      
   },[reply])
 
-  
-
   const sendReply=()=>{
-    Axios.post(`/enquiry/reply`, reply, getToken() ).then((res)=>{
+    Axios.post(`/enquiry/reply`, reply).then((res)=>{
       console.log(res.data)
     });
     props.handleClose()

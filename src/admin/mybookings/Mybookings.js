@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from '../../App';
-import {getToken} from '../../methods/methods';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
@@ -16,13 +15,13 @@ const Mybookings = ()=>{
 	},[])
 
 	function getOrders(){
-		Axios.get(`/orders/mybookings`, getToken() ).then((res)=>{
+		Axios.get(`/orders/mybookings`).then((res)=>{
 			setOrders(res.data)
 		})
 	}
 
 	function productAction(id, quantity, product_id){		
-		Axios.put(`/orders`, {id:id, product_id:product_id, quantity:quantity}, getToken() ).then((res)=>{
+		Axios.put(`/orders`, {id:id, product_id:product_id, quantity:quantity}).then((res)=>{
 			if(res.data.status!==false) getOrders()
 		})
 	}

@@ -32,7 +32,7 @@ const SideNav = ()=>{
 	useEffect(()=>{
 		if(filterData.length>0) dispatch({type:'FETCH_PRODUCTS', payload:filterData})			
 			loaderBar(false)
-	},[filterData])
+	},[filterData, dispatch])
 
 	function clearFilters(){
 		var items = document.querySelectorAll('input[type="checkbox"]');

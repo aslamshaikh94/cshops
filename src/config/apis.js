@@ -14,7 +14,7 @@ const Axios = axios.create({
   baseURL: API_URL,
   headers: {'Content-Type': 'application/json', 'auth-token': localStorage.getItem('token')}
 });
-Axios.defaults.timeout = 2500;
+Axios.defaults.timeout = 5000;
 
 Axios.interceptors.request.use(function (config) {
   // Do something before request is sent

@@ -42,8 +42,7 @@ const reqMiddleware = (req, res, next) => {
     let apiUrl = `${API_URL}${req.url}/select?colnames=product_name,details,keywords,thumbnail`    
     axios.get(apiUrl).then((resdata)=>{ 
       const  {product_name, details, thumbnail, keywords} = resdata.data
-      let kwrds = JSON.parse(keywords)
-        
+      let kwrds = JSON.parse(keywords)        
       // replace the special strings with server generated strings
       data = data.replace(/\$OG_TITLE/g, product_name);
       data = data.replace(/\$OG_DESCRIPTION/g, details);
